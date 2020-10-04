@@ -1,0 +1,23 @@
+{
+  "name": "mf.messenger.praktikum.yandex",
+  "version": "0.0.1",
+  "description": "Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stanislav-pan/mf.messenger.praktikum.yandex.git"
+  },
+  "author": "Panov Stanislav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stanislav-pan/mf.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/stanislav-pan/mf.messenger.praktikum.yandex#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
