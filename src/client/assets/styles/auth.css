@@ -1,0 +1,63 @@
+.auth-b {
+    width : 100%;
+    height: 100%;
+
+    background-image : url('/assets/images/working-place.jpg');
+    background-repeat: no-repeat;
+}
+
+.auth-b__gradient {
+    width : 100%;
+    height: 100%;
+
+    background: linear-gradient(90.26deg, rgba(0, 168, 255, 0.15) 0.22%, rgba(185, 0, 255, 0.15) 67.35%);
+}
+
+.auth-b__container {
+    justify-content: flex-end;
+}
+
+.auth-b__h1 {
+    text-align: center;
+
+    margin-bottom: 38px;
+}
+
+.auth-b__form-container {
+    max-width: 510px;
+    width    : 100%;
+
+    flex-direction: column;
+
+    background: white;
+}
+
+.auth-b__form {
+    width    : 100%;
+    max-width: 360px;
+
+    display       : flex;
+    flex-direction: column;
+}
+
+.auth-b__forgot {
+    align-self: flex-end;
+
+    margin-top: 14px;
+}
+
+.auth-b__btn {
+    align-self: center;
+
+    margin-top: 31px;
+}
+
+.auth-b__btn_mt_42 {
+    margin-top: 42px;
+}
+
+.auth-b__sign-up-link {
+    align-self: center;
+
+    margin-top: 39px;
+}

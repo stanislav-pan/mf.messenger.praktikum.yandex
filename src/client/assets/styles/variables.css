@@ -1,0 +1,10 @@
+:root {
+    --color-primary    : #7269FF;
+    --color-error      : #FA4251;
+    --form-color-light : #7F7F7F;
+    --form-color-normal: #333333;
+    --link-color       : #666666;
+    --btn-bg-primary   : var(--color-primary);
+    --btn-color-primary: #fff;
+    --header-color     : #000;
+}

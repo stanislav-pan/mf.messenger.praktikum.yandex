@@ -1,0 +1,97 @@
+.input-b {
+    max-width: 360px;
+    width    : 100%;
+    height   : 72px;
+}
+
+.input-b_default-pd_top {
+    padding-top: 32px;
+}
+
+.input-b__label {
+    font-weight: 300;
+    font-size  : 14px;
+    line-height: 21px;
+
+    color: var(--form-color-normal);
+}
+
+.input-b__icon {
+    display: flex;
+}
+
+.input-b__icon svg path {
+    fill      : var(--form-color-light);
+    transition: fill .3s ease-out;
+}
+
+.input-b__input {
+    width: 100%;
+
+    padding-left: 6px;
+
+    font-family: inherit;
+    font-size  : 16px;
+    color      : var(--form-color-normal);
+    outline    : none;
+
+    border: none;
+}
+
+.input-b__input:focus~.input-b__indicator,
+.input-b__input:valid~.input-b__indicator {
+    width: 100%;
+}
+
+.input-b__input:focus+.input-b__icon svg path,
+.input-b__input:valid+.input-b__icon svg path {
+    fill: var(--color-primary);
+}
+
+.input-b__input::placeholder {
+    font-weight: 500;
+    font-size  : 16px;
+    line-height: 24px;
+
+    color: var(--form-color-light);
+}
+
+.input-b__line {
+    display        : flex;
+    flex-direction : row-reverse;
+    align-items    : center;
+    justify-content: flex-end;
+
+    position: relative;
+
+    height: 47px;
+
+    margin-top: 5px;
+}
+
+.input-b__line::after {
+    content: '';
+    width  : 100%;
+    height : 1px;
+
+    background-color: var(--form-color-light);
+
+    position: absolute;
+    bottom  : 0;
+}
+
+.input-b__indicator {
+    position: absolute;
+    bottom  : 0;
+    z-index : 1;
+
+    width : 0%;
+    height: 2px;
+
+    transition: width .3s ease-out;
+
+    background-color: var(--color-primary);
+
+    position: absolute;
+    bottom  : 0;
+}
