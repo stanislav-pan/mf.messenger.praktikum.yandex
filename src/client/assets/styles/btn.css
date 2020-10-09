@@ -21,3 +21,9 @@
 .btn_size_normal {
     width: 276px;
 }
+
+.btn-icon {
+    display    : flex;
+    align-items: center;
+    cursor: pointer;
+}

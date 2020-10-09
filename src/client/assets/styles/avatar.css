@@ -1,0 +1,30 @@
+.avatar {
+    position: relative;
+
+    width        : 90px;
+    height       : 90px;
+    border-radius: 100px;
+    overflow     : hidden;
+}
+
+.avatar__image, .avatar__icon {
+    width        : inherit;
+    height       : inherit;
+    border-radius: inherit;
+}
+
+.avatar__change-btn {
+    position: absolute;
+    bottom  : 0;
+
+    width : 100%;
+    height: 0;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    transition: height 0.15s linear;
+}
+
+.avatar_can-change:hover .avatar__change-btn {
+    height: 28px;
+}
