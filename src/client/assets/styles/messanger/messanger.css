@@ -1,3 +1,10 @@
+:root {
+    --messanger-boundry : 1px solid #EAEAEA;
+    --messanger-bg-color: #F8F7FF;
+    --messanger-bg-color-dark: #ECE9FA;
+
+}
+
 body {
     overflow: hidden;
 }
@@ -13,8 +20,8 @@ body {
     width    : 100%;
     height   : inherit;
 
-    background-color: #F8F7FF;
-    border-right    : 1px solid #EAEAEA;
+    background-color: var(--messanger-bg-color);
+    border-right    : var(--messanger-boundry);
 
     box-sizing: border-box;
 }
@@ -31,7 +38,7 @@ body {
 
     padding-top: 12px;
 
-    color: #6C63FF;
+    color: var(--color-primary);
 
     font-weight: 500;
     font-size  : 12px;
@@ -64,8 +71,8 @@ body {
 
     padding: 0 16px 0 30px;
 
-    border-bottom   : 1px solid #EAEAEA;
-    background-color: #F8F7FF;
+    border-bottom   : var(--messanger-boundry);
+    background-color: var(--messanger-bg-color);
 }
 
 .messanger__chat-header-avatar {
@@ -89,15 +96,15 @@ body {
 
     padding: 0 34px;
 
-    border-top      : 1px solid #EAEAEA;
-    background-color: #F8F7FF;
+    border-top      : var(--messanger-boundry);
+    background-color: var(--messanger-bg-color);
 }
 
 .messanger__chat-input {
     width : 100%;
     height: 32px;
 
-    background: #ECE9FA;
+    background: var(--messanger-bg-color-dark);
 
     padding: 0 36px;
     margin : 0 12px;
@@ -119,5 +126,5 @@ body {
     font-size  : 14px;
     font-weight: 500;
 
-    color: #6C63FF;
+    color: var(--color-primary);
 }

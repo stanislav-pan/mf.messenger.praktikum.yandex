@@ -1,3 +1,5 @@
+
+
 .message-list {
     display       : flex;
     flex-direction: column;
@@ -20,7 +22,7 @@
     font-weight: 500;
     font-size  : 14px;
 
-    background-color: #ECE9FA;
+    background-color: var(--messanger-bg-color-dark);
 
     border-radius: 20px;
 }
@@ -48,7 +50,7 @@
 .message-list__item_my {
     align-self: flex-end;
 
-    background-color: #ECE9FA;
+    background-color: var(--messanger-bg-color-dark);
 }
 
 .message-list__item_my .message-list__item-text {
