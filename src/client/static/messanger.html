@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messanger</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/assets/styles/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/variables.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/btn.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/input.css" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/styles/modal.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/brief-information.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/avatar.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/settings.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/search.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/badge.css" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/styles/messanger/messanger.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/messanger/chat-list.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/styles/messanger/message-list.css" />
+
+    <script src="/app/messanger.js" defer></script>
+</head>
+
+<body>
+    <div class="messanger">
+        <aside class="messanger__left">
+            <header class="messanger__left-header">
+                <button class="btn-icon messanger__profile-btn" onclick="goToSettings()">
+                    <span class="messanger__profile-btn-span">Profile</span>
+                    <img src="/assets/icons/keyboard_arrow_right.svg" />
+                </button>
+
+                <div class="search messanger__search">
+                    <label class="search__label">
+                        <input type="text" class="search__input" placeholder=" ">
+                        <div class="search__placeholder">
+                            <img src="/assets/icons/search.svg" />
+                            <span class="search__span">Search</span>
+                        </div>
+                    </label>
+                </div>
+            </header>
+
+            <ul class="chat-list scrollbar">
+                <li class="chat-list__item">
+                    <div class="chat-list__item-avatar avatar">
+                        <img src="/assets/images/my-avatar.png" alt="User avatar" class="avatar__image" />
+                        <button class="avatar__change-btn btn-icon">
+                            <img src="/assets/icons/photo.svg" class="avatar__icon" />
+                        </button>
+                    </div>
+                    <div class="chat-list__item-text-wrapper">
+                        <p class="chat-list__item-name">Andrew</p>
+                        <p class="chat-list__item-text">ImageImageImageImage ImageImageImage ImageImageImage
+                            ImageImageImage ImageImage</p>
+                    </div>
+                    <div class="chat-list__item-extra-info">
+                        <span class="chat-list__item-date">10:49</span>
+                        <div class="badge">2</div>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <main class="messanger__chat">
+            <header class="messanger__chat-header">
+                <div class="brief-information">
+                    <div class="avatar brief-information__avatar messanger__chat-header-avatar">
+                        <img src="/assets/images/my-avatar.png" alt="User avatar" class="avatar__image" />
+                        <button class="avatar__change-btn btn-icon">
+                            <img src="/assets/icons/photo.svg" class="avatar__icon" />
+                        </button>
+                    </div>
+                    <div class="brief-information__text">
+                        <p class="brief-information__name">Stanislav</p>
+                        <p class="brief-information__visit-info">was last seen today at 21:37</p>
+                    </div>
+                </div>
+
+                <button class="messanger__chat-action-btn btn-icon">
+                    <img src="/assets/icons/more-settings.svg" />
+                </button>
+            </header>
+
+            <div id="messagesScrollbar" class="messager__chat-main scrollbar">
+                <ul class="message-list">
+                    <li class="message-list__item message-list__item_text message-list__item_my">
+                        <p class="message-list__item-text">
+                            Круто!
+                        </p>
+                        <p class="message-list__item-time">
+                            <span>11:56</span>
+                            <img src="/assets/icons/message-has-been-read.svg" />
+                        </p>
+                    </li>
+
+                    <li class="message-list__item message-list__item_image">
+                        <img src="/assets/images/message-photo.jpg" alt="" class="message-list__image">
+                    </li>
+
+                    <li class="message-list__item message-list__item_text">
+                        <p class="message-list__item-text">
+                            Here you can find activities to practise your reading
+                            skills. Reading will help you to
+                            improve your understanding of the language and build your vocabulary.
+
+                            The self-study lessons in this section are written and organised according to the levels of
+                            the Common European Framework of Reference for languages (CEFR). There are different types
+                            of texts and insteractive exercises that practise the reading skills you need to do well in
+                            your studies, to get ahead at work and to communicate in English in your free time.
+
+                            Take our free online English test to find out which level to choose. Select your level, from
+                            beginner (CEFR level A1) to advanced (CEFR level C1), and improve your reading skills at
+                            your own speed, whenever it's convenient for you.
+                        </p>
+                        <p class="message-list__item-time">11:56</p>
+                    </li>
+
+                    <li class="message-list__date">19 июня</li>
+                </ul>
+            </div>
+
+            <footer class="messanger__chat-footer">
+                <button class="btn-icon messanger__chat-footer-attach-btn">
+                    <img src="/assets/icons/attach.svg" />
+                </button>
+
+                <input type="text" class="messanger__chat-input" placeholder="Message">
+
+                <button class="btn-icon messanger__chat-footer-send-btn">
+                    <div class="badge">
+                        <img src="/assets/icons/send.svg" />
+                    </div>
+                </button>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

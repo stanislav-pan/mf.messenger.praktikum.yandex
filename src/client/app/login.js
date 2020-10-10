@@ -9,6 +9,8 @@ function login() {
 
     console.log(data);
 
+    window.location.href = `${window.location.origin}/static/messanger.html`;
+
     // TODO: Navigate to chats list
 
     event.preventDefault();

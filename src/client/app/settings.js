@@ -138,3 +138,7 @@ function applyNewDisplayName() {
 
     changeDisplayName();
 }
+
+function goBack() {
+    window.history.back();
+}
