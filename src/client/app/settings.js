@@ -107,3 +107,34 @@ uploadAvatar.prototype.convertToBase64 = (event) => {
 
     console.log('avatar base64', base64);
 };
+
+function changeDisplayName() {
+    document
+        .querySelector('.brief-information__edit-btn')
+        .classList.toggle('hidden');
+
+    document
+        .querySelector('.brief-information__apply-btn')
+        .classList.toggle('hidden');
+
+    document
+        .querySelector('.brief-information__name')
+        .classList.toggle('hidden');
+
+    const displayNameInput = document.getElementById('displayNameInput');
+    displayNameInput.classList.toggle('hidden');
+    displayNameInput.focus();
+    displayNameInput.selectionStart = displayNameInput.value.length;
+}
+
+function applyNewDisplayName() {
+    const displayName = document.getElementById('displayNameInput').value;
+
+    for (const nameEl of document.querySelectorAll('.brief-information__name')) {
+        nameEl.textContent = displayName;
+    }
+
+    console.log('displayName', displayName);
+
+    changeDisplayName();
+}

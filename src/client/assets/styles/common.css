@@ -1,23 +1,16 @@
 body {
     height: 100vh;
 
-    font-family: Poppins;
+    font-family: var(--font-family);
 }
 
 .noselect {
     -webkit-touch-callout: none;
-    /* iOS Safari */
     -webkit-user-select  : none;
-    /* Safari */
     -khtml-user-select   : none;
-    /* Konqueror HTML */
     -moz-user-select     : none;
-    /* Old versions of Firefox */
     -ms-user-select      : none;
-    /* Internet Explorer/Edge */
     user-select          : none;
-    /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
 }
 
 .error {}
@@ -25,7 +18,7 @@ body {
 .error__code {
     text-align: center;
 
-    font-family: Poppins;
+    font-family: var(--font-family);
     font-size  : 35.5vmin;
     font-weight: 600;
 
@@ -37,7 +30,7 @@ body {
 .error__description {
     text-align: center;
 
-    font-family: Poppins;
+    font-family: var(--font-family);
     font-size  : 10vmin;
     font-weight: 600;
 
@@ -83,5 +76,9 @@ button {
     background: none;
     outline   : none;
 
-    font-family: Poppins;
+    font-family: var(--font-family);
+}
+
+.hidden {
+    display: none !important;
 }

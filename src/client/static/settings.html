@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messanger - Login</title>
+    <title>Messanger - Settings</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="/assets/styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="/assets/styles/variables.css" />
@@ -50,8 +51,14 @@
                     <div class="brief-information__text">
                         <div class="brief-information__name-wrapper">
                             <p class="brief-information__name">Stanislav</p>
-                            <button class="btn-icon">
+                            <input id="displayNameInput" type="text" value="Stanislav"
+                                class="brief-information__name-input hidden" required />
+                            <button class="btn-icon brief-information__edit-btn" onclick="changeDisplayName()">
                                 <img src="/assets/icons/pencil.svg" />
+                            </button>
+                            <button class="btn-icon hidden brief-information__apply-btn"
+                                onclick="applyNewDisplayName()">
+                                <img src="/assets/icons/done.svg" />
                             </button>
                         </div>
                         <p class="brief-information__visit-info">was last seen today at 21:37</p>
@@ -156,7 +163,7 @@
                             <span class="input-b__span">Phone</span>
 
                             <div class="input-b__line">
-                                <input id="phoneInput" type="text" class="input-b__input" placeholder="Type your phone"
+                                <input id="phoneInput" type="tel" class="input-b__input" placeholder="Type your phone"
                                     required>
 
                                 <div class="input-b__icon">

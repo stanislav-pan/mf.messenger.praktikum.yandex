@@ -25,5 +25,9 @@
 .btn-icon {
     display    : flex;
     align-items: center;
-    cursor: pointer;
+    cursor     : pointer;
+}
+
+.btn-icon_hidden {
+    display: none;
 }

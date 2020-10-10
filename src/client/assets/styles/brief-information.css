@@ -17,8 +17,22 @@
     line-height: 24px;
 }
 
+.brief-information__name-input {
+    padding: 0;
+
+    border: none;
+
+    font-size  : inherit;
+    font-family: inherit;
+    font-weight: 500;
+    color      : var(--form-color-light);
+
+    line-height: 24px;
+    outline    : none;
+}
+
 .brief-information__name-wrapper {
-    display    : flex;
+    display: flex;
 }
 
 .brief-information__visit-info {
