@@ -16,3 +16,7 @@
 
 - `npm run start` — запуск версии для разработчика,
 - `npm run build` — сборка стабильной версии (используется для сборки в Netlify)
+
+## Макет
+
+Макет можно найти по данной ссылке: [макет](https://www.figma.com/file/W1kZPRNbkrFP4llzkjrc8O/Yandex-Messanger?node-id=0%3A1)
