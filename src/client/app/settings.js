@@ -1,3 +1,7 @@
+import { SETTINGS_VIEWING_TYPES } from './const/settings.js';
+import UploadService from './services/upload.service.js';
+import FormDataPerserService from './services/form-data-parser.service.js';
+
 const settingsAdapter = (() => {
     const settingsBlock = document.getElementById('settingsBlock');
     const editInformationBlock = document.getElementById(
@@ -15,33 +19,29 @@ const settingsAdapter = (() => {
         el.style.display = 'block';
     };
 
-    // Отображаемая настройка
-    // 0 - Edit Information
-    // 1 - Change password
-    // null - Список настроек
     const renderBlock = (setting) => {
         hideAll();
 
-        if (setting === null) {
+        if (setting === SETTINGS_VIEWING_TYPES.SETTINGS_LIST) {
             showBlock(settingsBlock);
-        } else if (setting === 0) {
+        } else if (setting === SETTINGS_VIEWING_TYPES.EDIT_INFORMATION_BLOCK) {
             showBlock(editInformationBlock);
-        } else if (setting === 1) {
+        } else if (setting === SETTINGS_VIEWING_TYPES.CHANGE_PASSWORD_BLOCK) {
             showBlock(changePasswordBlock);
         }
     };
 
-    renderBlock(null);
+    renderBlock(SETTINGS_VIEWING_TYPES.SETTINGS_LIST);
 
     return {
-        showEditInformationBlock: function () {
-            renderBlock(0);
+        showEditInformationBlock: () => {
+            renderBlock(SETTINGS_VIEWING_TYPES.EDIT_INFORMATION_BLOCK);
         },
-        showChangePasswordBlock: function () {
-            renderBlock(1);
+        showChangePasswordBlock: () => {
+            renderBlock(SETTINGS_VIEWING_TYPES.CHANGE_PASSWORD_BLOCK);
         },
-        showSettingsBlock: function () {
-            renderBlock(null);
+        showSettingsBlock: () => {
+            renderBlock(SETTINGS_VIEWING_TYPES.SETTINGS_LIST);
         },
     };
 })();
@@ -49,64 +49,34 @@ const settingsAdapter = (() => {
 function editInformation() {
     event.preventDefault();
 
-    const loginEl = document.getElementById('loginInput');
-    const firstNameEl = document.getElementById('firstNameInput');
-    const secondNameEl = document.getElementById('secondNameInput');
-    const emailEl = document.getElementById('emailInput');
-    const phoneEl = document.getElementById('phoneInput');
+    const editForm = document.getElementById('editForm');
+    const formValues = FormDataPerserService.getFormValues(editForm);
 
-    console.log({
-        login: loginEl.value,
-        firstName: firstNameEl.value,
-        secondName: secondNameEl.value,
-        email: emailEl.value,
-        phone: phoneEl.value,
-    });
+    console.log(formValues);
 }
 
 function changePassword() {
     event.preventDefault();
 
-    const passwordEl = document.getElementById('passwordInput');
-    const confirmedPasswordEl = document.getElementById('confirmPasswordInput');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    const formValues = FormDataPerserService.getFormValues(changePasswordForm);
 
-    const data = {
-        password: passwordEl.value,
-        confirmedPassword: confirmedPasswordEl.value,
-    };
-
-    console.log(data);
+    console.log(formValues);
 }
 
 function uploadAvatar() {
-    let fileInput = document.createElement('input');
-    fileInput.type = 'file';
+    UploadService.upload()
+        .then((fileList) => UploadService.getBase64(fileList[0]))
+        .then((base64) => {
+            const avatars = document.querySelectorAll('.avatar .avatar__image');
 
-    fileInput.addEventListener('change', uploadAvatar.prototype.uploadImage);
+            for (const avatar of avatars) {
+                avatar.src = base64;
+            }
 
-    fileInput.click();
+            console.log('avatar base64', base64);
+        });
 }
-
-uploadAvatar.prototype.uploadImage = (event) => {
-    const file = event.composedPath()[0].files[0];
-    const fileReader = new FileReader();
-
-    fileReader.addEventListener('load', uploadAvatar.prototype.convertToBase64);
-
-    fileReader.readAsDataURL(file);
-};
-
-uploadAvatar.prototype.convertToBase64 = (event) => {
-    const base64 = event.currentTarget.result.toString();
-
-    const avatars = document.querySelectorAll('.avatar .avatar__image');
-
-    for (const avatar of avatars) {
-        avatar.src = base64;
-    }
-
-    console.log('avatar base64', base64);
-};
 
 function changeDisplayName() {
     document
@@ -130,7 +100,9 @@ function changeDisplayName() {
 function applyNewDisplayName() {
     const displayName = document.getElementById('displayNameInput').value;
 
-    for (const nameEl of document.querySelectorAll('.brief-information__name')) {
+    for (const nameEl of document.querySelectorAll(
+        '.brief-information__name'
+    )) {
         nameEl.textContent = displayName;
     }
 
@@ -142,3 +114,13 @@ function applyNewDisplayName() {
 function goBack() {
     window.history.back();
 }
+
+window.SETTINGS = {
+    settingsAdapter,
+    editInformation,
+    changePassword,
+    uploadAvatar,
+    goBack,
+    changeDisplayName,
+    applyNewDisplayName,
+};

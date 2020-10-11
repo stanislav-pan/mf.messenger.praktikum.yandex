@@ -24,7 +24,7 @@
         <div class="auth-b__gradient">
             <div class="auth-b__container container">
                 <div class="auth-b__form-container container container_center">
-                    <form class="auth-b__form" onsubmit="signUp(2)">
+                    <form id="signUpStepTwoForm" class="auth-b__form" onsubmit="signUp(2)">
                         <h1 class="auth-b__h1 h1">Sign Up</h1>
 
                         <div class="input-b">
@@ -32,7 +32,7 @@
                                 <span class="input-b__span">Username</span>
 
                                 <div class="input-b__line">
-                                    <input id="loginInput" type="text" class="input-b__input"
+                                    <input name="login" type="text" class="input-b__input"
                                         placeholder="Type your username" required>
 
                                     <div class="input-b__icon">
@@ -54,7 +54,7 @@
                                 <span class="input-b__span">Password</span>
 
                                 <div class="input-b__line">
-                                    <input id="passwordInput" type="password" class="input-b__input"
+                                    <input name="password" type="password" class="input-b__input"
                                         placeholder="Type your password" required>
 
                                     <div class="input-b__icon">

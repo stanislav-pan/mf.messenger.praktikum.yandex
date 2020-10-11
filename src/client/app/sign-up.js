@@ -1,5 +1,6 @@
 import { localStorageService } from './services/localstorage.service.js';
 import { SIGN_UP_STEP_ONE } from './const/localstorage.keys.js';
+import FormDataPerserService from './services/form-data-parser.service.js';
 
 /**
  * @param step Шаг регистрации: `1` или `2`
@@ -17,17 +18,10 @@ function signUp(step) {
 }
 
 function signUpFirstStep() {
-    const firstNameEl = document.getElementById('firstNameInput');
-    const secondNameEl = document.getElementById('secondNameInput');
-    const emailEl = document.getElementById('emailInput');
-    const phoneEl = document.getElementById('phoneInput');
+    const signUpStepOneForm = document.getElementById('signUpStepOneForm');
+    const formValues = FormDataPerserService.getFormValues(signUpStepOneForm);
 
-    localStorageService.set(SIGN_UP_STEP_ONE, {
-        firstName: firstNameEl.value,
-        secondName: secondNameEl.value,
-        email: emailEl.value,
-        phone: phoneEl.value,
-    });
+    localStorageService.set(SIGN_UP_STEP_ONE, formValues);
 
     window.location.href = `${window.location.origin}/static/sign-up-step-two.html`;
 }
@@ -43,13 +37,12 @@ function signUpSecondStep() {
         return;
     }
 
-    const loginEl = document.getElementById('loginInput');
-    const passwordEl = document.getElementById('passwordInput');
+    const signUpStepTwoForm = document.getElementById('signUpStepTwoForm');
+    const formValues = FormDataPerserService.getFormValues(signUpStepTwoForm);
 
     console.log({
         ...dataFromFistStep,
-        login: loginEl.value,
-        password: passwordEl.value,
+        ...formValues,
     });
 
     // TODO: Navigate to chats list

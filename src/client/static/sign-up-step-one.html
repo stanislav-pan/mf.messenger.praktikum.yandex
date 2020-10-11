@@ -24,7 +24,7 @@
         <div class="auth-b__gradient">
             <div class="auth-b__container container">
                 <div class="auth-b__form-container container container_center">
-                    <form class="auth-b__form" onsubmit="signUp(1)">
+                    <form id="signUpStepOneForm" class="auth-b__form" onsubmit="signUp(1)">
                         <h1 class="auth-b__h1 h1">Sign Up</h1>
 
                         <!-- TODO: Вынести в компонент -->
@@ -33,7 +33,7 @@
                                 <span class="input-b__span">First name</span>
 
                                 <div class="input-b__line">
-                                    <input id="firstNameInput" type="text" class="input-b__input"
+                                    <input name="firstName" type="text" class="input-b__input"
                                         placeholder="Type your first name" required>
 
                                     <div class="input-b__icon">
@@ -56,7 +56,7 @@
                                 <span class="input-b__span">Second name</span>
 
                                 <div class="input-b__line">
-                                    <input id="secondNameInput" type="text" class="input-b__input"
+                                    <input name="secondName" type="text" class="input-b__input"
                                         placeholder="Type your second name" required>
 
                                     <div class="input-b__icon">
@@ -78,7 +78,7 @@
                                 <span class="input-b__span">Email</span>
 
                                 <div class="input-b__line">
-                                    <input id="emailInput" type="email" class="input-b__input"
+                                    <input name="email" type="email" class="input-b__input"
                                         placeholder="Type your email" required>
 
                                     <div class="input-b__icon">
@@ -100,7 +100,7 @@
                                 <span class="input-b__span">Phone</span>
 
                                 <div class="input-b__line">
-                                    <input id="phoneInput" type="tel" class="input-b__input"
+                                    <input name="phone" type="tel" class="input-b__input"
                                         placeholder="Type your phone" required>
 
                                     <div class="input-b__icon">

@@ -7,7 +7,8 @@
     <title>Messanger - Settings</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="/assets/styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="/assets/styles/variables.css" />
@@ -21,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/styles/avatar.css" />
     <link rel="stylesheet" type="text/css" href="/assets/styles/settings.css" />
 
-    <script src="/app/settings.js" defer></script>
+    <script src="/app/settings.js" type="module" defer></script>
 </head>
 
 <body>
@@ -30,13 +31,14 @@
             <div class="settings" id="editInformationBlock">
                 <div class="settings__header">
                     <div class="settings__header-left">
-                        <button class="settings__back-icon btn-icon" onclick="settingsAdapter.showSettingsBlock()">
+                        <button class="settings__back-icon btn-icon"
+                            onclick="SETTINGS.settingsAdapter.showSettingsBlock()">
                             <img src="/assets/icons/arrow-back.svg" />
                         </button>
                         <h2 class="h2">Edit Information</h2>
                     </div>
 
-                    <button class="settings__close-icon btn-icon" onclick="goBack()">
+                    <button class="settings__close-icon btn-icon" onclick="SETTINGS.goBack()">
                         <img src="/assets/icons/close.svg" />
                     </button>
                 </div>
@@ -44,7 +46,7 @@
                 <div class="brief-information settings__brief-information">
                     <div class="brief-information__avatar avatar avatar_can-change">
                         <img src="/assets/images/my-avatar.png" alt="User avatar" class="avatar__image" />
-                        <button class="avatar__change-btn btn-icon" onclick="uploadAvatar()">
+                        <button class="avatar__change-btn btn-icon" onclick="SETTINGS.uploadAvatar()">
                             <img src="/assets/icons/photo.svg" class="avatar__icon" />
                         </button>
                     </div>
@@ -53,11 +55,11 @@
                             <p class="brief-information__name">Stanislav</p>
                             <input id="displayNameInput" type="text" value="Stanislav"
                                 class="brief-information__name-input hidden" required />
-                            <button class="btn-icon brief-information__edit-btn" onclick="changeDisplayName()">
+                            <button class="btn-icon brief-information__edit-btn" onclick="SETTINGS.changeDisplayName()">
                                 <img src="/assets/icons/pencil.svg" />
                             </button>
                             <button class="btn-icon hidden brief-information__apply-btn"
-                                onclick="applyNewDisplayName()">
+                                onclick="SETTINGS.applyNewDisplayName()">
                                 <img src="/assets/icons/done.svg" />
                             </button>
                         </div>
@@ -67,14 +69,14 @@
 
                 <div class="settings__divider"></div>
 
-                <form class="settings__form" onsubmit="editInformation()">
+                <form id="editForm" class="settings__form" onsubmit="SETTINGS.editInformation()">
 
                     <div class="input-b">
                         <label class="input-b__label">
                             <span class="input-b__span">Username</span>
 
                             <div class="input-b__line">
-                                <input id="loginInput" type="text" class="input-b__input"
+                                <input name="login" type="text" class="input-b__input"
                                     placeholder="Type your username" required>
 
                                 <div class="input-b__icon">
@@ -96,7 +98,7 @@
                             <span class="input-b__span">First name</span>
 
                             <div class="input-b__line">
-                                <input id="firstNameInput" type="text" class="input-b__input"
+                                <input name="firstName" type="text" class="input-b__input"
                                     placeholder="Type your first name" required>
 
                                 <div class="input-b__icon">
@@ -119,7 +121,7 @@
                             <span class="input-b__span">Second name</span>
 
                             <div class="input-b__line">
-                                <input id="secondNameInput" type="text" class="input-b__input"
+                                <input name="secondName" type="text" class="input-b__input"
                                     placeholder="Type your second name" required>
 
                                 <div class="input-b__icon">
@@ -141,7 +143,7 @@
                             <span class="input-b__span">Email</span>
 
                             <div class="input-b__line">
-                                <input id="emailInput" type="email" class="input-b__input" placeholder="Type your email"
+                                <input name="email" type="email" class="input-b__input" placeholder="Type your email"
                                     required>
 
                                 <div class="input-b__icon">
@@ -163,7 +165,7 @@
                             <span class="input-b__span">Phone</span>
 
                             <div class="input-b__line">
-                                <input id="phoneInput" type="tel" class="input-b__input" placeholder="Type your phone"
+                                <input name="phone" type="tel" class="input-b__input" placeholder="Type your phone"
                                     required>
 
                                 <div class="input-b__icon">
@@ -197,7 +199,7 @@
             <div class="settings" id="settingsBlock">
                 <div class="settings__header">
                     <h2 class="h2">Settings</h2>
-                    <button class="settings__close-icon btn-icon" onclick="goBack()">
+                    <button class="settings__close-icon btn-icon" onclick="SETTINGS.goBack()">
                         <img src="/assets/icons/close.svg" />
                     </button>
                 </div>
@@ -217,13 +219,15 @@
 
                 <ul class="settings-list settings__settings-list">
                     <li class="settings-list__li">
-                        <button class="settings-list__button" onclick="settingsAdapter.showEditInformationBlock()">
+                        <button class="settings-list__button"
+                            onclick="SETTINGS.settingsAdapter.showEditInformationBlock()">
                             <img src="/assets/icons/settings-edit-profile.svg" class="settings-lis__icon" />
                             <span class="settings-list__span">Edit profile</span>
                         </button>
                     </li>
                     <li class="settings-list__li">
-                        <button class="settings-list__button" onclick="settingsAdapter.showChangePasswordBlock()">
+                        <button class="settings-list__button"
+                            onclick="SETTINGS.settingsAdapter.showChangePasswordBlock()">
                             <img src="/assets/icons/settings-change-password.svg" class="settings-lis__icon" />
                             <span class="settings-list__span">Change password</span>
                         </button>
@@ -235,13 +239,14 @@
             <div class="settings" id="changePasswordBlock">
                 <div class="settings__header">
                     <div class="settings__header-left">
-                        <button class="settings__back-icon btn-icon" onclick="settingsAdapter.showSettingsBlock()">
+                        <button class="settings__back-icon btn-icon"
+                            onclick="SETTINGS.settingsAdapter.showSettingsBlock()">
                             <img src="/assets/icons/arrow-back.svg" />
                         </button>
                         <h2 class="h2">Change password</h2>
                     </div>
 
-                    <button class="settings__close-icon btn-icon" onclick="goBack()">
+                    <button class="settings__close-icon btn-icon" onclick="SETTINGS.goBack()">
                         <img src="/assets/icons/close.svg" />
                     </button>
                 </div>
@@ -261,13 +266,13 @@
 
                 <div class="settings__divider"></div>
 
-                <form class="settings__form" onsubmit="changePassword()">
+                <form id="changePasswordForm" class="settings__form" onsubmit="SETTINGS.changePassword()">
                     <div class="input-b">
                         <label class="input-b__label">
                             <span class="input-b__span">New password</span>
 
                             <div class="input-b__line">
-                                <input id="passwordInput" type="password" class="input-b__input"
+                                <input name="password" type="password" class="input-b__input"
                                     placeholder="Type your password" required>
 
                                 <div class="input-b__icon">
@@ -289,7 +294,7 @@
                             <span class="input-b__span">Confirm password</span>
 
                             <div class="input-b__line">
-                                <input id="confirmPasswordInput" type="password" class="input-b__input"
+                                <input name="confirmPassword" type="password" class="input-b__input"
                                     placeholder="Type your password again" required>
 
                                 <div class="input-b__icon">

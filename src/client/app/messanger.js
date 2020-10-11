@@ -1,4 +1,4 @@
-((id) => {
+(() => {
     const scrollbar = document.getElementById('messagesScrollbar');
 
     scrollbar.scrollTop = scrollbar.scrollHeight - scrollbar.clientHeight;

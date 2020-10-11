@@ -1,4 +1,6 @@
 function login() {
+    event.preventDefault();
+
     const loginEl = document.getElementById('loginInput');
     const passwordEl = document.getElementById('passwordInput');
 
@@ -12,6 +14,4 @@ function login() {
     window.location.href = `${window.location.origin}/static/messanger.html`;
 
     // TODO: Navigate to chats list
-
-    event.preventDefault();
 }
