@@ -1,0 +1,20 @@
+{# 
+    items - массив объектов с полями:
+    title: string;
+    iconTemplate: string;
+    onClick: string;
+ #}
+{% macro settingsList(items = []) %}
+    <ul class="settings-list">
+        {% for item in items %}
+            <li class="settings-list__li">
+                <button class="settings-list__button" onclick="{{item.onClick}}">
+                    <div class="settings-list__icon">
+                        {% include item.iconTemplate %}
+                    </div>
+                    <span class="settings-list__span">{{item.title}}</span>
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

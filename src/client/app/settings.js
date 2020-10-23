@@ -2,6 +2,22 @@ import { SETTINGS_VIEWING_TYPES } from './const/settings.js';
 import UploadService from './services/upload.service.js';
 import FormDataPerserService from './services/form-data-parser.service.js';
 
+const data = nunjucks.render('pages/settings.tmpl.njk', {
+    renderingSettingsList: [
+        {
+            title: 'Edit profile',
+            iconTemplate: 'icons/settings-edit-profile.tmpl.njk',
+            onClick: 'SETTINGS.settingsAdapter.showEditInformationBlock()',
+        },
+        {
+            title: 'Change password',
+            iconTemplate: 'icons/settings-change-password.tmpl.njk',
+            onClick: 'SETTINGS.settingsAdapter.showChangePasswordBlock()',
+        },
+    ],
+});
+document.body.innerHTML = data;
+
 const settingsAdapter = (() => {
     const settingsBlock = document.getElementById('settingsBlock');
     const editInformationBlock = document.getElementById(

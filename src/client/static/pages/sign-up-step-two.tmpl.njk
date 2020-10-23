@@ -1,0 +1,40 @@
+{% from "components/input.tmpl.njk" import input %}
+{% from "components/btn-submit.tmpl.njk" import btnSubmit %}
+
+<main class="auth-b">
+    <div class="auth-b__gradient">
+        <div class="auth-b__container container">
+            <div class="auth-b__form-container container container_center">
+                <form id="signUpStepTwoForm" class="auth-b__form" onsubmit="signUp(2)">
+                    <h1 class="auth-b__h1 h1">Sign Up</h1>
+
+                    {{input(
+                        name = 'login', 
+                        label = 'Username', 
+                        placeholder = 'Type your username',
+                        iconTemplate = 'icons/circle-login-icon.tmpl.njk'
+                    )}}
+
+                    {{input(
+                        name = 'password', 
+                        type = 'password',
+                        label = 'Password', 
+                        placeholder = 'Type your password',
+                        iconTemplate = 'icons/password-icon.tmpl.njk',
+                        withPaddingTop = true
+                    )}}
+
+                    <div class="auth-b__btn auth-b__btn_mt_42">
+                        {{ btnSubmit(text = 'Sign up') }}
+                    </div>
+
+                    <div class="auth-b__sign-up-link">
+                        <span>Or
+                        </span>
+                        <a class="link" href="/static/login.html">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

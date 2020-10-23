@@ -75,7 +75,7 @@ body {
     background-color: var(--messanger-bg-color);
 }
 
-.messanger__chat-header-avatar {
+.messanger__chat-header-brief-information .avatar {
     width : 60px;
     height: 60px;
 }
@@ -83,6 +83,8 @@ body {
 .messager__chat-main {
     width : 100%;
     height: 100%;
+
+    overflow-y: hidden;
 
     background: url('/assets/images/chat-bg.jpg');
 }

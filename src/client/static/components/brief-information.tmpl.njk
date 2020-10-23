@@ -1,0 +1,30 @@
+{% from "components/avatar.tmpl.njk" import avatar %}
+
+{% macro briefInformation(avatarSrc = '', changeNameFunc = null, applyNewNameFunc = null, uploadFunc = null, name = '', lastVisit = '') %}
+    <div class="brief-information">
+        <div class="brief-information__avatar">
+            {{avatar(
+                avatarSrc = avatarSrc,
+                uploadFunc = uploadFunc
+            )}}
+        </div>
+        <div class="brief-information__text">
+            <div class="brief-information__name-wrapper">
+                <p class="brief-information__name">{{name}}</p>
+                {% if changeNameFunc %}
+                    <input id="displayNameInput" type="text" value="{{name}}" class="brief-information__name-input hidden" required="required"/>
+
+                    <button class="btn-icon brief-information__edit-btn" onclick="({{changeNameFunc}})()">
+                        {% include 'icons/pencil.tmpl.njk' %}
+                    </button>
+                    <button class="btn-icon hidden brief-information__apply-btn" onclick="({{applyNewNameFunc}})()">
+                        {% include 'icons/done.tmpl.njk' %}
+                    </button>
+                {% endif %}
+            </div>
+            {% if lastVisit %}
+                <p class="brief-information__visit-info">{{lastVisit}}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

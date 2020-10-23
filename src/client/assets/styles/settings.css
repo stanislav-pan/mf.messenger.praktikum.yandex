@@ -6,7 +6,7 @@
     width: 430px;
 }
 
-.settings__header {
+.settings-header {
     display        : flex;
     justify-content: space-between;
 
@@ -15,11 +15,11 @@
     margin: 17px 25px 0 25px;
 }
 
-.settings__header-left {
+.settings-header__left {
     display: flex;
 }
 
-.settings__back-icon {
+.settings-header__back-icon {
     margin: 0 13px 0 -5px;
 }
 
@@ -72,7 +72,7 @@
     cursor: pointer;
 }
 
-.settings-lis__icon {
+.settings-list__icon {
     margin-right: 26px;
 
     width: 24px;

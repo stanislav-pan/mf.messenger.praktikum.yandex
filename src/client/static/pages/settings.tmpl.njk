@@ -1,0 +1,142 @@
+{% from "components/input.tmpl.njk" import input %}
+{% from "components/btn-submit.tmpl.njk" import btnSubmit %}
+{% from "components/brief-information.tmpl.njk" import briefInformation %}
+{% from "components/settings-list.tmpl.njk" import settingsList %}
+{% from "components/settings-header.tmpl.njk" import settingsHeader %}
+
+<div class="modal">
+    <div class="modal__container">
+        <div class="settings" id="editInformationBlock">
+            {{settingsHeader(
+                'SETTINGS.settingsAdapter.showSettingsBlock', 
+                'SETTINGS.goBack',
+                header = 'Edit Information',
+                canReturnBack = true
+                )}}
+
+            <div class="settings__brief-information">
+                {{briefInformation(
+                    uploadFunc = 'SETTINGS.uploadAvatar()',
+                    changeNameFunc = 'SETTINGS.changeDisplayName()',
+                    applyNewNameFunc = 'SETTINGS.applyNewDisplayName()',
+                    name = 'Stanislav',
+                    avatarSrc = '/assets/images/my-avatar.png',
+                    lastVisit = 'was last seen today at 21:37'
+                )}}
+            </div>
+
+            <div class="settings__divider"></div>
+
+            <form id="editForm" class="settings__form" onsubmit="SETTINGS.editInformation()">
+                {{input(
+                    name = 'login', 
+                    label = 'Username', 
+                    placeholder = 'Type your username',
+                    iconTemplate = 'icons/circle-login-icon.tmpl.njk'
+                )}}
+
+                {{input(
+                    name = 'firstName', 
+                    label = 'First name', 
+                    placeholder = 'Type your first name',
+                    iconTemplate = 'icons/login-icon.tmpl.njk',
+                    withPaddingTop = true
+                )}}
+
+                {{input(
+                    name = 'secondName', 
+                    label = 'Second name', 
+                    placeholder = 'Type your second name',
+                    iconTemplate = 'icons/login-icon.tmpl.njk',
+                    withPaddingTop = true
+                )}}
+
+                {{input(
+                    name = 'email',
+                    type = 'email',
+                    label = 'Email', 
+                    placeholder = 'Type your email',
+                    iconTemplate = 'icons/email-icon.tmpl.njk',
+                    withPaddingTop = true
+                )}}
+
+                {{input(
+                    name = 'phone',
+                    type = 'tel',
+                    label = 'Phone', 
+                    placeholder = 'Type your phone',
+                    iconTemplate = 'icons/phone-icon.tmpl.njk',
+                    withPaddingTop = true
+                )}}
+
+                <div class="settings__form-btn">
+                    {{ btnSubmit(text = 'Save') }}
+                </div>
+            </form>
+        </div>
+
+        <div class="settings" id="settingsBlock">
+            {{settingsHeader(
+                'SETTINGS.settingsAdapter.showSettingsBlock', 
+                'SETTINGS.goBack',
+                header = 'Settings'
+                )}}
+
+            <div class="settings__brief-information">
+                {{briefInformation(
+                    name = 'Stanislav',
+                    avatarSrc = '/assets/images/my-avatar.png',
+                    lastVisit = 'was last seen today at 21:37'
+                )}}
+            </div>
+
+            <div class="settings__settings-list">
+                {{settingsList(renderingSettingsList)}}
+            </div>
+        </div>
+
+        <div class="settings" id="changePasswordBlock">
+            {{settingsHeader(
+                'SETTINGS.settingsAdapter.showSettingsBlock', 
+                'SETTINGS.goBack',
+                header = 'Change password',
+                canReturnBack = true
+                )}}
+
+            <div class="settings__brief-information">
+                {{briefInformation(
+                    name = 'Stanislav',
+                    avatarSrc = '/assets/images/my-avatar.png',
+                    lastVisit = 'was last seen today at 21:37'
+                )}}
+            </div>
+
+            <div class="settings__divider"></div>
+
+            <form id="changePasswordForm" class="settings__form" onsubmit="SETTINGS.changePassword()">
+                {{input(
+                    name = 'password', 
+                    type = 'password',
+                    label = 'New password', 
+                    placeholder = 'Type your password',
+                    iconTemplate = 'icons/password-icon.tmpl.njk'
+                )}}
+
+                {{input(
+                    name = 'confirmPassword', 
+                    type = 'password',
+                    label = 'Confirm password', 
+                    placeholder = 'Type your password again',
+                    iconTemplate = 'icons/password-icon.tmpl.njk',
+                    withPaddingTop = true
+                )}}
+
+                <div class="settings__form-btn">
+                    {{ btnSubmit(text = 'Save') }}
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="modal__overlay"></div>
+</div>

@@ -1,3 +1,7 @@
+const data = nunjucks.render('pages/login.tmpl.njk');
+
+document.body.innerHTML = data;
+
 function login() {
     event.preventDefault();
 
@@ -12,6 +16,4 @@ function login() {
     console.log(data);
 
     window.location.href = `${window.location.origin}/static/messanger.html`;
-
-    // TODO: Navigate to chats list
 }

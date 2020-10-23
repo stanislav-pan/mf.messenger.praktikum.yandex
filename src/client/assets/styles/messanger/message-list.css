@@ -1,6 +1,9 @@
-
-
 .message-list {
+    width : 100%;
+    height: 100%;
+}
+
+.message-list__ul {
     display       : flex;
     flex-direction: column;
 

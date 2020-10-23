@@ -1,0 +1,38 @@
+{# 
+    items - массив объектов с полями:
+    type: 'text' | 'image' | 'dateDivider';
+    isMyMessage?: boolean;
+    text?: string; // Текст сообщения.
+    time?: string; // Время отправления сообщения
+    date?: string;
+ #}
+{% macro messages(items = []) %}
+    <div id="messagesScrollbar" class="message-list scrollbar">
+        <ul class="message-list__ul">
+            {% for item in items %}
+                {% if item.type === 'dateDivider' %}
+                    <li class="message-list__date">{{item.date}}</li>
+                {% else %}
+                    <li class="message-list__item {{item | getMessageClasses('message-list__item')}}">
+                        {% if item.type === 'image' %}
+                            <img src="/assets/images/message-photo.jpg" alt="" class="message-list__image">
+                        {% endif %}
+
+                        {% if item.text %}
+                            <p class="message-list__item-text">
+                                {{item.text}}
+                            </p>
+                        {% endif %}
+
+                        {% if item.time %}
+                            <p class="message-list__item-time">
+                                <span>{{item.time}}</span>
+                                {% include 'icons/message-has-been-read.tmpl.njk' %}
+                            </p>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}

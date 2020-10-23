@@ -1,0 +1,34 @@
+{% from "components/avatar.tmpl.njk" import avatar %}
+
+{# 
+    items - массив объектов с полями:
+    avatarSrc: string;
+    name: string;
+    text: string;
+    date: string;
+    numberOfUnreadMessages: number;
+ #}
+
+{% macro chats(items = []) %}
+    <ul class="chat-list scrollbar">
+        {% for item in items %}
+            <li class="chat-list__item">
+                <div class="chat-list__item-avatar">
+                    {{avatar(
+                        avatarSrc = item.avatarSrc
+                    )}}
+                </div>
+                <div class="chat-list__item-text-wrapper">
+                    <p class="chat-list__item-name">{{item.name}}</p>
+                    <p class="chat-list__item-text">{{item.text}}</p>
+                </div>
+                <div class="chat-list__item-extra-info">
+                    <span class="chat-list__item-date">{{item.date}}</span>
+                    {% if item.numberOfUnreadMessages %}
+                        <div class="badge">{{item.numberOfUnreadMessages}}</div>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

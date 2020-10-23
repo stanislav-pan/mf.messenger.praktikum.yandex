@@ -1,13 +1,21 @@
 .avatar {
     position: relative;
 
-    width        : 90px;
-    height       : 90px;
+    max-width : 90px;
+    width     : 100%;
+    max-height: 90px;
+    height    : 100%;
+
     border-radius: 100px;
     overflow     : hidden;
 }
 
-.avatar__image, .avatar__icon {
+.avatar:hover .avatar__change-btn {
+    height: 28px;
+}
+
+.avatar__image,
+.avatar__icon {
     width        : inherit;
     height       : inherit;
     border-radius: inherit;
@@ -23,8 +31,4 @@
     background-color: rgba(0, 0, 0, 0.4);
 
     transition: height 0.15s linear;
-}
-
-.avatar_can-change:hover .avatar__change-btn {
-    height: 28px;
 }

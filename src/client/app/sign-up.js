@@ -2,6 +2,18 @@ import { localStorageService } from './services/localstorage.service.js';
 import { SIGN_UP_STEP_ONE } from './const/localstorage.keys.js';
 import FormDataPerserService from './services/form-data-parser.service.js';
 
+if (location.pathname.includes('sign-up-step-one')) {
+    const data = nunjucks.render('pages/sign-up-step-one.tmpl.njk');
+
+    document.body.innerHTML = data;
+}
+
+if (location.pathname.includes('sign-up-step-two')) {
+    const data = nunjucks.render('pages/sign-up-step-two.tmpl.njk');
+
+    document.body.innerHTML = data;
+}
+
 /**
  * @param step Шаг регистрации: `1` или `2`
  */

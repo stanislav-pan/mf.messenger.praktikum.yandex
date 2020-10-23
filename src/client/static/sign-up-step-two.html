@@ -14,76 +14,12 @@
     <link rel="stylesheet" type="text/css" href="/assets/styles/btn.css" />
     <link rel="stylesheet" type="text/css" href="/assets/styles/auth.css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.1/nunjucks.min.js" defer></script>
     <script src="/app/services/localstorage.service.js" type="module" defer></script>
     <script src="/app/const/localstorage.keys.js" type="module" defer></script>
     <script src="/app/sign-up.js" type="module" defer></script>
 </head>
 
-<body>
-    <main class="auth-b">
-        <div class="auth-b__gradient">
-            <div class="auth-b__container container">
-                <div class="auth-b__form-container container container_center">
-                    <form id="signUpStepTwoForm" class="auth-b__form" onsubmit="signUp(2)">
-                        <h1 class="auth-b__h1 h1">Sign Up</h1>
-
-                        <div class="input-b">
-                            <label class="input-b__label">
-                                <span class="input-b__span">Username</span>
-
-                                <div class="input-b__line">
-                                    <input name="login" type="text" class="input-b__input"
-                                        placeholder="Type your username" required>
-
-                                    <div class="input-b__icon">
-                                        <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M11.3678 2.66016C6.29837 2.66016 2.18408 6.58671 2.18408 11.4248C2.18408 16.2629 6.29837 20.1894 11.3678 20.1894C16.4371 20.1894 20.5514 16.2629 20.5514 11.4248C20.5514 6.58671 16.4371 2.66016 11.3678 2.66016ZM6.8402 16.929C7.2351 16.1402 9.64123 15.3689 11.3678 15.3689C13.0943 15.3689 15.5096 16.1402 15.8953 16.929C14.6463 17.8755 13.0759 18.4365 11.3678 18.4365C9.65959 18.4365 8.08918 17.8755 6.8402 16.929ZM17.2086 15.6581C15.8953 14.1331 12.7086 13.6159 11.3678 13.6159C10.0269 13.6159 6.8402 14.1331 5.52694 15.6581C4.5902 14.4836 4.02082 13.0199 4.02082 11.4248C4.02082 7.55958 7.31776 4.41308 11.3678 4.41308C15.4178 4.41308 18.7147 7.55958 18.7147 11.4248C18.7147 13.0199 18.1453 14.4836 17.2086 15.6581V15.6581ZM11.3678 6.16601C9.58612 6.16601 8.15347 7.53329 8.15347 9.23363C8.15347 10.934 9.58612 12.3012 11.3678 12.3012C13.1494 12.3012 14.582 10.934 14.582 9.23363C14.582 7.53329 13.1494 6.16601 11.3678 6.16601ZM11.3678 10.5483C10.6055 10.5483 9.9902 9.96109 9.9902 9.23363C9.9902 8.50616 10.6055 7.91893 11.3678 7.91893C12.13 7.91893 12.7453 8.50616 12.7453 9.23363C12.7453 9.96109 12.13 10.5483 11.3678 10.5483Z" />
-                                        </svg>
-                                    </div>
-
-                                    <div class="input-b__indicator"></div>
-                                </div>
-
-                            </label>
-                        </div>
-
-                        <div class="input-b input-b_default-pd_top">
-                            <label class="input-b__label">
-                                <span class="input-b__span">Password</span>
-
-                                <div class="input-b__line">
-                                    <input name="password" type="password" class="input-b__input"
-                                        placeholder="Type your password" required>
-
-                                    <div class="input-b__icon">
-                                        <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M16.8776 7.92039H15.9593V6.16747C15.9593 3.74843 13.9021 1.78516 11.3674 1.78516C8.83275 1.78516 6.77561 3.74843 6.77561 6.16747V7.92039H5.85724C4.84704 7.92039 4.02051 8.70921 4.02051 9.67332V18.4379C4.02051 19.4021 4.84704 20.1909 5.85724 20.1909H16.8776C17.8879 20.1909 18.7144 19.4021 18.7144 18.4379V9.67332C18.7144 8.70921 17.8879 7.92039 16.8776 7.92039ZM8.61234 6.16747C8.61234 4.71254 9.84296 3.53808 11.3674 3.53808C12.8919 3.53808 14.1225 4.71254 14.1225 6.16747V7.92039H8.61234V6.16747ZM16.8776 18.4379H5.85724V9.67332H16.8776V18.4379ZM11.3674 15.8086C12.3776 15.8086 13.2042 15.0197 13.2042 14.0556C13.2042 13.0915 12.3776 12.3027 11.3674 12.3027C10.3572 12.3027 9.53071 13.0915 9.53071 14.0556C9.53071 15.0197 10.3572 15.8086 11.3674 15.8086Z" />
-                                        </svg>
-                                    </div>
-
-                                    <div class="input-b__indicator"></div>
-                                </div>
-
-                            </label>
-                        </div>
-
-                        <div class="auth-b__btn auth-b__btn_mt_42">
-                            <button class="btn btn_size_normal" type="submit">Sign up</button>
-                        </div>
-
-                        <div class="auth-b__sign-up-link">
-                            <span>Or </span>
-                            <a class="link" href="/static/login.html">Login</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </main>
-</body>
+<body></body>
 
 </html>
