@@ -1,40 +1,27 @@
 {% from "components/input.tmpl.njk" import input %}
-{% from "components/btn-submit.tmpl.njk" import btnSubmit %}
+{% from "components/btn.tmpl.njk" import btn %}
 
 <main class="auth-b">
     <div class="auth-b__gradient">
         <div class="auth-b__container container">
             <div class="auth-b__form-container container container_center">
-                <form class="auth-b__form" onsubmit="login()">
+                <form class="auth-b__form" onsubmit="login">
                     <h1 class="auth-b__h1 h1">Login</h1>
 
-                    {{input(
-                        id = 'loginInput', 
-                        label = 'Username', 
-                        placeholder = 'Type your username',
-                        iconTemplate = 'icons/circle-login-icon.tmpl.njk'
-                    )}}
-
-                    {{input(
-                        id = 'passwordInput', 
-                        type = 'password',
-                        label = 'Password', 
-                        placeholder = 'Type your password',
-                        iconTemplate = 'icons/password-icon.tmpl.njk',
-                        withPaddingTop = true
-                    )}}
+                    {{loginInput}}
+                    {{passwordInput}}
 
                     <div class="auth-b__forgot">
                         <a class="link" href="https://google.com">Forgot password?</a>
                     </div>
 
                     <div class="auth-b__btn">
-                        {{ btnSubmit(text = 'Sign in') }}
+                        {{submitButton}}
                     </div>
 
                     <div class="auth-b__sign-up-link">
                         <span>Or</span>
-                        <a class="link" href="/static/sign-up-step-one.html">Sign Up</a>
+                        <a class="link" href="/static/sign-up.html">Sign Up</a>
                     </div>
                 </form>
             </div>

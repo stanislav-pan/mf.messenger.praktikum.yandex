@@ -1,14 +1,12 @@
-{% macro avatar(avatarSrc = '', uploadFunc = null) %}
-    <div class="avatar">
-        {% if avatarSrc %}
-            <img src="{{avatarSrc}}" alt="User avatar" class="avatar__image"/>
-        {% endif %}
-        {% if uploadFunc %}
-            <button class="avatar__change-btn btn-icon" onclick="({{uploadFunc}})()">
-                <div class="avatar__icon">
-                    {% include 'icons/photo.tmpl.njk' %}
-                </div>
-            </button>
-        {% endif %}
-    </div>
-{% endmacro %}
+<div class="avatar">
+    {% if avatarSrc %}
+        <img src="{{avatarSrc}}" alt="User avatar" class="avatar__image"/>
+    {% endif %}
+    {% if canEdit %}
+        <button class="avatar__change-btn btn-icon" onClick="upload">
+            <div class="avatar__icon">
+                {% include 'icons/photo.tmpl.njk' %}
+            </div>
+        </button>
+    {% endif %}
+</div>

@@ -1,8 +1,8 @@
-{% macro settingsHeader(onClose, onBack, header = '', canReturnBack = false) %}
+{% macro settingsHeader(header = '', canReturnBack = false) %}
     <div class="settings-header">
         <div class="settings-header__left">
             {% if canReturnBack %}
-                <button class="settings-header__back-icon btn-icon" onclick="({{onClose}})()">
+                <button class="settings-header__back-icon btn-icon" onclick="back">
                     {% include 'icons/arrow-back.tmpl.njk' %}
                 </button>
             {% endif %}
@@ -10,8 +10,10 @@
             <h2 class="h2">{{header}}</h2>
         </div>
 
-        <button class="settings-header__close-icon btn-icon" onclick="({{onBack}})()">
+        <button class="settings-header__close-icon btn-icon" onclick="close">
             {% include 'icons/close.tmpl.njk' %}
         </button>
     </div>
 {% endmacro %}
+
+{{settingsHeader(header, canReturnBack)}}

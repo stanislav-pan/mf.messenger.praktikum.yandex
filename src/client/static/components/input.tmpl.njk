@@ -1,12 +1,4 @@
-{# 
-    id: string;
-    type: string;
-    label: string;
-    placeholder?: string;
-    withPaddingTop?: boolean;
-#}
-
-{% macro input(id = '', name = '', type = 'text', label = '', placeholder = '', iconTemplate = '', withPaddingTop = false) %}
+{% macro input(name = '', type = 'text', label = '', placeholder = '', iconTemplate = '', withPaddingTop = false) %}
     {% set inputPaddingTopClass = '' %}
 
     {% if withPaddingTop %}
@@ -18,11 +10,13 @@
             <span class="input-b__span">{{label}}</span>
 
             <div class="input-b__line">
-                <input id="{{id}}" type="{{type}}" name="{{name}}" class="input-b__input" placeholder="{{placeholder}}" required="required">
+                <input type="{{type}}" name="{{name}}" class="input-b__input" placeholder="{{placeholder}}" required="required">
 
-                <div class="input-b__icon">
-                    {% include iconTemplate %}
-                </div>
+                {% if iconTemplate %}
+                    <div class="input-b__icon">
+                        {% include iconTemplate %}
+                    </div>
+                {% endif %}
 
                 <div class="input-b__indicator"></div>
             </div>
@@ -30,3 +24,5 @@
         </label>
     </div>
 {% endmacro %}
+
+{{input(name, type, label, placeholder, iconTemplate, withPaddingTop)}}

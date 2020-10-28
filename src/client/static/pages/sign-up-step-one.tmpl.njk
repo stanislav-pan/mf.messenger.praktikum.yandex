@@ -1,48 +1,20 @@
 {% from "components/input.tmpl.njk" import input %}
-{% from "components/btn-submit.tmpl.njk" import btnSubmit %}
+{% from "components/btn.tmpl.njk" import btn %}
 
 <main class="auth-b">
     <div class="auth-b__gradient">
         <div class="auth-b__container container">
             <div class="auth-b__form-container container container_center">
-                <form id="signUpStepOneForm" class="auth-b__form" onsubmit="signUp(1)">
+                <form id="signUpStepOneForm" class="auth-b__form" onSubmit="signUp">
                     <h1 class="auth-b__h1 h1">Sign Up</h1>
 
-                    {{input(
-                        name = 'firstName', 
-                        label = 'First name', 
-                        placeholder = 'Type your first name',
-                        iconTemplate = 'icons/login-icon.tmpl.njk'
-                    )}}
-
-                    {{input(
-                        name = 'secondName', 
-                        label = 'Second name', 
-                        placeholder = 'Type your second name',
-                        iconTemplate = 'icons/login-icon.tmpl.njk',
-                        withPaddingTop = true
-                    )}}
-
-                    {{input(
-                        name = 'email',
-                        type = 'email',
-                        label = 'Email', 
-                        placeholder = 'Type your email',
-                        iconTemplate = 'icons/email-icon.tmpl.njk',
-                        withPaddingTop = true
-                    )}}
-
-                    {{input(
-                        name = 'phone',
-                        type = 'tel',
-                        label = 'Phone', 
-                        placeholder = 'Type your phone',
-                        iconTemplate = 'icons/phone-icon.tmpl.njk',
-                        withPaddingTop = true
-                    )}}
+                    {{fistNameInput}}
+                    {{secondNameInput}}
+                    {{emailInput}}
+                    {{phoneInput}}
 
                     <div class="auth-b__btn auth-b__btn_mt_42">
-                        {{ btnSubmit(text = 'Next step') }}
+                        {{ nextButton }}
                     </div>
 
                     <div class="auth-b__sign-up-link">

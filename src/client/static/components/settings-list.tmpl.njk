@@ -3,12 +3,13 @@
     title: string;
     iconTemplate: string;
     onClick: string;
+    value: any;
  #}
 {% macro settingsList(items = []) %}
     <ul class="settings-list">
         {% for item in items %}
             <li class="settings-list__li">
-                <button class="settings-list__button" onclick="{{item.onClick}}">
+                <button class="settings-list__button" data-value="{{item.value}}" onClick="showBlock(value)">
                     <div class="settings-list__icon">
                         {% include item.iconTemplate %}
                     </div>

@@ -1,9 +1,11 @@
 class LocalStorageService {
-    constructor(window) {
+    private window: Window;
+
+    constructor(window: Window) {
         this.window = window;
     }
 
-    set(key, value) {
+    public set(key: string, value: any) {
         if (!this.window.localStorage) {
             return undefined;
         }
@@ -11,12 +13,16 @@ class LocalStorageService {
         this.window.localStorage.setItem(key, JSON.stringify(value));
     }
 
-    get(key) {
+    public get(key: string) {
         if (!this.window.localStorage) {
             return undefined;
         }
 
         return JSON.parse(this.window.localStorage.getItem(key));
+    }
+
+    public removeItem(key: string) {
+        this.window.localStorage.removeItem(key);
     }
 }
 

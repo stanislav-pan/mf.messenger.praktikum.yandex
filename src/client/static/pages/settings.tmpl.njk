@@ -1,5 +1,5 @@
 {% from "components/input.tmpl.njk" import input %}
-{% from "components/btn-submit.tmpl.njk" import btnSubmit %}
+{% from "components/btn.tmpl.njk" import btn %}
 {% from "components/brief-information.tmpl.njk" import briefInformation %}
 {% from "components/settings-list.tmpl.njk" import settingsList %}
 {% from "components/settings-header.tmpl.njk" import settingsHeader %}
@@ -7,134 +7,45 @@
 <div class="modal">
     <div class="modal__container">
         <div class="settings" id="editInformationBlock">
-            {{settingsHeader(
-                'SETTINGS.settingsAdapter.showSettingsBlock', 
-                'SETTINGS.goBack',
-                header = 'Edit Information',
-                canReturnBack = true
-                )}}
+            {% set isSettingsListBlock = currentBlock === settingsViewingTypes.SETTINGS_LIST %}
+            {% set isEditInformationBlock = currentBlock === settingsViewingTypes.EDIT_INFORMATION_BLOCK %}
+            {% set isChangePasswordBlock = currentBlock === settingsViewingTypes.CHANGE_PASSWORD_BLOCK %}
+
+            <ng-container data-componentsids="{{settingsHeaderId}}"></ng-container>
 
             <div class="settings__brief-information">
-                {{briefInformation(
-                    uploadFunc = 'SETTINGS.uploadAvatar()',
-                    changeNameFunc = 'SETTINGS.changeDisplayName()',
-                    applyNewNameFunc = 'SETTINGS.applyNewDisplayName()',
-                    name = 'Stanislav',
-                    avatarSrc = '/assets/images/my-avatar.png',
-                    lastVisit = 'was last seen today at 21:37'
-                )}}
+                <ng-container data-componentsids="{{briefInformationComponentId}}"></ng-container>
             </div>
 
-            <div class="settings__divider"></div>
-
-            <form id="editForm" class="settings__form" onsubmit="SETTINGS.editInformation()">
-                {{input(
-                    name = 'login', 
-                    label = 'Username', 
-                    placeholder = 'Type your username',
-                    iconTemplate = 'icons/circle-login-icon.tmpl.njk'
-                )}}
-
-                {{input(
-                    name = 'firstName', 
-                    label = 'First name', 
-                    placeholder = 'Type your first name',
-                    iconTemplate = 'icons/login-icon.tmpl.njk',
-                    withPaddingTop = true
-                )}}
-
-                {{input(
-                    name = 'secondName', 
-                    label = 'Second name', 
-                    placeholder = 'Type your second name',
-                    iconTemplate = 'icons/login-icon.tmpl.njk',
-                    withPaddingTop = true
-                )}}
-
-                {{input(
-                    name = 'email',
-                    type = 'email',
-                    label = 'Email', 
-                    placeholder = 'Type your email',
-                    iconTemplate = 'icons/email-icon.tmpl.njk',
-                    withPaddingTop = true
-                )}}
-
-                {{input(
-                    name = 'phone',
-                    type = 'tel',
-                    label = 'Phone', 
-                    placeholder = 'Type your phone',
-                    iconTemplate = 'icons/phone-icon.tmpl.njk',
-                    withPaddingTop = true
-                )}}
-
-                <div class="settings__form-btn">
-                    {{ btnSubmit(text = 'Save') }}
+            {% if isSettingsListBlock %}
+                <div class="settings__settings-list">
+                    {{settingsList(renderingSettingsList)}}
                 </div>
-            </form>
-        </div>
+            {% endif %}
 
-        <div class="settings" id="settingsBlock">
-            {{settingsHeader(
-                'SETTINGS.settingsAdapter.showSettingsBlock', 
-                'SETTINGS.goBack',
-                header = 'Settings'
-                )}}
+            {% if isEditInformationBlock %}
+                <div class="settings__divider"></div>
 
-            <div class="settings__brief-information">
-                {{briefInformation(
-                    name = 'Stanislav',
-                    avatarSrc = '/assets/images/my-avatar.png',
-                    lastVisit = 'was last seen today at 21:37'
-                )}}
-            </div>
+                <form id="editForm" class="settings__form" onsubmit="editProfile">
+                    <ng-container data-componentsids="{{editProfileComponentsIds}}"></ng-container>
 
-            <div class="settings__settings-list">
-                {{settingsList(renderingSettingsList)}}
-            </div>
-        </div>
+                    <div class="settings__form-btn">
+                        <ng-container data-componentsids="{{editProfileButtonId}}"></ng-container>
+                    </div>
+                </form>
+            {% endif %}
 
-        <div class="settings" id="changePasswordBlock">
-            {{settingsHeader(
-                'SETTINGS.settingsAdapter.showSettingsBlock', 
-                'SETTINGS.goBack',
-                header = 'Change password',
-                canReturnBack = true
-                )}}
+            {% if isChangePasswordBlock %}
+                <div class="settings__divider"></div>
 
-            <div class="settings__brief-information">
-                {{briefInformation(
-                    name = 'Stanislav',
-                    avatarSrc = '/assets/images/my-avatar.png',
-                    lastVisit = 'was last seen today at 21:37'
-                )}}
-            </div>
+                <form id="changePasswordForm" class="settings__form" onsubmit="changePassword">
+                    <ng-container data-componentsids="{{changePasswordComponentsIds}}"></ng-container>
 
-            <div class="settings__divider"></div>
-
-            <form id="changePasswordForm" class="settings__form" onsubmit="SETTINGS.changePassword()">
-                {{input(
-                    name = 'password', 
-                    type = 'password',
-                    label = 'New password', 
-                    placeholder = 'Type your password',
-                    iconTemplate = 'icons/password-icon.tmpl.njk'
-                )}}
-
-                {{input(
-                    name = 'confirmPassword', 
-                    type = 'password',
-                    label = 'Confirm password', 
-                    placeholder = 'Type your password again',
-                    iconTemplate = 'icons/password-icon.tmpl.njk',
-                    withPaddingTop = true
-                )}}
-
-                <div class="settings__form-btn">
-                    {{ btnSubmit(text = 'Save') }}
-                </div>
-            </form>
+                    <div class="settings__form-btn">
+                        {{ btn(text = 'Save') }}
+                    </div>
+                </form>
+            {% endif %}
         </div>
 
     </div>
