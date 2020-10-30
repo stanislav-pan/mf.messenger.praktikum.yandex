@@ -18,18 +18,12 @@
 
     <link rel="stylesheet" type="text/css" href="/assets/styles/error-page.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.1/nunjucks.min.js" defer></script>
-    <script src="/app/500-errors.js" defer></script>
+    <script src="/app/services/templator.service.js" type="module" defer></script>
+    <script src="/app/error-500.js" type="module" defer></script>
 </head>
 
 <body>
-    <main id="root" class="container container_center">
-        <div class="error noselect">
-            <p class="error__code">500</p>
-            <p class="error__description">SORRY...</p>
-            <p class="error__description">INTERNAL SERVER ERROR</p>
-        </div>
-    </main>
+    <div id="root"></div>
 </body>
 
 </html>
