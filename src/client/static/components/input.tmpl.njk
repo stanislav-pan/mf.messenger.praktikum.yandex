@@ -10,7 +10,7 @@
             <span class="input-b__span">{{label}}</span>
 
             <div class="input-b__line">
-                <input type="{{type}}" name="{{name}}" class="input-b__input" placeholder="{{placeholder}}" required="required">
+                <input type="{{type}}" name="{{name}}" class="input-b__input" placeholder="{{placeholder}}" formcontrol>
 
                 {% if iconTemplate %}
                     <div class="input-b__icon">
@@ -19,9 +19,14 @@
                 {% endif %}
 
                 <div class="input-b__indicator"></div>
+
+                <span class="input-b__error">
+                    <ng-container data-componentsids="{{errorsComponentId}}"></ng-container>
+                </span>
             </div>
 
         </label>
+
     </div>
 {% endmacro %}
 

@@ -1,68 +1,78 @@
 import Button from '../../components/button/button.js';
+import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
+import { SubmitEvent } from '../../core/interfaces.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
-import { ComponentsRenderer } from '../../utils/components-renderer.js';
-import { ILoginPageProps } from './interfaces.js';
+import { FormControl } from '../../utils/forms/form-control.js';
+import { FormGroup } from '../../utils/forms/form-group.js';
+import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
+import { LoginPageProps } from './interfaces.js';
 
-export default class LoginPage extends Block<ILoginPageProps> {
+export default class LoginPage extends Block<LoginPageProps> {
+    get loginFormGroup(): FormGroup {
+        return this.props.components?.loginForm?.props?.formGroup;
+    }
+
     constructor() {
         super({
             tagName: 'app-login-page',
             props: {
                 components: {
-                    loginInput: new Input({
-                        id: 'loginInput',
-                        label: 'Username',
-                        placeholder: 'Type your username',
-                        iconTemplate: 'icons/circle-login-icon.tmpl.njk',
-                    }),
-                    passwordInput: new Input({
-                        id: 'passwordInput',
-                        type: 'password',
-                        label: 'Password',
-                        placeholder: 'Type your password',
-                        iconTemplate: 'icons/password-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    submitButton: new Button({
-                        text: 'Sign in',
+                    loginForm: new FormComponent({
+                        formGroup: new FormGroup(),
+                        components: {
+                            loginInput: new Input({
+                                id: 'loginInput',
+                                label: 'Username',
+                                placeholder: 'Type your username',
+                                iconTemplate:
+                                    'icons/circle-login-icon.tmpl.njk',
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            passwordInput: new Input({
+                                id: 'passwordInput',
+                                type: 'password',
+                                label: 'Password',
+                                placeholder: 'Type your password',
+                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            submitButton: new Button({
+                                text: 'Sign in',
+                                class: 'auth-b__btn',
+                            }),
+                        },
+                        handlers: {
+                            submit: (event: SubmitEvent) => this._login(event),
+                        },
                     }),
                 },
             },
         });
     }
 
-    private login(event: Event) {
+    private _login(event: SubmitEvent) {
         event.preventDefault();
 
-        const loginEl = document.getElementById(
-            'loginInput'
-        ) as HTMLInputElement;
-        const passwordEl = document.getElementById(
-            'passwordInput'
-        ) as HTMLInputElement;
+        if (this.loginFormGroup.invalid) {
+            this.loginFormGroup.markAsDirtyAllControls();
 
-        const data = {
-            login: loginEl.value,
-            password: passwordEl.value,
-        };
+            return;
+        }
 
         window.location.href = `${window.location.origin}/static/messanger.html`;
-    }
-
-    public componentDidMount() {
-        this.setProps({
-            handlers: {
-                login: this.login,
-            },
-        });
     }
 
     public render() {
         return templator.getEnvironment().render('pages/login.tmpl.njk', {
             ...this.props,
-            ...ComponentsRenderer.render(this.props.components),
+            loginFormId: this.props.components.loginForm.getId(),
         });
     }
 }

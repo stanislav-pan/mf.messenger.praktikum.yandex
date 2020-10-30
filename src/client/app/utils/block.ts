@@ -1,8 +1,5 @@
 import { EventBus } from './event-bus.js';
-
-// export interface IBlockLike {
-//     render: () => string;
-// }
+import { FormControl } from './forms/form-control.js';
 
 export type MapOfBlockLike = { [key: string]: Block<any> };
 
@@ -12,6 +9,8 @@ export interface ICommonPropFields {
         (event: any, arg1?: any, arg2?: any, arg3?: any) => void
     >;
     components?: MapOfBlockLike;
+    class?: string;
+    formControl?: FormControl;
 }
 
 export interface IBlockMeta<T> {
@@ -35,7 +34,6 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
 
     private eventBus: () => EventBus;
     public props: T;
-    public attr: string;
 
     private _subscriptions: Map<any, any>;
     private _id: string;
@@ -48,8 +46,6 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
      */
     constructor(meta: IBlockMeta<T>) {
         const eventBus = new EventBus();
-        this._id = `uniq${Math.round(Math.random() * 1000000)}`;
-
         this._meta = meta;
 
         this.props = this._makePropsProxy(meta.props);
@@ -121,6 +117,31 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
         if (this._element) {
             this._element.innerHTML = block;
 
+            if (this.props.formControl) {
+                const stack: Array<HTMLElement | Element> = [this.element];
+
+                while (stack.length) {
+                    const current = stack.pop();
+
+                    if (!current) {
+                        break;
+                    }
+
+                    const attr = Array.from(current.attributes).find(
+                        (attr) => attr.name === 'formcontrol'
+                    );
+
+                    if (attr) {
+                        this.props.formControl.init(current);
+
+                        break;
+                    }
+
+                    const children = Array.from(current.children);
+                    stack.push(...children);
+                }
+            }
+
             if (this.props.handlers) {
                 this._attachListeners(); // добавили
             }
@@ -167,6 +188,10 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
                 ).find(
                     (component: Block<any>) => component._id === componentId
                 ) as Block<any>;
+
+                if (!component) {
+                    continue;
+                }
 
                 current.parentNode.insertBefore(
                     component.getContent(),
@@ -219,10 +244,15 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
 
     private _createDocumentElement(tagName: string) {
         const el = document.createElement(tagName);
-        const attr = (this.attr = `block-c${Block.componentsCount}`);
+        const attr = (this._id = `block-c${Block.componentsCount}`);
         el.setAttribute(attr, '');
+        el.style.display = 'contents';
 
         Block.componentsCount += 1;
+
+        if (this.props.class) {
+            el.classList.add(...(this.props.class as string).split(' '));
+        }
 
         // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         return el;

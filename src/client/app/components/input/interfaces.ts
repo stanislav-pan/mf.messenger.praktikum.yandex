@@ -1,4 +1,5 @@
 import { ICommonPropFields } from '../../utils/block';
+import { FormControl } from '../../utils/forms/form-control';
 
 export interface IInputProps extends ICommonPropFields {
     id?: string;
@@ -11,4 +12,7 @@ export interface IInputProps extends ICommonPropFields {
     placeholder?: string;
     withPaddingTop?: boolean;
     iconTemplate?: string;
+
+    formControl?: FormControl;
+    formControlName?: string;
 }

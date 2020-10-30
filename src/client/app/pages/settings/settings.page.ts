@@ -1,15 +1,29 @@
 import BriefInformationComponent from '../../components/brief-information/brief-information.js';
 import { Button } from '../../components/button/index.js';
+import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
 import SettingsHeader from '../../components/settings-header/settings-header.js';
 import { SETTINGS_VIEWING_TYPES } from '../../const/settings.js';
 import { SubmitEvent } from '../../core/interfaces.js';
-import FormDataPerserService from '../../services/form-data-parser.service.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
+import { FormControl } from '../../utils/forms/form-control.js';
+import { FormGroup } from '../../utils/forms/form-group.js';
+import { EmailValidator } from '../../utils/forms/validators/email.validator.js';
+import { minLengthValidator } from '../../utils/forms/validators/min-length.validator.js';
+import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
+import { validatePasswordConfirm } from '../../utils/forms/validators/valid-password.validator.js';
 import { SettingsPageProps } from './interfaces.js';
 
 export default class SettingsPage extends Block<SettingsPageProps> {
+    get editingProfileFormGroup(): FormGroup {
+        return this.props.components?.editingProfileForm?.props?.formGroup;
+    }
+
+    get changePasswordFormGroup(): FormGroup {
+        return this.props.components?.changePasswordForm?.props?.formGroup;
+    }
+
     constructor() {
         super({
             tagName: 'app-login-page',
@@ -55,94 +69,159 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                         canChangeName: true,
                     }),
 
-                    loginInput: new Input({
-                        name: 'login',
-                        label: 'Username',
-                        placeholder: 'Type your username',
-                        iconTemplate: 'icons/circle-login-icon.tmpl.njk',
-                    }),
-                    fistNameInput: new Input({
-                        name: 'firstName',
-                        label: 'First name',
-                        placeholder: 'Type your first name',
-                        iconTemplate: 'icons/login-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    secondNameInput: new Input({
-                        name: 'secondName',
-                        label: 'Second name',
-                        placeholder: 'Type your second name',
-                        iconTemplate: 'icons/login-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    emailInput: new Input({
-                        name: 'email',
-                        type: 'email',
-                        label: 'Email',
-                        placeholder: 'Type your email',
-                        iconTemplate: 'icons/email-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    phoneInput: new Input({
-                        name: 'phone',
-                        type: 'tel',
-                        label: 'Phone',
-                        placeholder: 'Type your phone',
-                        iconTemplate: 'icons/phone-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    editProfileButton: new Button({
-                        text: 'Save',
+                    editingProfileForm: new FormComponent({
+                        formGroup: new FormGroup(),
+                        components: {
+                            loginInput: new Input({
+                                name: 'login',
+                                label: 'Username',
+                                placeholder: 'Type your username',
+                                iconTemplate:
+                                    'icons/circle-login-icon.tmpl.njk',
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            fistNameInput: new Input({
+                                name: 'firstName',
+                                label: 'First name',
+                                placeholder: 'Type your first name',
+                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            secondNameInput: new Input({
+                                name: 'secondName',
+                                label: 'Second name',
+                                placeholder: 'Type your second name',
+                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            emailInput: new Input({
+                                name: 'email',
+                                type: 'email',
+                                label: 'Email',
+                                placeholder: 'Type your email',
+                                iconTemplate: 'icons/email-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                    EmailValidator,
+                                ]),
+                            }),
+                            phoneInput: new Input({
+                                name: 'phone',
+                                type: 'tel',
+                                label: 'Phone',
+                                placeholder: 'Type your phone',
+                                iconTemplate: 'icons/phone-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+
+                            editProfileButton: new Button({
+                                text: 'Save',
+                                class: 'settings__form-btn-wrapper',
+                            }),
+                        },
+                        handlers: {
+                            submit: (event: SubmitEvent) =>
+                                this._editProfile(event),
+                        },
                     }),
 
-                    passwordInput: new Input({
-                        name: 'password',
-                        type: 'password',
-                        label: 'New password',
-                        placeholder: 'Type your password',
-                        iconTemplate: 'icons/password-icon.tmpl.njk',
-                    }),
-                    confirmPasswordInput: new Input({
-                        name: 'confirmPassword',
-                        type: 'password',
-                        label: 'Confirm password',
-                        placeholder: 'Type your password again',
-                        iconTemplate: 'icons/password-icon.tmpl.njk',
-                        withPaddingTop: true,
+                    changePasswordForm: new FormComponent({
+                        formGroup: new FormGroup({}, [validatePasswordConfirm]),
+                        components: {
+                            passwordInput: new Input({
+                                name: 'password',
+                                type: 'password',
+                                label: 'New password',
+                                placeholder: 'Type your password',
+                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                    minLengthValidator(8),
+                                ]),
+                            }),
+                            confirmPasswordInput: new Input({
+                                name: 'confirmPassword',
+                                type: 'password',
+                                label: 'Confirm password',
+                                placeholder: 'Type your password again',
+                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                    minLengthValidator(8),
+                                ]),
+                            }),
+
+                            editProfileButton: new Button({
+                                text: 'Save',
+                                class: 'settings__form-btn-wrapper',
+                            }),
+                        },
+                        handlers: {
+                            submit: (event: SubmitEvent) =>
+                                this._changePassword(event),
+                        },
                     }),
                 },
                 handlers: {
                     showBlock: (_, block: string) =>
                         this._showBlock(Number(block)),
-                    editProfile: (event: SubmitEvent) => {
-                        this._editProfile(event);
-                    },
-                    changePassword: (event: SubmitEvent) => {
-                        this._changePassword(event);
-                    },
                 },
             } as SettingsPageProps,
         });
     }
 
+    componentDidMount() {
+        const formGroup = this.props.components.editingProfileForm.props
+            .formGroup as FormGroup;
+
+        formGroup.subscribe((value) => {
+            // console.error(value);
+        });
+
+        // const fc = this.props.components.loginInput.props.formControl as FormControl;
+        // fc
+        //     .subscribe(value => {
+        //         console.error(fc.errors);
+        //     });
+    }
+
     private _editProfile(event: SubmitEvent) {
         event.preventDefault();
 
-        const editForm = event.target as HTMLFormElement;
-        const formValues = FormDataPerserService.getFormValues(editForm);
+        const formGroup = this.editingProfileFormGroup;
 
-        console.log(formValues);
+        if (formGroup.invalid) {
+            formGroup.markAsDirtyAllControls();
+
+            return;
+        }
+
+        console.log(formGroup.value);
     }
 
     private _changePassword(event: SubmitEvent) {
         event.preventDefault();
 
-        const changePasswordForm = event.target as HTMLFormElement;
-        const formValues = FormDataPerserService.getFormValues(
-            changePasswordForm
-        );
+        const formGroup = this.changePasswordFormGroup;
 
-        console.log(formValues);
+        if (formGroup.invalid) {
+            formGroup.markAsDirtyAllControls();
+
+            return;
+        }
     }
 
     private _showBlock(block: SETTINGS_VIEWING_TYPES) {
@@ -176,30 +255,23 @@ export default class SettingsPage extends Block<SettingsPageProps> {
         this._showBlock(SETTINGS_VIEWING_TYPES.SETTINGS_LIST);
     }
 
-    private _close() {
-    }
+    private _close() {}
 
     public render() {
-        const editProfileComponentsIds = [
-            this.props.components.loginInput.getId(),
-            this.props.components.fistNameInput.getId(),
-            this.props.components.fistNameInput.getId(),
-            this.props.components.emailInput.getId(),
-            this.props.components.phoneInput.getId(),
-        ];
+        const {
+            briefInformation,
+            settingsheader,
 
-        const changePasswordComponentsIds = [
-            this.props.components.passwordInput.getId(),
-            this.props.components.confirmPasswordInput.getId(),
-        ];
+            editingProfileForm,
+            changePasswordForm,
+        } = this.props.components;
 
         return templator.getEnvironment().render('pages/settings.tmpl.njk', {
             ...this.props,
-            briefInformationComponentId: this.props.components.briefInformation.getId(),
-            editProfileComponentsIds,
-            editProfileButtonId: this.props.components.editProfileButton.getId(),
-            changePasswordComponentsIds,
-            settingsHeaderId: this.props.components.settingsheader.getId(),
+            briefInformationComponentId: briefInformation.getId(),
+            settingsHeaderId: settingsheader.getId(),
+            editingProfileFormId: editingProfileForm.getId(),
+            changePasswordFormId: changePasswordForm.getId(),
         });
     }
 }

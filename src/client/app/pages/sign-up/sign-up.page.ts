@@ -1,75 +1,128 @@
 import Button from '../../components/button/button.js';
+import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
 import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys.js';
-import FormDataPerserService from '../../services/form-data-parser.service.js';
+import { SubmitEvent } from '../../core/interfaces.js';
 import { localStorageService } from '../../services/localstorage.service.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
-import { ComponentsRenderer } from '../../utils/components-renderer.js';
-import { ISignUpPageProps, SignUpPageSteps } from './interfaces.js';
+import { FormControl } from '../../utils/forms/form-control.js';
+import { FormGroup } from '../../utils/forms/form-group.js';
+import { EmailValidator } from '../../utils/forms/validators/email.validator.js';
+import { minLengthValidator } from '../../utils/forms/validators/min-length.validator.js';
+import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
+import { SignUpPageProps, SignUpPageSteps } from './interfaces.js';
 
-export default class SignUpPage extends Block<ISignUpPageProps> {
+export default class SignUpPage extends Block<SignUpPageProps> {
+    get firstStepFormGroup(): FormGroup {
+        return this.props.components?.fistStepForm?.props?.formGroup;
+    }
+
+    get secondStepFormGroup(): FormGroup {
+        return this.props.components?.secondStepForm?.props?.formGroup;
+    }
+
     constructor() {
         super({
             tagName: 'app-sign-up-page',
             props: {
                 currentStep: SignUpPageSteps.FIRST,
                 components: {
-                    fistNameInput: new Input({
-                        name: 'firstName',
-                        label: 'First name',
-                        placeholder: 'Type your first name',
-                        iconTemplate: 'icons/login-icon.tmpl.njk',
+                    fistStepForm: new FormComponent({
+                        formGroup: new FormGroup(),
+                        components: {
+                            fistNameInput: new Input({
+                                name: 'firstName',
+                                label: 'First name',
+                                placeholder: 'Type your first name',
+                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            secondNameInput: new Input({
+                                name: 'secondName',
+                                label: 'Second name',
+                                placeholder: 'Type your second name',
+                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            emailInput: new Input({
+                                name: 'email',
+                                type: 'email',
+                                label: 'Email',
+                                placeholder: 'Type your email',
+                                iconTemplate: 'icons/email-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                    EmailValidator,
+                                ]),
+                            }),
+                            phoneInput: new Input({
+                                name: 'phone',
+                                type: 'tel',
+                                label: 'Phone',
+                                placeholder: 'Type your phone',
+                                iconTemplate: 'icons/phone-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            nextButton: new Button({
+                                text: 'Next step',
+                                class: 'auth-b__btn auth-b__btn_mt_42',
+                            }),
+                        },
+                        handlers: {
+                            submit: (event: SubmitEvent) => this._signUp(event),
+                        },
                     }),
-                    secondNameInput: new Input({
-                        name: 'secondName',
-                        label: 'Second name',
-                        placeholder: 'Type your second name',
-                        iconTemplate: 'icons/login-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    emailInput: new Input({
-                        name: 'email',
-                        type: 'email',
-                        label: 'Email',
-                        placeholder: 'Type your email',
-                        iconTemplate: 'icons/email-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    phoneInput: new Input({
-                        name: 'phone',
-                        type: 'tel',
-                        label: 'Phone',
-                        placeholder: 'Type your phone',
-                        iconTemplate: 'icons/phone-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    nextButton: new Button({
-                        text: 'Next step',
-                    }),
-                    loginInput: new Input({
-                        name: 'login',
-                        label: 'Username',
-                        placeholder: 'Type your username',
-                        iconTemplate: 'icons/circle-login-icon.tmpl.njk',
-                    }),
-                    passwordInput: new Input({
-                        name: 'password',
-                        type: 'password',
-                        label: 'Password',
-                        placeholder: 'Type your password',
-                        iconTemplate: 'icons/password-icon.tmpl.njk',
-                        withPaddingTop: true,
-                    }),
-                    submitButton: new Button({
-                        text: 'Sign up',
+
+                    secondStepForm: new FormComponent({
+                        formGroup: new FormGroup(),
+                        components: {
+                            loginInput: new Input({
+                                name: 'login',
+                                label: 'Username',
+                                placeholder: 'Type your username',
+                                iconTemplate:
+                                    'icons/circle-login-icon.tmpl.njk',
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                ]),
+                            }),
+                            passwordInput: new Input({
+                                name: 'password',
+                                type: 'password',
+                                label: 'Password',
+                                placeholder: 'Type your password',
+                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                withPaddingTop: true,
+                                formControl: new FormControl('', [
+                                    RequiredValidator,
+                                    minLengthValidator(8),
+                                ]),
+                            }),
+                            submitButton: new Button({
+                                text: 'Sign up',
+                                class: 'auth-b__btn auth-b__btn_mt_42',
+                            }),
+                        },
+                        handlers: {
+                            submit: (event: SubmitEvent) => this._signUp(event),
+                        },
                     }),
                 },
             },
         });
     }
 
-    public signUp(event: Event) {
+    private _signUp(event: Event) {
         event.preventDefault();
 
         if (this.props.currentStep === SignUpPageSteps.FIRST) {
@@ -88,15 +141,15 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
     }
 
     private _signUpFirstStep() {
-        const signUpStepOneForm = document.getElementById(
-            'signUpStepOneForm'
-        ) as HTMLFormElement;
+        const formGroup = this.firstStepFormGroup;
 
-        const formValues = FormDataPerserService.getFormValues(
-            signUpStepOneForm
-        );
+        if (formGroup.invalid) {
+            formGroup.markAsDirtyAllControls();
 
-        localStorageService.set(SIGN_UP_STEP_ONE, formValues);
+            return;
+        }
+
+        localStorageService.set(SIGN_UP_STEP_ONE, formGroup.value);
 
         this._setCurrentStep(SignUpPageSteps.SECOND);
     }
@@ -112,29 +165,23 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
             return;
         }
 
-        const signUpStepTwoForm = document.getElementById(
-            'signUpStepTwoForm'
-        ) as HTMLFormElement;
-        const formValues = FormDataPerserService.getFormValues(
-            signUpStepTwoForm
-        );
+        const firstStepFormGroup = this.firstStepFormGroup;
+        const secondStepFormGroup = this.secondStepFormGroup;
+
+        if (secondStepFormGroup.invalid) {
+            secondStepFormGroup.markAsDirtyAllControls();
+
+            return;
+        }
 
         console.log({
-            ...dataFromFistStep,
-            ...formValues,
+            ...firstStepFormGroup.value,
+            ...secondStepFormGroup.value,
         });
 
         localStorageService.removeItem(SIGN_UP_STEP_ONE);
 
         window.location.href = `${window.location.origin}/static/messanger.html`;
-    }
-
-    public componentDidMount() {
-        this.setProps({
-            handlers: {
-                signUp: this.signUp.bind(this),
-            },
-        });
     }
 
     public render() {
@@ -146,44 +193,24 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
     }
 
     private _renderFirstStep() {
-        const {
-            fistNameInput,
-            secondNameInput,
-            emailInput,
-            phoneInput,
-            nextButton,
-        } = this.props.components;
+        const { fistStepForm } = this.props.components;
 
         return templator
             .getEnvironment()
             .render('pages/sign-up-step-one.tmpl.njk', {
                 ...this.props,
-                ...ComponentsRenderer.render({
-                    fistNameInput,
-                    secondNameInput,
-                    emailInput,
-                    phoneInput,
-                    nextButton,
-                }),
+                fistStepFormId: fistStepForm.getId(),
             });
     }
 
     private _renderSecondStep() {
-        const {
-            loginInput,
-            passwordInput,
-            submitButton,
-        } = this.props.components;
+        const { secondStepForm } = this.props.components;
 
         return templator
             .getEnvironment()
             .render('pages/sign-up-step-two.tmpl.njk', {
                 ...this.props,
-                ...ComponentsRenderer.render({
-                    loginInput,
-                    passwordInput,
-                    submitButton,
-                }),
+                secondStepFormId: secondStepForm.getId(),
             });
     }
 }

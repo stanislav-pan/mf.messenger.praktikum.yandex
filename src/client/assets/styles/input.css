@@ -38,14 +38,41 @@
     border: none;
 }
 
-.input-b__input:focus~.input-b__indicator,
-.input-b__input:valid~.input-b__indicator {
+.input-b__input:focus:not(.dirty)~.input-b__indicator,
+.input-b__input.valid:focus~.input-b__indicator,
+.input-b__input.valid.dirty~.input-b__indicator
+{
     width: 100%;
 }
 
-.input-b__input:focus+.input-b__icon svg path,
-.input-b__input:valid+.input-b__icon svg path {
+.input-b__input:focus:not(.dirty)+.input-b__icon svg path,
+.input-b__input.valid:focus+.input-b__icon svg path,
+.input-b__input.valid.dirty+.input-b__icon svg path {
     fill: var(--color-primary);
+}
+
+.input-b__input.dirty.invalid+.input-b__icon svg path,
+.input-b__input.touched.invalid+.input-b__icon svg path {
+    fill: red !important;
+}
+
+.input-b__input.dirty.invalid~.input-b__indicator,
+.input-b__input.touched.invalid~.input-b__indicator {
+    background-color: red !important;
+    width           : 100%;
+}
+
+.input-b__input.dirty.invalid~.input-b__error,
+.input-b__input.touched.invalid~.input-b__error {
+    display: inline;
+}
+
+.input-b__error {
+    position: absolute;
+    bottom  : -20px;
+
+    display: none;
+    color  : red;
 }
 
 .input-b__input::placeholder {

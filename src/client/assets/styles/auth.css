@@ -47,6 +47,8 @@
 }
 
 .auth-b__btn {
+    display: block !important;
+
     align-self: center;
 
     margin-top: 31px;

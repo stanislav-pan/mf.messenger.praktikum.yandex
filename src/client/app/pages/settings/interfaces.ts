@@ -1,5 +1,3 @@
-import { Button } from '../../components/button';
-import { Input } from '../../components/input';
 import { SETTINGS_VIEWING_TYPES } from '../../const/settings';
 import { ICommonPropFields } from '../../utils/block';
 

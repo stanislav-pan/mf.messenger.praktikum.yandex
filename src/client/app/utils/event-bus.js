@@ -46,13 +46,3 @@ export class EventBus {
         }
     }
 }
-
-// const eventBus = new EventBus();
-
-// const handlerEvent1 = (arg1, arg2) => {
-//     console.log('first', arg1, arg2);
-// };
-
-// eventBus.on('common:event-1', handlerEvent1);
-// eventBus.emit('common:event-1', 42, 10);
-// eventBus.off('common:event-1', handlerEvent1);

@@ -5,24 +5,18 @@
     <div class="auth-b__gradient">
         <div class="auth-b__container container">
             <div class="auth-b__form-container container container_center">
-                <form id="signUpStepOneForm" class="auth-b__form" onSubmit="signUp">
-                    <h1 class="auth-b__h1 h1">Sign Up</h1>
 
-                    {{fistNameInput}}
-                    {{secondNameInput}}
-                    {{emailInput}}
-                    {{phoneInput}}
+                <h1 class="auth-b__h1 h1">Sign Up</h1>
 
-                    <div class="auth-b__btn auth-b__btn_mt_42">
-                        {{ nextButton }}
-                    </div>
+                <div class="auth-b__form">
+                    <ng-container data-componentsids="{{fistStepFormId}}"></ng-container>
+                </div>
 
-                    <div class="auth-b__sign-up-link">
-                        <span>Or
-                        </span>
-                        <a class="link" href="/static/login.html">Login</a>
-                    </div>
-                </form>
+                <div class="auth-b__sign-up-link">
+                    <span>Or
+                    </span>
+                    <a class="link" href="/static/login.html">Login</a>
+                </div>
             </div>
         </div>
     </div>

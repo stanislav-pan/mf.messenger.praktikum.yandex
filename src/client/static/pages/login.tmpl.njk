@@ -5,25 +5,20 @@
     <div class="auth-b__gradient">
         <div class="auth-b__container container">
             <div class="auth-b__form-container container container_center">
-                <form class="auth-b__form" onsubmit="login">
-                    <h1 class="auth-b__h1 h1">Login</h1>
+                <h1 class="auth-b__h1 h1">Login</h1>
 
-                    {{loginInput}}
-                    {{passwordInput}}
+                <div class="auth-b__form">
+                    <ng-container data-componentsids="{{loginFormId}}"></ng-container>
 
-                    <div class="auth-b__forgot">
+                    {# <div class="auth-b__forgot">
                         <a class="link" href="https://google.com">Forgot password?</a>
-                    </div>
+                    </div> #}
+                </div>
 
-                    <div class="auth-b__btn">
-                        {{submitButton}}
-                    </div>
-
-                    <div class="auth-b__sign-up-link">
-                        <span>Or</span>
-                        <a class="link" href="/static/sign-up.html">Sign Up</a>
-                    </div>
-                </form>
+                <div class="auth-b__sign-up-link">
+                    <span>Or</span>
+                    <a class="link" href="/static/sign-up.html">Sign Up</a>
+                </div>
             </div>
         </div>
     </div>

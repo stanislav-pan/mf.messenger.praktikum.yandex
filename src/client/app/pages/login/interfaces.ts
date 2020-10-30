@@ -1,11 +1,12 @@
-import { Button } from '../../components/button';
-import { Input } from '../../components/input';
+import FormComponent from '../../components/form/form';
 import { ICommonPropFields } from '../../utils/block';
 
-export interface ILoginPageProps extends ICommonPropFields {
+export interface ILoginPageExternalProps extends ICommonPropFields {}
+
+export type LoginPageProps = ILoginPageExternalProps & ILoginPageInnerProps;
+
+export interface ILoginPageInnerProps {
     components: {
-        loginInput: Input;
-        passwordInput: Input;
-        submitButton: Button;
+        loginForm: FormComponent;
     };
 }

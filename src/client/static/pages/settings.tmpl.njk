@@ -6,6 +6,7 @@
 
 <div class="modal">
     <div class="modal__container">
+        {{name}}
         <div class="settings" id="editInformationBlock">
             {% set isSettingsListBlock = currentBlock === settingsViewingTypes.SETTINGS_LIST %}
             {% set isEditInformationBlock = currentBlock === settingsViewingTypes.EDIT_INFORMATION_BLOCK %}
@@ -26,25 +27,17 @@
             {% if isEditInformationBlock %}
                 <div class="settings__divider"></div>
 
-                <form id="editForm" class="settings__form" onsubmit="editProfile">
-                    <ng-container data-componentsids="{{editProfileComponentsIds}}"></ng-container>
-
-                    <div class="settings__form-btn">
-                        <ng-container data-componentsids="{{editProfileButtonId}}"></ng-container>
-                    </div>
-                </form>
+                <div class="settings__form">
+                    <ng-container data-componentsids="{{editingProfileFormId}}"></ng-container>
+                </div>
             {% endif %}
 
             {% if isChangePasswordBlock %}
                 <div class="settings__divider"></div>
 
-                <form id="changePasswordForm" class="settings__form" onsubmit="changePassword">
-                    <ng-container data-componentsids="{{changePasswordComponentsIds}}"></ng-container>
-
-                    <div class="settings__form-btn">
-                        {{ btn(text = 'Save') }}
-                    </div>
-                </form>
+                <div class="settings__form">
+                    <ng-container data-componentsids="{{changePasswordFormId}}"></ng-container>
+                </div>
             {% endif %}
         </div>
 
