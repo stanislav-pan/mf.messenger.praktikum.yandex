@@ -2,7 +2,7 @@ import { SubmitEvent } from '../../core/interfaces.js';
 import FormDataPerserService from '../../services/form-data-parser.service.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
-import { Avatar } from '../avatar/index.js';
+import Avatar from '../avatar/avatar.js';
 import {
     BriefInformationProps,
     IBriefInformationExternalProps,
@@ -12,7 +12,11 @@ export default class BriefInformationComponent extends Block<
     BriefInformationProps
 > {
     constructor(props?: IBriefInformationExternalProps) {
-        const { avatarSrc } = props;
+        const {
+            avatarSrc,
+            canChangeName = false,
+            canChangeAvatar = false,
+        } = props as IBriefInformationExternalProps;
 
         super({
             tagName: 'app-brief-information',
@@ -24,6 +28,7 @@ export default class BriefInformationComponent extends Block<
                 components: {
                     avatar: new Avatar({
                         avatarSrc,
+                        canChangeAvatar,
                         handlers: {
                             upload: (base64: string) => {
                                 this._uploadAvatar(base64);
@@ -32,11 +37,9 @@ export default class BriefInformationComponent extends Block<
                     }),
                 },
                 handlers: {
-                    ...(props.canChangeName && {
+                    ...(canChangeName && {
                         changeName: (event: SubmitEvent) =>
-                            this._changeName(
-                                event.currentTarget as HTMLFormElement
-                            ),
+                            this._changeName(event),
                     }),
                     showNameInput: () => this._showNameInput(),
                 },
@@ -44,7 +47,37 @@ export default class BriefInformationComponent extends Block<
         });
     }
 
-    private _changeName(form: HTMLFormElement) {
+    public componentDidUpdate(
+        old: BriefInformationProps,
+        current: BriefInformationProps
+    ) {
+        if (old.canChangeName !== current.canChangeName) {
+            this.setProps({
+                handlers: {
+                    ...current.handlers,
+                    ...(current.canChangeName && {
+                        changeName: (event: SubmitEvent) =>
+                            this._changeName(event),
+                    }),
+                    showNameInput: () => this._showNameInput(),
+                },
+            });
+        }
+
+        if (old.canChangeAvatar !== current.canChangeAvatar) {
+            this.props.components.avatar.setProps({
+                canChangeAvatar: current.canChangeAvatar,
+            });
+        }
+
+        return true;
+    }
+
+    private _changeName(event: SubmitEvent) {
+        event.preventDefault();
+
+        const form = event.currentTarget as HTMLFormElement;
+
         const { displayNameInput } = FormDataPerserService.getFormValues<{
             displayNameInput: string;
         }>(form);

@@ -6,23 +6,35 @@ class LocalStorageService {
     }
 
     public set(key: string, value: any) {
-        if (!this.window.localStorage) {
+        const storage = this.getLocalStorage();
+
+        if (!storage) {
             return undefined;
         }
 
-        this.window.localStorage.setItem(key, JSON.stringify(value));
+        storage.setItem(key, JSON.stringify(value));
     }
 
     public get(key: string) {
-        if (!this.window.localStorage) {
+        const storage = this.getLocalStorage();
+
+        if (!storage) {
             return undefined;
         }
 
-        return JSON.parse(this.window.localStorage.getItem(key));
+        return JSON.parse(storage.getItem(key) as string);
     }
 
     public removeItem(key: string) {
-        this.window.localStorage.removeItem(key);
+        const storage = this.getLocalStorage();
+
+        if (storage) {
+            storage.removeItem(key);
+        }
+    }
+
+    private getLocalStorage(): Storage | null {
+        return this.window?.localStorage;
     }
 }
 

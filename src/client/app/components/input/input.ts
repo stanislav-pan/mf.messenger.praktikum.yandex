@@ -3,12 +3,15 @@ import { Block } from '../../utils/block.js';
 import { FormControl } from '../../utils/forms/form-control.js';
 import { FormGroup } from '../../utils/forms/form-group.js';
 import InputErrors from '../input-errors/input-errors.js';
-import { IInputProps } from './interfaces.js';
+import {
+    IInputComponentExternalProps,
+    InputComponentProps,
+} from './interfaces.js';
 
 export type AbstractalControl = FormControl | FormGroup;
 
-export default class Input extends Block<IInputProps> {
-    constructor(props: IInputProps) {
+export default class Input extends Block<InputComponentProps> {
+    constructor(props: IInputComponentExternalProps) {
         super({
             tagName: 'app-input',
             props: {
@@ -29,7 +32,7 @@ export default class Input extends Block<IInputProps> {
             return;
         }
 
-        fc.subscribe((value) => {
+        fc.subscribe(() => {
             this.props.components.errors.setProps({
                 errors: Object.keys(fc.errors),
             });

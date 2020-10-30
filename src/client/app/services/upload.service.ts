@@ -13,11 +13,19 @@ export default class UploadService {
 
         fileInput.click();
 
-        return new Promise<FileList>((resolve) => {
+        return new Promise<FileList>((resolve, reject) => {
             fileInput.addEventListener('change', (event) => {
-                resolve((event.composedPath()[0] as HTMLInputElement).files);
+                const inputEl = event.composedPath()[0] as HTMLInputElement;
+
+                if (!inputEl) {
+                    reject();
+                }
+
+                const res = inputEl.files as FileList;
+
+                resolve(res);
             });
-        }).finally(() => (fileInput = null));
+        });
     }
 
     static getBase64(file: File): Promise<string> {
@@ -26,8 +34,8 @@ export default class UploadService {
 
         return new Promise<string>((resolve) => {
             fileReader.addEventListener('load', (event) => {
-                resolve((event.currentTarget as FileReader).result.toString());
+                resolve((event.currentTarget as FileReader).result?.toString());
             });
-        }).finally(() => (fileReader = null));
+        });
     }
 }

@@ -1,35 +1,31 @@
-{% macro briefInformation(avatarComponentId, canChangeName, displayedNameInput, name = '', lastVisit = '') %}
-    <div class="brief-information">
-        <div class="brief-information__avatar">
-            <ng-container data-componentsIds="{{avatarComponentId}}"></ng-container>
-        </div>
-        <div class="brief-information__text">
-
-            {% if displayedNameInput %}
-                <form class="brief-information__name-wrapper" onsubmit="changeName">
-                    <input name="displayNameInput" type="text" value="{{name}}" class="brief-information__name-input" required="required"/>
-
-                    <button class="btn-icon brief-information__apply-btn" submit="submit">
-                        {% include 'icons/done.tmpl.njk' %}
-                    </button>
-                </form>
-            {% else %}
-                <div class="brief-information__name-wrapper">
-                    <p class="brief-information__name">{{name}}</p>
-
-                    {% if canChangeName %}
-                        <button class="btn-icon brief-information__edit-btn" onclick="showNameInput">
-                            {% include 'icons/pencil.tmpl.njk' %}
-                        </button>
-                    {% endif %}
-                </div>
-            {% endif %}
-
-            {% if lastVisit %}
-                <p class="brief-information__visit-info">{{lastVisit}}</p>
-            {% endif %}
-        </div>
+<div class="brief-information">
+    <div class="brief-information__avatar">
+        <ng-container data-componentsids="{{avatarComponentId}}"></ng-container>
     </div>
-{% endmacro %}
+    <div class="brief-information__text">
 
-{{briefInformation(avatarComponentId, canChangeName, displayedNameInput, name, lastVisit)}}
+        {% if displayedNameInput %}
+            <form class="brief-information__name-wrapper" onsubmit="changeName">
+                <input name="displayNameInput" type="text" value="{{name}}" class="brief-information__name-input" required="required"/>
+
+                <button class="btn-icon brief-information__apply-btn" submit="submit">
+                    {% include 'icons/done.tmpl.njk' %}
+                </button>
+            </form>
+        {% else %}
+            <div class="brief-information__name-wrapper">
+                <p class="brief-information__name">{{name}}</p>
+
+                {% if canChangeName %}
+                    <button class="btn-icon brief-information__edit-btn" onclick="showNameInput">
+                        {% include 'icons/pencil.tmpl.njk' %}
+                    </button>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if lastVisit %}
+            <p class="brief-information__visit-info">{{lastVisit}}</p>
+        {% endif %}
+    </div>
+</div>

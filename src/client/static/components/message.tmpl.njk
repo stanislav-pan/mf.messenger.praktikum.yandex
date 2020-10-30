@@ -1,0 +1,22 @@
+{% if message.type === 'dateDivider' %}
+    <li class="message-list__date">{{message.date}}</li>
+{% else %}
+    <li class="message-list__item {{class}}">
+        {% if message.type === 'image' %}
+            <img src="/assets/images/message-photo.jpg" alt="" class="message-list__image">
+        {% endif %}
+
+        {% if message.text %}
+            <p class="message-list__item-text">
+                {{message.text}}
+            </p>
+        {% endif %}
+
+        {% if message.time %}
+            <p class="message-list__item-time">
+                <span>{{message.time}}</span>
+                {% include 'icons/message-has-been-read.tmpl.njk' %}
+            </p>
+        {% endif %}
+    </li>
+{% endif %}

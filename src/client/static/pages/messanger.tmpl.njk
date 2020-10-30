@@ -1,55 +1,45 @@
-{% from "components/search.tmpl.njk" import search %}
-{% from "components/chats.tmpl.njk" import chats %}
-{% from "components/brief-information.tmpl.njk" import briefInformation %}
-{% from "components/messages.tmpl.njk" import messages %}
-
 <div class="messanger">
     <aside class="messanger__left">
         <header class="messanger__left-header">
-            <button class="btn-icon messanger__profile-btn" onclick="goToSettings()">
+            <button class="btn-icon messanger__profile-btn" onclick="goToSettings">
                 <span class="messanger__profile-btn-span">Profile</span>
                 {% include 'icons/keyboard-arrow-right.tmpl.njk' %}
             </button>
 
             <div class="messanger__search">
-                {{search()}}
-            </label>
-        </div>
-    </header>
-
-    {{chats(chatsList)}}
-</aside>
-<main class="messanger__chat">
-    <header class="messanger__chat-header">
-        <div class="messanger__chat-header-brief-information">
-            {{briefInformation(
-                name = 'Stanislav',
-                avatarSrc = '/assets/images/my-avatar.png',
-                lastVisit = 'was last seen today at 21:37'
-            )}}
-        </div>
-
-        <button class="messanger__chat-action-btn btn-icon">
-            {% include 'icons/more-settings.tmpl.njk' %}
-        </button>
-    </header>
-
-    <div class="messager__chat-main">
-        {{messages(messagesList)}}
-    </div>
-
-    <footer class="messanger__chat-footer">
-        <button class="btn-icon messanger__chat-footer-attach-btn">
-            {% include 'icons/attach.tmpl.njk' %}
-        </button>
-
-        <input type="text" class="messanger__chat-input" placeholder="Message">
-
-        <button class="btn-icon messanger__chat-footer-send-btn">
-            <div class="badge">
-                {% include 'icons/send.tmpl.njk' %}
+                <ng-container data-componentsids="{{searchComponentId}}"></ng-container>
             </div>
-        </button>
-    </footer>
-</main>
+        </header>
+
+        <ng-container data-componentsids="{{chatsCopmonentId}}"></ng-container>
+    </aside>
+    <main class="messanger__chat">
+        <header class="messanger__chat-header">
+            <div class="messanger__chat-header-brief-information">
+                <ng-container data-componentsids="{{briefInformationComponentId}}"></ng-container>
+            </div>
+
+            <button class="messanger__chat-action-btn btn-icon">
+                {% include 'icons/more-settings.tmpl.njk' %}
+            </button>
+        </header>
+
+        <div class="messager__chat-main">
+            <ng-container data-componentsids="{{messagesComponentId}}"></ng-container>
+        </div>
+
+        <footer class="messanger__chat-footer">
+            <button class="btn-icon messanger__chat-footer-attach-btn">
+                {% include 'icons/attach.tmpl.njk' %}
+            </button>
+
+            <input type="text" class="messanger__chat-input" placeholder="Message">
+
+            <button class="btn-icon messanger__chat-footer-send-btn">
+                <div class="badge">
+                    {% include 'icons/send.tmpl.njk' %}
+                </div>
+            </button>
+        </footer>
+    </main>
 </div>

@@ -1,22 +1,33 @@
 import { templator } from '../../services/templator.service.js';
 import UploadService from '../../services/upload.service.js';
 import { Block } from '../../utils/block.js';
-import { IAvatarProps } from './interfaces.js';
+import {
+    AvatarComponentProps,
+    IAvatarComponentExternalProps,
+} from './interfaces.js';
 
-export default class Avatar extends Block<IAvatarProps> {
-    constructor(props: IAvatarProps) {
-        const upload = props.handlers?.upload;
+export default class Avatar extends Block<AvatarComponentProps> {
+    constructor(props: IAvatarComponentExternalProps) {
+        let upload: (base64: string) => void;
+
+        if (props.handlers) {
+            upload = props.handlers.upload;
+        }
 
         super({
             tagName: 'app-avatar',
             props: {
                 ...props,
-                ...(typeof upload === 'function' && {
-                    handlers: {
-                        ...(props.handlers || {}),
-                        upload: () => this._uploadAvatar(upload),
+                handlers: {
+                    ...(props.handlers || {}),
+                    upload: () => {
+                        if (!this.props.canChangeAvatar) {
+                            return;
+                        }
+
+                        return this._uploadAvatar(upload);
                     },
-                }),
+                },
             },
         });
     }
@@ -32,7 +43,6 @@ export default class Avatar extends Block<IAvatarProps> {
             .getEnvironment()
             .render('../static/components/avatar.tmpl.njk', {
                 ...this.props,
-                canEdit: typeof this.props.handlers?.upload === 'function',
             });
     }
 }

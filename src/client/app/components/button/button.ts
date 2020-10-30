@@ -1,12 +1,17 @@
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
-import { IButtonProps } from './interfaces.js';
+import {
+    ButtonComponentProps,
+    IButtonComponentExternalProps,
+} from './interfaces.js';
 
-export default class Button extends Block<IButtonProps> {
-    constructor(props: IButtonProps) {
+export default class Button extends Block<ButtonComponentProps> {
+    constructor(props: IButtonComponentExternalProps) {
         super({
             tagName: 'app-button',
-            props,
+            props: {
+                ...props,
+            } as ButtonComponentProps,
         });
     }
 

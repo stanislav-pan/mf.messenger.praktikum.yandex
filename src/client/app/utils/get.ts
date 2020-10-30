@@ -1,4 +1,8 @@
-export function get(obj, path = '', defaulValue = undefined) {
+export function get<T, K>(
+    obj: Object,
+    path: string = '',
+    defaulValue: K
+): T | K {
     const keys = path.split('.');
     let res = obj;
 
@@ -12,5 +16,5 @@ export function get(obj, path = '', defaulValue = undefined) {
         res = value;
     }
 
-    return res;
+    return res as T;
 }

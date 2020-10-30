@@ -1,8 +1,9 @@
 import BriefInformationComponent from '../../components/brief-information/brief-information.js';
-import { Button } from '../../components/button/index.js';
+import Button from '../../components/button/button.js';
 import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
 import SettingsHeader from '../../components/settings-header/settings-header.js';
+import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
 import { SETTINGS_VIEWING_TYPES } from '../../const/settings.js';
 import { SubmitEvent } from '../../core/interfaces.js';
 import { templator } from '../../services/templator.service.js';
@@ -66,7 +67,8 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                         lastVisit: 'was last seen today at 21:37',
 
                         avatarSrc: '/assets/images/my-avatar.png',
-                        canChangeName: true,
+                        canChangeName: false,
+                        canChangeAvatar: false,
                     }),
 
                     editingProfileForm: new FormComponent({
@@ -148,7 +150,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 iconTemplate: 'icons/password-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
-                                    minLengthValidator(8),
+                                    minLengthValidator(MIN_PASSWORD_LENGTH),
                                 ]),
                             }),
                             confirmPasswordInput: new Input({
@@ -160,7 +162,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
-                                    minLengthValidator(8),
+                                    minLengthValidator(MIN_PASSWORD_LENGTH),
                                 ]),
                             }),
 
@@ -181,21 +183,6 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                 },
             } as SettingsPageProps,
         });
-    }
-
-    componentDidMount() {
-        const formGroup = this.props.components.editingProfileForm.props
-            .formGroup as FormGroup;
-
-        formGroup.subscribe((value) => {
-            // console.error(value);
-        });
-
-        // const fc = this.props.components.loginInput.props.formControl as FormControl;
-        // fc
-        //     .subscribe(value => {
-        //         console.error(fc.errors);
-        //     });
     }
 
     private _editProfile(event: SubmitEvent) {
@@ -230,6 +217,8 @@ export default class SettingsPage extends Block<SettingsPageProps> {
         this.props.components.briefInformation.setProps({
             canChangeName:
                 block === SETTINGS_VIEWING_TYPES.EDIT_INFORMATION_BLOCK,
+            canChangeAvatar:
+                block === SETTINGS_VIEWING_TYPES.EDIT_INFORMATION_BLOCK,
         });
 
         let headerText = 'Settings';
@@ -255,7 +244,9 @@ export default class SettingsPage extends Block<SettingsPageProps> {
         this._showBlock(SETTINGS_VIEWING_TYPES.SETTINGS_LIST);
     }
 
-    private _close() {}
+    private _close() {
+        window.location.href = `${window.location.origin}/static/messanger.html`;
+    }
 
     public render() {
         const {

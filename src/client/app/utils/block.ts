@@ -4,10 +4,7 @@ import { FormControl } from './forms/form-control.js';
 export type MapOfBlockLike = { [key: string]: Block<any> };
 
 export interface ICommonPropFields {
-    handlers?: Record<
-        string,
-        (event: any, arg1?: any, arg2?: any, arg3?: any) => void
-    >;
+    handlers?: Record<string, Function>;
     components?: MapOfBlockLike;
     class?: string;
     formControl?: FormControl;
@@ -29,8 +26,8 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
 
     static componentsCount = 0;
 
-    private _element: HTMLElement = null;
-    private _meta: IBlockMeta<T> = null;
+    private _element: HTMLElement;
+    private _meta: IBlockMeta<T>;
 
     private eventBus: () => EventBus;
     public props: T;
@@ -82,7 +79,7 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
-    public componentDidMount(oldProps?) {}
+    public componentDidMount() {}
 
     private _componentDidUpdate(oldProps: T, newProps: T) {
         this.componentDidUpdate(oldProps, newProps);
@@ -143,7 +140,7 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
             }
 
             if (this.props.handlers) {
-                this._attachListeners(); // добавили
+                this._attachListeners();
             }
 
             if (
@@ -193,17 +190,18 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
                     continue;
                 }
 
-                current.parentNode.insertBefore(
-                    component.getContent(),
-                    current.nextSibling
-                );
+                if (current.parentNode) {
+                    current.parentNode.insertBefore(
+                        component.getContent(),
+                        current.nextSibling
+                    );
+                }
             }
 
             current.remove();
         }
     }
 
-    // Переопределяется пользователем. Необходимо вернуть разметку
     public abstract render(): string;
 
     public getContent() {
@@ -214,7 +212,7 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
         // Еще один способ передачи this, но он больше не применяется с приходом ES6+
         const self = this;
 
-        props = new Proxy(props, {
+        return new Proxy(props, {
             get(target: T, p: string): boolean | never {
                 if (p.toString().startsWith('_')) {
                     throw new Error('нет доступа');
@@ -234,28 +232,36 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
                 self._render();
                 return true;
             },
-            deleteProperty(target, p) {
+            deleteProperty() {
                 throw new Error('нет доступа');
             },
         });
-
-        return props;
     }
 
     private _createDocumentElement(tagName: string) {
         const el = document.createElement(tagName);
-        const attr = (this._id = `block-c${Block.componentsCount}`);
-        el.setAttribute(attr, '');
+        const id = (this._id = this._getUniqId());
+
+        el.setAttribute(id, '');
         el.style.display = 'contents';
+
+        if (this.props.class) {
+            this._setClasses(el, this.props.class);
+        }
+
+        return el;
+    }
+
+    private _getUniqId(): string {
+        const id = `block-c${Block.componentsCount}`;
 
         Block.componentsCount += 1;
 
-        if (this.props.class) {
-            el.classList.add(...(this.props.class as string).split(' '));
-        }
+        return id;
+    }
 
-        // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-        return el;
+    private _setClasses(el: HTMLElement, classes: string) {
+        el.classList.add(...classes.split(' '));
     }
 
     public show() {
@@ -317,18 +323,20 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
                     'g'
                 );
 
-                const [funcName, ...args] = attr.value.match(regExp);
+                const [funcName, ...args] = attr.value.match(
+                    regExp
+                ) as string[];
 
                 const handler = this.props.handlers[funcName];
 
                 if (handler) {
                     if (args && args.length) {
                         const dataset = (current as HTMLElement).dataset;
-                        const mappedArgs = [];
+                        const mappedArgs: string[] = [];
 
                         for (const arg of args) {
                             if (arg in dataset) {
-                                mappedArgs.push(dataset[arg]);
+                                mappedArgs.push(dataset[arg] as string);
                                 continue;
                             }
 

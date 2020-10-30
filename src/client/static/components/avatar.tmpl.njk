@@ -2,7 +2,7 @@
     {% if avatarSrc %}
         <img src="{{avatarSrc}}" alt="User avatar" class="avatar__image"/>
     {% endif %}
-    {% if canEdit %}
+    {% if canChangeAvatar %}
         <button class="avatar__change-btn btn-icon" onClick="upload">
             <div class="avatar__icon">
                 {% include 'icons/photo.tmpl.njk' %}

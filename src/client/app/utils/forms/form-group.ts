@@ -1,5 +1,6 @@
 import { AbstractControl } from './abstractal-control.js';
 import { FormControl } from './form-control';
+import { IListenerFn } from './interfaces.js';
 import {
     Validator,
     ValidationErrors,
@@ -8,7 +9,7 @@ import {
 
 export class FormGroup extends AbstractControl {
     public controls: { [key: string]: FormControl };
-    private _listeners = [];
+    private _listeners: Array<IListenerFn> = [];
     private _validators: Validator[] = [];
 
     public get value() {
@@ -20,8 +21,6 @@ export class FormGroup extends AbstractControl {
     }
 
     public set value(value: any) {
-        // this._checkError();
-
         if (this._listeners?.length) {
             for (const listener of this._listeners) {
                 listener(value);
@@ -60,7 +59,7 @@ export class FormGroup extends AbstractControl {
         }));
 
         Object.values(this.controls).forEach((control) => {
-            control.subscribe((value) => {
+            control.subscribe(() => {
                 this.value = this.value;
 
                 this._checkError();
@@ -71,7 +70,7 @@ export class FormGroup extends AbstractControl {
     public addControl(key: string, control: FormControl) {
         this.controls[key] = control;
 
-        control.subscribe((value) => {
+        control.subscribe(() => {
             this.value = this.value;
 
             this._checkError();
@@ -89,6 +88,8 @@ export class FormGroup extends AbstractControl {
     }
 
     private _checkError() {
+        this._setValid(true);
+
         if (this._validators?.length) {
             for (const validator of this._validators) {
                 const res = validator.validatorFn(this);
@@ -107,8 +108,6 @@ export class FormGroup extends AbstractControl {
 
             return;
         }
-
-        this._setValid(true);
     }
 
     public markAsDirtyAllControls() {

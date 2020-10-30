@@ -1,7 +1,8 @@
 import { ICommonPropFields } from '../../utils/block';
 import { FormControl } from '../../utils/forms/form-control';
+import InputErrors from '../input-errors/input-errors';
 
-export interface IInputProps extends ICommonPropFields {
+export interface IInputComponentExternalProps extends ICommonPropFields {
     id?: string;
     name?: string;
     /**
@@ -16,3 +17,12 @@ export interface IInputProps extends ICommonPropFields {
     formControl?: FormControl;
     formControlName?: string;
 }
+
+export interface IInputComponentInnerProps {
+    components: {
+        errors: InputErrors;
+    };
+}
+
+export type InputComponentProps = IInputComponentExternalProps &
+    IInputComponentInnerProps;

@@ -1,20 +1,23 @@
 import { SubmitEvent } from '../../core/interfaces.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
-import { IFormComponentProps } from './interfaces.js';
+import {
+    FormComponentProps,
+    IFormComponentExternalProps,
+} from './interfaces.js';
 
-export default class FormComponent extends Block<IFormComponentProps> {
-    constructor(props: IFormComponentProps) {
+export default class FormComponent extends Block<FormComponentProps> {
+    constructor(props: IFormComponentExternalProps) {
         const submit = props.handlers?.submit;
-        
+
         super({
             tagName: 'app-form',
             props: {
                 ...props,
                 handlers: {
-                    submit: (event: SubmitEvent) => submit(event)
-                }
-            },
+                    submit: (event: SubmitEvent) => submit(event),
+                },
+            } as FormComponentProps,
         });
     }
 

@@ -1,0 +1,15 @@
+<li class="chat-list__item" onclick="click">
+    <div class="chat-list__item-avatar">
+        <ng-container data-componentsids="{{avatarComponentId}}"></ng-container>
+    </div>
+    <div class="chat-list__item-text-wrapper">
+        <p class="chat-list__item-name">{{chat.name}}</p>
+        <p class="chat-list__item-text">{{chat.text}}</p>
+    </div>
+    <div class="chat-list__item-extra-info">
+        <span class="chat-list__item-date">{{chat.date}}</span>
+        {% if chat.numberOfUnreadMessages %}
+            <div class="badge">{{chat.numberOfUnreadMessages}}</div>
+        {% endif %}
+    </div>
+</li>

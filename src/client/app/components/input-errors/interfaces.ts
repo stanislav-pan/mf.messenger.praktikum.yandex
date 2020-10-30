@@ -1,5 +1,10 @@
 import { ICommonPropFields } from '../../utils/block';
 
-export interface IInputErrorsProps extends ICommonPropFields {
-    errors: string[]; 
+export interface IInputErrorsComponentExternalProps extends ICommonPropFields {
+    errors: string[];
 }
+
+export interface IInputErrorsComponentInnerProps {}
+
+export type InputErrorsComponentProps = IInputErrorsComponentExternalProps &
+    IInputErrorsComponentInnerProps;

@@ -1,5 +1,6 @@
 import { AbstractControl } from './abstractal-control.js';
 import { FormGroup } from './form-group';
+import { IListenerFn } from './interfaces.js';
 import {
     Validator,
     ValidationErrors,
@@ -9,7 +10,7 @@ import {
 export class FormControl extends AbstractControl {
     private _el: HTMLInputElement;
 
-    private _listeners = [];
+    private _listeners: Array<IListenerFn> = [];
     private _validators: Validator[] = [];
 
     private _value: any;

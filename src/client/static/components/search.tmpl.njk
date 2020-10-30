@@ -1,11 +1,11 @@
-{% macro search() %}
-    <div class="search messanger__search">
+<div class="search messanger__search">
+    <form onsubmit="submit">
         <label class="search__label">
-            <input type="text" class="search__input" placeholder=" ">
+            <input name="search" type="text" class="search__input" placeholder=" ">
             <div class="search__placeholder">
                 {% include 'icons/search.tmpl.njk' %}
                 <span class="search__span">Search</span>
             </div>
         </label>
-    </div>
-{% endmacro %}
+    </form>
+</div>

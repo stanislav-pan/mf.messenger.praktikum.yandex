@@ -1,13 +1,15 @@
 export class EventBus {
+    public listeners: { [key: string]: Array<Function> };
+
     constructor() {
-        this.listeners = this.getListenersProxy();
+        this.listeners = this._getListenersProxy();
     }
 
-    getListenersProxy() {
+    private _getListenersProxy() {
         return new Proxy(
             {},
             {
-                get: (target, p) => {
+                get: (target: {}, p: string) => {
                     if (p in target) {
                         return target[p];
                     }
@@ -20,11 +22,11 @@ export class EventBus {
         );
     }
 
-    on(event, callback) {
+    public on(event: string, callback) {
         this.listeners[event].push(callback);
     }
 
-    off(event, callback) {
+    public off(event: string, callback) {
         this.isEventHandling(event);
 
         this.listeners[event] = this.listeners[event].filter(
@@ -32,7 +34,7 @@ export class EventBus {
         );
     }
 
-    emit(event, ...args) {
+    public emit(event: string, ...args) {
         this.isEventHandling(event);
 
         for (let listener of this.listeners[event]) {

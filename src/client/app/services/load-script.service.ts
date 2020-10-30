@@ -9,7 +9,7 @@ export class LoadScriptService {
             script.onload = function () {
                 resolve(true);
 
-                script = null;
+                (script as any) = null;
             };
         });
     }

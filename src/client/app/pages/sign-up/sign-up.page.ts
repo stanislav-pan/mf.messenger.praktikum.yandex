@@ -1,6 +1,7 @@
 import Button from '../../components/button/button.js';
 import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
+import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
 import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys.js';
 import { SubmitEvent } from '../../core/interfaces.js';
 import { localStorageService } from '../../services/localstorage.service.js';
@@ -105,7 +106,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
-                                    minLengthValidator(8),
+                                    minLengthValidator(MIN_PASSWORD_LENGTH),
                                 ]),
                             }),
                             submitButton: new Button({

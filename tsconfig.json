@@ -18,7 +18,11 @@
         "paths": {
             "tslib": ["node_modules/tslib/tslib.d.ts"]
             // "@env/*": ["src/environments/*"]
-        }
+        },
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true
     },
     "include": ["src/client/**/*"]
 }

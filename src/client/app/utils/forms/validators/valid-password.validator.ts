@@ -1,5 +1,5 @@
 import { FormGroup } from '../form-group';
-import { ValidatorFn } from '../validator-interfaces';
+import { ValidationErrors, ValidatorFn } from '../validator-interfaces';
 
 export const validatePasswordConfirm: ValidatorFn = (form: FormGroup) => {
     const pass = form.get('passwordInput');
@@ -9,10 +9,16 @@ export const validatePasswordConfirm: ValidatorFn = (form: FormGroup) => {
         return null;
     }
 
+    const error: ValidationErrors = {
+        passwordConfirm: true,
+    };
+
     if (pass.getValue() && !passConfirm.getValue()) {
         form.get('confirmPasswordInput').setErrors({
             passwordConfirm: 'Password must be confirmed',
         });
+
+        return error;
     } else if (
         passConfirm.getValue() &&
         pass.getValue() !== passConfirm.getValue()
@@ -20,9 +26,11 @@ export const validatePasswordConfirm: ValidatorFn = (form: FormGroup) => {
         form.get('confirmPasswordInput').setErrors({
             passwordConfirm: `The password confirmation doesn't match`,
         });
-    } else {
-        form.get('confirmPasswordInput').deleteErrors(['passwordConfirm']);
+
+        return error;
     }
+
+    form.get('confirmPasswordInput').deleteErrors(['passwordConfirm']);
 
     return null;
 };
