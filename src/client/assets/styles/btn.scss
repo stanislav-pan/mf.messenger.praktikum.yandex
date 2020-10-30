@@ -16,18 +16,20 @@
 
     outline: none;
     cursor : pointer;
-}
 
-.btn_size_normal {
-    width: 276px;
+    &_size {
+        &_normal {
+            width: 276px;
+        }
+    }
 }
 
 .btn-icon {
     display    : flex;
     align-items: center;
     cursor     : pointer;
-}
 
-.btn-icon_hidden {
-    display: none;
+    &_hidden {
+        display: none;
+    }
 }

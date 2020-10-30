@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server/index.js",
-    "build": "rm -r dist & cp -r ./src/client/ ./dist & rm -r dist/app & npx tsc",
+    "build": "rm -r dist & cp -r ./src/client/ ./dist & rm -r dist/app & rm -r dist/assets/styles & npx tsc & npx sass src/client/assets/styles:dist/assets/styles",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/nunjucks": "^3.1.3",
+    "sass": "^1.28.0",
     "typescript": "^4.0.3"
   }
 }

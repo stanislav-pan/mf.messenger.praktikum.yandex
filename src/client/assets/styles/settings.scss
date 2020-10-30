@@ -1,0 +1,86 @@
+:root {
+    --settings-divider-color: #ECE9FA;
+}
+
+.settings {
+    width: 430px;
+
+    &__brief-information {
+        margin: 37px 34px 20px 34px;
+    }
+
+    &__divider {
+        width : 100%;
+        height: 7px;
+
+        background-color: var(--settings-divider-color);
+    }
+
+    &__form form {
+        margin-top: 20px;
+    }
+
+    &__form-btn-wrapper {
+        display: block !important;
+
+        margin: 42px 0;
+    }
+
+    &__settings-list {
+        margin-bottom: 27px;
+    }
+}
+
+.settings-header {
+    display        : flex;
+    justify-content: space-between;
+
+    height: 38px;
+
+    margin: 17px 25px 0 25px;
+
+    &__left {
+        display: flex;
+    }
+
+    &__back-icon {
+        margin: 0 13px 0 -5px;
+    }
+}
+
+.settings-list {
+    &__li {
+        height: 43px;
+
+        border-bottom: 7px solid var(--settings-divider-color);
+    }
+
+    &__li:first-of-type {
+        border-top: 7px solid var(--settings-divider-color);
+    }
+
+    &__button {
+        display    : flex;
+        align-items: center;
+
+        width : 100%;
+        height: 100%;
+
+        padding-left: 38px;
+
+        cursor: pointer;
+    }
+
+    &__icon {
+        margin-right: 26px;
+
+        width: 24px;
+    }
+
+    &__span {
+        font-weight: 500;
+        font-size  : 16px;
+
+        color: var(--form-color-normal);
+    }
+}
