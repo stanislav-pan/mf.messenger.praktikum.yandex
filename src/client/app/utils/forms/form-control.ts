@@ -114,6 +114,8 @@ export class FormControl extends AbstractControl {
             validator.keys.forEach((key) => {
                 delete this.errors[key];
             });
+
+            validator.keys = [];
         }
     }
 

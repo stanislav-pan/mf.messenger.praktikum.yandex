@@ -209,6 +209,8 @@ export default class SettingsPage extends Block<SettingsPageProps> {
 
             return;
         }
+
+        console.log(formGroup.value);
     }
 
     private _showBlock(block: SETTINGS_VIEWING_TYPES) {

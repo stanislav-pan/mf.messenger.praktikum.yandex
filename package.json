@@ -4,7 +4,7 @@
   "description": "Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server/index.js",
+    "start": "npm run build & node ./src/server/index.js",
     "build": "rm -r dist & cp -r ./src/client/ ./dist & rm -r dist/app & rm -r dist/assets/styles & npx tsc & npx sass src/client/assets/styles:dist/assets/styles",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

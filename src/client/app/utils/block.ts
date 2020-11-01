@@ -15,7 +15,6 @@ export interface IBlockMeta<T> {
     props: T;
 }
 
-// Нельзя создавать экземпляр данного класса
 export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
     static EVENTS = {
         INIT: 'init',
@@ -35,12 +34,6 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
     private _subscriptions: Map<any, any>;
     private _id: string;
 
-    /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
     constructor(meta: IBlockMeta<T>) {
         const eventBus = new EventBus();
         this._meta = meta;
@@ -86,6 +79,7 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
     }
 
     public componentDidUpdate(oldProps: T, newProps: T) {
+        // TODO: написать глубокое сравнение свойств в следующем спринте
         return JSON.stringify(oldProps) !== JSON.stringify(newProps);
     }
 
@@ -107,48 +101,46 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
 
     private _render() {
         const block = this.render();
-        // Это небезопасный метод для упрощения логики
-        // Используйте шаблонизатор из npm или напишите свой безопасный
-        // Нужно компилировать не в строку (или делать это правильно),
-        // либо сразу в превращать DOM-элементы и возвращать из compile DOM-ноду
-        if (this._element) {
-            this._element.innerHTML = block;
+        if (!this._element) {
+            return;
+        }
 
-            if (this.props.formControl) {
-                const stack: Array<HTMLElement | Element> = [this.element];
+        this._element.innerHTML = block;
 
-                while (stack.length) {
-                    const current = stack.pop();
+        if (this.props.formControl) {
+            const stack: Array<HTMLElement | Element> = [this.element];
 
-                    if (!current) {
-                        break;
-                    }
+            while (stack.length) {
+                const current = stack.pop();
 
-                    const attr = Array.from(current.attributes).find(
-                        (attr) => attr.name === 'formcontrol'
-                    );
-
-                    if (attr) {
-                        this.props.formControl.init(current);
-
-                        break;
-                    }
-
-                    const children = Array.from(current.children);
-                    stack.push(...children);
+                if (!current) {
+                    break;
                 }
-            }
 
-            if (this.props.handlers) {
-                this._attachListeners();
-            }
+                const attr = Array.from(current.attributes).find(
+                    (attr) => attr.name === 'formcontrol'
+                );
 
-            if (
-                this.props.components &&
-                Object.values(this.props.components).length
-            ) {
-                this._renderComponents();
+                if (attr) {
+                    this.props.formControl.init(current);
+
+                    break;
+                }
+
+                const children = Array.from(current.children);
+                stack.push(...children);
             }
+        }
+
+        if (this.props.handlers) {
+            this._attachListeners();
+        }
+
+        if (
+            this.props.components &&
+            Object.values(this.props.components).length
+        ) {
+            this._renderComponents();
         }
     }
 
@@ -209,7 +201,6 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
     }
 
     private _makePropsProxy(props: T): T {
-        // Еще один способ передачи this, но он больше не применяется с приходом ES6+
         const self = this;
 
         return new Proxy(props, {

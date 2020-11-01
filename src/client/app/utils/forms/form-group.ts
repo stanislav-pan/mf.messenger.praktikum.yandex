@@ -1,23 +1,15 @@
 import { AbstractControl } from './abstractal-control.js';
 import { FormControl } from './form-control';
 import { IListenerFn } from './interfaces.js';
-import {
-    Validator,
-    ValidationErrors,
-    ValidatorFn,
-} from './validator-interfaces';
+import { Validator, ValidatorFn } from './validator-interfaces';
 
 export class FormGroup extends AbstractControl {
-    public controls: { [key: string]: FormControl };
+    public controls: { [key: string]: FormControl } = {};
     private _listeners: Array<IListenerFn> = [];
     private _validators: Validator[] = [];
 
     public get value() {
-        return Object.entries(this.controls).reduce((acc, [key, control]) => {
-            acc[key] = control.getValue();
-
-            return acc;
-        }, {});
+        return this._getValue();
     }
 
     public set value(value: any) {
@@ -44,35 +36,26 @@ export class FormGroup extends AbstractControl {
         return !this._valid;
     }
 
-    public errors: ValidationErrors = {};
-
     constructor(
         controls: { [key: string]: FormControl } = {},
         validators: ValidatorFn[] = []
     ) {
         super();
-        this.controls = controls;
+        Object.entries(controls).forEach(([key, control]) => {
+            this.addControl(key, control);
+        });
 
         this._validators = validators.map((validator) => ({
             validatorFn: validator,
             keys: [],
         }));
-
-        Object.values(this.controls).forEach((control) => {
-            control.subscribe(() => {
-                this.value = this.value;
-
-                this._checkError();
-            });
-        });
     }
 
     public addControl(key: string, control: FormControl) {
         this.controls[key] = control;
 
         control.subscribe(() => {
-            this.value = this.value;
-
+            this.value = this._getValue();
             this._checkError();
         });
 
@@ -87,32 +70,42 @@ export class FormGroup extends AbstractControl {
         return this.controls[key];
     }
 
-    private _checkError() {
-        this._setValid(true);
-
-        if (this._validators?.length) {
-            for (const validator of this._validators) {
-                const res = validator.validatorFn(this);
-
-                if (res !== null) {
-                    validator.keys = Object.keys(res);
-                    Object.assign(this.errors, res);
-
-                    continue;
-                }
-
-                validator.keys.forEach((key) => {
-                    delete this.errors[key];
-                });
-            }
-
-            return;
-        }
-    }
-
     public markAsDirtyAllControls() {
         Object.values(this.controls).forEach((control) => {
             control.markAsDirty();
         });
+    }
+
+    private _getValue() {
+        return Object.entries(this.controls).reduce((acc, [key, control]) => {
+            acc[key] = control.getValue();
+
+            return acc;
+        }, {});
+    }
+
+    private _checkError() {
+        this._setValid(true);
+
+        if (!this._validators?.length) {
+            return;
+        }
+
+        for (const validator of this._validators) {
+            const res = validator.validatorFn(this);
+
+            if (res !== null) {
+                validator.keys = Object.keys(res);
+                Object.assign(this.errors, res);
+
+                continue;
+            }
+
+            validator.keys.forEach((key) => {
+                delete this.errors[key];
+            });
+
+            validator.keys = [];
+        }
     }
 }

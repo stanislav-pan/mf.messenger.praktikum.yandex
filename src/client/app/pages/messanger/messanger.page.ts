@@ -85,9 +85,6 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     }
 
     public render() {
-        // const scrollbar = document.getElementById('messagesScrollbar');
-        // scrollbar.scrollTop = scrollbar.scrollHeight - scrollbar.clientHeight;
-
         return templator.getEnvironment().render('pages/messanger.tmpl.njk', {
             ...this.props,
             briefInformationComponentId: this.props.components.briefInformation.getId(),

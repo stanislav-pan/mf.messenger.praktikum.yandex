@@ -14,7 +14,9 @@ export interface IMessage {
 
     isMyMessage?: boolean;
 
-    text?: string; // Текст сообщения.
-    time?: string; // Время отправления сообщения
+    /** Текст сообщения */
+    text?: string;
+    /** Время отправления сообщения */
+    time?: string;
     date?: string;
 }
