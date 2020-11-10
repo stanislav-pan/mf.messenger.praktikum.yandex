@@ -1,4 +1,4 @@
-import { isObject } from './is-object';
+import { isObject } from './is-object.js';
 
 export function isEqual(a: object, b: object): boolean {
     if (!isObject(a) || !isObject(b)) {
