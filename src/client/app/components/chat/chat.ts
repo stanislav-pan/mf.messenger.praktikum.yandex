@@ -30,7 +30,7 @@ export default class ChatComponent extends Block<IChatComponentInnerProps> {
     render() {
         return templator
             .getEnvironment()
-            .render('../static/components/chat.tmpl.njk', {
+            .render('../app/components/chat/chat.tmpl.njk', {
                 ...this.props,
                 avatarComponentId: this.props.components.avatar.getId(),
             });

@@ -11,7 +11,7 @@ export default class Error500Page extends Block<Error500PageProps> {
     }
 
     public render() {
-        return templator.getEnvironment().render('static/pages/error-500.tmpl.njk', {
+        return templator.getEnvironment().render('app/pages/error-500/error-500.tmpl.njk', {
             ...this.props,
         });
     }

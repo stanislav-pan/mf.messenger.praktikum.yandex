@@ -25,7 +25,7 @@ export default class SettingsHeader extends Block<SettingsHeaderProps> {
     render() {
         return templator
             .getEnvironment()
-            .render('../static/components/settings-header.tmpl.njk', {
+            .render('../app/components/settings-header/settings-header.tmpl.njk', {
                 ...this.props,
             });
     }

@@ -199,7 +199,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
 
         return templator
             .getEnvironment()
-            .render('static/pages/sign-up-step-one.tmpl.njk', {
+            .render('app/pages/sign-up/sign-up-step-one.tmpl.njk', {
                 ...this.props,
                 fistStepFormId: fistStepForm.getId(),
             });
@@ -210,7 +210,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
 
         return templator
             .getEnvironment()
-            .render('static/pages/sign-up-step-two.tmpl.njk', {
+            .render('app/pages/sign-up/sign-up-step-two.tmpl.njk', {
                 ...this.props,
                 secondStepFormId: secondStepForm.getId(),
             });

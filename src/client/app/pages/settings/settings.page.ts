@@ -260,7 +260,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
             changePasswordForm,
         } = this.props.components;
 
-        return templator.getEnvironment().render('static/pages/settings.tmpl.njk', {
+        return templator.getEnvironment().render('app/pages/settings/settings.tmpl.njk', {
             ...this.props,
             briefInformationComponentId: briefInformation.getId(),
             settingsHeaderId: settingsheader.getId(),

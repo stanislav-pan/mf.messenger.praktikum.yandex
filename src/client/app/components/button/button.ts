@@ -18,7 +18,7 @@ export default class Button extends Block<ButtonComponentProps> {
     render() {
         return templator
             .getEnvironment()
-            .render('../static/components/btn.tmpl.njk', {
+            .render('../app/components/button/btn.tmpl.njk', {
                 ...this.props,
             });
     }

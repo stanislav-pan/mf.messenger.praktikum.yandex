@@ -46,7 +46,7 @@ export default class ChatsComponent extends Block<IChatsComponentInnerProps> {
     render() {
         return templator
             .getEnvironment()
-            .render('../static/components/chats.tmpl.njk', {
+            .render('../app/components/chats/chats.tmpl.njk', {
                 ...this.props,
             });
     }

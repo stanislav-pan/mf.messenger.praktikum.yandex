@@ -86,7 +86,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     }
 
     public render() {
-        return templator.getEnvironment().render('static/pages/messanger.tmpl.njk', {
+        return templator.getEnvironment().render('app/pages/messanger/messanger.tmpl.njk', {
             ...this.props,
             briefInformationComponentId: this.props.components.briefInformation.getId(),
             chatsCopmonentId: this.props.components.chats.getId(),

@@ -39,7 +39,7 @@ export default class FormComponent extends Block<FormComponentProps> {
 
         return templator
             .getEnvironment()
-            .render('../static/components/form.tmpl.njk', {
+            .render('../app/components/form/form.tmpl.njk', {
                 ...this.props,
                 controlsComponentsIds,
             });

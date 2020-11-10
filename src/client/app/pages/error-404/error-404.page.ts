@@ -11,7 +11,7 @@ export default class Error404Page extends Block<Error404PageProps> {
     }
 
     public render() {
-        return templator.getEnvironment().render('static/pages/error-404.tmpl.njk', {
+        return templator.getEnvironment().render('app/pages/error-404/error-404.tmpl.njk', {
             ...this.props,
         });
     }

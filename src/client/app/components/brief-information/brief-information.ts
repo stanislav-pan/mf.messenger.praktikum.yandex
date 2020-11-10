@@ -103,7 +103,7 @@ export default class BriefInformationComponent extends Block<
     render() {
         return templator
             .getEnvironment()
-            .render('../static/components/brief-information.tmpl.njk', {
+            .render('../app/components/brief-information/brief-information.tmpl.njk', {
                 ...this.props,
                 avatarComponentId: this.props.components.avatar.getId(),
             });
