@@ -15,7 +15,7 @@ export interface IBlockMeta<T> {
     props: T;
 }
 
-export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
+export abstract class Block<T extends Record<string, any> | ICommonPropFields = {}> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -261,6 +261,10 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields> {
 
     public hide() {
         this.getContent().style.display = 'none';
+    }
+
+    public remove() {
+        this.getContent().remove();
     }
 
     private _attachListeners() {

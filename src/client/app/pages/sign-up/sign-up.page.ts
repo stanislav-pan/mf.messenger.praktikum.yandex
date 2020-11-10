@@ -4,6 +4,7 @@ import Input from '../../components/input/input.js';
 import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
 import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys.js';
 import { SubmitEvent } from '../../core/interfaces.js';
+import { router } from '../../init-router.js';
 import { localStorageService } from '../../services/localstorage.service.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
@@ -36,7 +37,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 name: 'firstName',
                                 label: 'First name',
                                 placeholder: 'Type your first name',
-                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/login-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                 ]),
@@ -45,7 +46,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 name: 'secondName',
                                 label: 'Second name',
                                 placeholder: 'Type your second name',
-                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/login-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -56,7 +57,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 type: 'email',
                                 label: 'Email',
                                 placeholder: 'Type your email',
-                                iconTemplate: 'icons/email-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/email-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -68,7 +69,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 type: 'tel',
                                 label: 'Phone',
                                 placeholder: 'Type your phone',
-                                iconTemplate: 'icons/phone-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/phone-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -92,7 +93,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 label: 'Username',
                                 placeholder: 'Type your username',
                                 iconTemplate:
-                                    'icons/circle-login-icon.tmpl.njk',
+                                    'static/icons/circle-login-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                 ]),
@@ -102,7 +103,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                 type: 'password',
                                 label: 'Password',
                                 placeholder: 'Type your password',
-                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/password-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -161,7 +162,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
         // TODO: Добавить проверку на время создания информации с первого шага
         // Через 15 минут чистить localStorage
         if (!dataFromFistStep) {
-            window.location.href = `${window.location.origin}/static/sign-up.html`;
+            router.go('/sign-up');
 
             return;
         }
@@ -182,7 +183,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
 
         localStorageService.removeItem(SIGN_UP_STEP_ONE);
 
-        window.location.href = `${window.location.origin}/static/messanger.html`;
+        router.go('/messanger');
     }
 
     public render() {
@@ -198,7 +199,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
 
         return templator
             .getEnvironment()
-            .render('pages/sign-up-step-one.tmpl.njk', {
+            .render('static/pages/sign-up-step-one.tmpl.njk', {
                 ...this.props,
                 fistStepFormId: fistStepForm.getId(),
             });
@@ -209,7 +210,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
 
         return templator
             .getEnvironment()
-            .render('pages/sign-up-step-two.tmpl.njk', {
+            .render('static/pages/sign-up-step-two.tmpl.njk', {
                 ...this.props,
                 secondStepFormId: secondStepForm.getId(),
             });

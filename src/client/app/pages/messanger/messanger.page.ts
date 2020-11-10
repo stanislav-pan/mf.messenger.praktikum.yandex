@@ -4,6 +4,7 @@ import ChatsComponent from '../../components/chats/chats.js';
 import { IMessage } from '../../components/message/interfaces.js';
 import MessagesComponent from '../../components/messages/messages.js';
 import SearchComponent from '../../components/search/search.js';
+import { router } from '../../init-router.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
 import { FormGroup } from '../../utils/forms/form-group.js';
@@ -38,7 +39,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
         ].reverse() as IMessage[];
 
         super({
-            tagName: 'app-login-page',
+            tagName: 'app-messanger-page',
             props: {
                 components: {
                     search: new SearchComponent({
@@ -81,11 +82,11 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     }
 
     private _goToSettings() {
-        window.location.href = `${window.location.origin}/static/settings.html`;
+        router.go('/settings');
     }
 
     public render() {
-        return templator.getEnvironment().render('pages/messanger.tmpl.njk', {
+        return templator.getEnvironment().render('static/pages/messanger.tmpl.njk', {
             ...this.props,
             briefInformationComponentId: this.props.components.briefInformation.getId(),
             chatsCopmonentId: this.props.components.chats.getId(),

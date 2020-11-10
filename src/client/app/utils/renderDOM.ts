@@ -1,6 +1,6 @@
 import { Block } from './block';
 
-export function render(rootQuery: string, block: Block<any>): Element {
+export function render(rootQuery: string, block: Block): Element {
     const root = document.querySelector(rootQuery);
 
     if (!root) {

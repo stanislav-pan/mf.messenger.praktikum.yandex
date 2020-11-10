@@ -3,7 +3,7 @@
         <div class="settings-header__left">
             {% if canReturnBack %}
                 <button class="settings-header__back-icon btn-icon" onclick="back">
-                    {% include 'icons/arrow-back.tmpl.njk' %}
+                    {% include 'static/icons/arrow-back.tmpl.njk' %}
                 </button>
             {% endif %}
 
@@ -11,7 +11,7 @@
         </div>
 
         <button class="settings-header__close-icon btn-icon" onclick="close">
-            {% include 'icons/close.tmpl.njk' %}
+            {% include 'static/icons/close.tmpl.njk' %}
         </button>
     </div>
 {% endmacro %}

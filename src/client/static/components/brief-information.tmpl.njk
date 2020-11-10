@@ -9,7 +9,7 @@
                 <input name="displayNameInput" type="text" value="{{name}}" class="brief-information__name-input" required="required"/>
 
                 <button class="btn-icon brief-information__apply-btn" submit="submit">
-                    {% include 'icons/done.tmpl.njk' %}
+                    {% include 'static/icons/done.tmpl.njk' %}
                 </button>
             </form>
         {% else %}
@@ -18,7 +18,7 @@
 
                 {% if canChangeName %}
                     <button class="btn-icon brief-information__edit-btn" onclick="showNameInput">
-                        {% include 'icons/pencil.tmpl.njk' %}
+                        {% include 'static/icons/pencil.tmpl.njk' %}
                     </button>
                 {% endif %}
             </div>

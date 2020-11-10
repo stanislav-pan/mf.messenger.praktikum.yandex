@@ -6,6 +6,7 @@ import SettingsHeader from '../../components/settings-header/settings-header.js'
 import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
 import { SETTINGS_VIEWING_TYPES } from '../../const/settings.js';
 import { SubmitEvent } from '../../core/interfaces.js';
+import { router } from '../../init-router.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
 import { FormControl } from '../../utils/forms/form-control.js';
@@ -36,14 +37,14 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                 renderingSettingsList: [
                     {
                         title: 'Edit profile',
-                        iconTemplate: 'icons/settings-edit-profile.tmpl.njk',
+                        iconTemplate: 'static/icons/settings-edit-profile.tmpl.njk',
                         onClick:
                             'SETTINGS.settingsAdapter.showEditInformationBlock()',
                         value: SETTINGS_VIEWING_TYPES.EDIT_INFORMATION_BLOCK,
                     },
                     {
                         title: 'Change password',
-                        iconTemplate: 'icons/settings-change-password.tmpl.njk',
+                        iconTemplate: 'static/icons/settings-change-password.tmpl.njk',
                         onClick:
                             'SETTINGS.settingsAdapter.showChangePasswordBlock()',
                         value: SETTINGS_VIEWING_TYPES.CHANGE_PASSWORD_BLOCK,
@@ -79,7 +80,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 label: 'Username',
                                 placeholder: 'Type your username',
                                 iconTemplate:
-                                    'icons/circle-login-icon.tmpl.njk',
+                                    'static/icons/circle-login-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                 ]),
@@ -88,7 +89,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 name: 'firstName',
                                 label: 'First name',
                                 placeholder: 'Type your first name',
-                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/login-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -98,7 +99,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 name: 'secondName',
                                 label: 'Second name',
                                 placeholder: 'Type your second name',
-                                iconTemplate: 'icons/login-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/login-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -109,7 +110,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 type: 'email',
                                 label: 'Email',
                                 placeholder: 'Type your email',
-                                iconTemplate: 'icons/email-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/email-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -121,7 +122,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 type: 'tel',
                                 label: 'Phone',
                                 placeholder: 'Type your phone',
-                                iconTemplate: 'icons/phone-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/phone-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -147,7 +148,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 type: 'password',
                                 label: 'New password',
                                 placeholder: 'Type your password',
-                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/password-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                     minLengthValidator(MIN_PASSWORD_LENGTH),
@@ -158,7 +159,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                                 type: 'password',
                                 label: 'Confirm password',
                                 placeholder: 'Type your password again',
-                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/password-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -247,7 +248,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
     }
 
     private _close() {
-        window.location.href = `${window.location.origin}/static/messanger.html`;
+        router.go('/messanger');
     }
 
     public render() {
@@ -259,7 +260,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
             changePasswordForm,
         } = this.props.components;
 
-        return templator.getEnvironment().render('pages/settings.tmpl.njk', {
+        return templator.getEnvironment().render('static/pages/settings.tmpl.njk', {
             ...this.props,
             briefInformationComponentId: briefInformation.getId(),
             settingsHeaderId: settingsheader.getId(),

@@ -2,6 +2,7 @@ import Button from '../../components/button/button.js';
 import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
 import { SubmitEvent } from '../../core/interfaces.js';
+import { router } from '../../init-router.js';
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
 import { FormControl } from '../../utils/forms/form-control.js';
@@ -27,7 +28,7 @@ export default class LoginPage extends Block<LoginPageProps> {
                                 label: 'Username',
                                 placeholder: 'Type your username',
                                 iconTemplate:
-                                    'icons/circle-login-icon.tmpl.njk',
+                                    'static/icons/circle-login-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                 ]),
@@ -37,7 +38,7 @@ export default class LoginPage extends Block<LoginPageProps> {
                                 type: 'password',
                                 label: 'Password',
                                 placeholder: 'Type your password',
-                                iconTemplate: 'icons/password-icon.tmpl.njk',
+                                iconTemplate: 'static/icons/password-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -66,11 +67,11 @@ export default class LoginPage extends Block<LoginPageProps> {
             return;
         }
 
-        window.location.href = `${window.location.origin}/static/messanger.html`;
+        router.go('/messanger');
     }
 
     public render() {
-        return templator.getEnvironment().render('pages/login.tmpl.njk', {
+        return templator.getEnvironment().render('static/pages/login.tmpl.njk', {
             ...this.props,
             loginFormId: this.props.components.loginForm.getId(),
         });
