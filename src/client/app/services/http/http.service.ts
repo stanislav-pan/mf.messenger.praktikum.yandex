@@ -1,18 +1,9 @@
 import { METHODS } from './const.js';
-import { HttpHeaders, HttpParams } from './http-headers.js';
+import { HttpHeaders } from './http-headers.js';
+import { HttpParams } from './http-params.js';
+import { IHttpOptions, IHttpOptionsWithBody } from './interfaces.js';
 
-export interface IHttpOptions {
-    headers?: HttpHeaders;
-    params?: HttpParams;
-    withCredentials?: boolean;
-    timeout?: number;
-}
-
-export interface IHttpOptionsWithBody extends IHttpOptions {
-    body?: unknown;
-}
-
-export class HttpClient {
+export class HttpClientService {
     public get = (url: string, options: IHttpOptions = {}) =>
         this.request(METHODS.GET, url, options);
 
@@ -58,12 +49,20 @@ export class HttpClient {
         if (method === METHODS.GET || method === METHODS.HEAD) {
             xhr.send();
         } else {
-            xhr.send(JSON.stringify(body));
+            if (body instanceof FormData) {
+                xhr.send(body);
+            } else {
+                xhr.send(JSON.stringify(body));
+            }
         }
 
-        return new Promise((resolve, reject) => {
+        return new Promise<XMLHttpRequest>((resolve, reject) => {
             xhr.onload = () => {
-                resolve(xhr);
+                if (xhr.status === 200) {
+                    resolve(xhr);
+                } else {
+                    reject(xhr);
+                }
             };
 
             xhr.onabort = reject;
@@ -80,15 +79,16 @@ export class HttpClient {
         return `${url}?${params.toString()}`;
     }
 
-    private _setHeaders(xhr, headers: HttpHeaders) {
-        const mappedHeaders = Object.entries(headers);
-
-        if (!mappedHeaders.length) {
+    private _setHeaders(xhr: XMLHttpRequest, headers: HttpHeaders) {
+        const mappedHeaders = headers.getValues();
+        if (!mappedHeaders.size) {
             return;
         }
 
-        mappedHeaders.forEach(([key, value]) => {
+        for (const [key, value] of mappedHeaders.entries()) {
             xhr.setRequestHeader(key, value);
-        });
+        }
     }
 }
+
+export const httpClientService = new HttpClientService();

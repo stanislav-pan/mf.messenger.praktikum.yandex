@@ -10,3 +10,8 @@ export interface ILoginPageInnerProps {
         loginForm: FormComponent;
     };
 }
+
+export interface ISigninData {
+    login: string;
+    password: string;
+}

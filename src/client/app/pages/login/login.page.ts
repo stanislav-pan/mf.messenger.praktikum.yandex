@@ -3,12 +3,14 @@ import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
 import { SubmitEvent } from '../../core/interfaces.js';
 import { router } from '../../init-router.js';
+import { apiService } from '../../services/chats-api/api.service.js';
 import { templator } from '../../services/templator.service.js';
+import { userService } from '../../services/user.service.js';
 import { Block } from '../../utils/block.js';
 import { FormControl } from '../../utils/forms/form-control.js';
 import { FormGroup } from '../../utils/forms/form-group.js';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
-import { LoginPageProps } from './interfaces.js';
+import { ISigninData, LoginPageProps } from './interfaces.js';
 
 export default class LoginPage extends Block<LoginPageProps> {
     get loginFormGroup(): FormGroup {
@@ -23,8 +25,7 @@ export default class LoginPage extends Block<LoginPageProps> {
                     loginForm: new FormComponent({
                         formGroup: new FormGroup(),
                         components: {
-                            loginInput: new Input({
-                                id: 'loginInput',
+                            login: new Input({
                                 label: 'Username',
                                 placeholder: 'Type your username',
                                 iconTemplate:
@@ -33,12 +34,12 @@ export default class LoginPage extends Block<LoginPageProps> {
                                     RequiredValidator,
                                 ]),
                             }),
-                            passwordInput: new Input({
-                                id: 'passwordInput',
+                            password: new Input({
                                 type: 'password',
                                 label: 'Password',
                                 placeholder: 'Type your password',
-                                iconTemplate: 'static/icons/password-icon.tmpl.njk',
+                                iconTemplate:
+                                    'static/icons/password-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -67,13 +68,21 @@ export default class LoginPage extends Block<LoginPageProps> {
             return;
         }
 
-        router.go('/messanger');
+        const value: ISigninData = this.loginFormGroup.value;
+
+        apiService.auth.signin(value).then(() => {
+            userService.initUser();
+
+            router.go('/messanger');
+        });
     }
 
     public render() {
-        return templator.getEnvironment().render('app/pages/login/login.tmpl.njk', {
-            ...this.props,
-            loginFormId: this.props.components.loginForm.getId(),
-        });
+        return templator
+            .getEnvironment()
+            .render('app/pages/login/login.tmpl.njk', {
+                ...this.props,
+                loginFormId: this.props.components.loginForm.getId(),
+            });
     }
 }

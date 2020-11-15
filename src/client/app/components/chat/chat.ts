@@ -9,7 +9,7 @@ import {
 export default class ChatComponent extends Block<IChatComponentInnerProps> {
     constructor(props: IChatComponentExternalProps) {
         const click = props.handlers.click;
-        const avatarSrc = props.chat.avatarSrc;
+        const avatarSrc = props.chat.avatar;
 
         super({
             tagName: 'app-chat',
@@ -29,8 +29,8 @@ export default class ChatComponent extends Block<IChatComponentInnerProps> {
 
     render() {
         return templator
-            .getEnvironment()
-            .render('../app/components/chat/chat.tmpl.njk', {
+            .getTemplate('../app/components/chat/chat.tmpl.njk')
+            .render({
                 ...this.props,
                 avatarComponentId: this.props.components.avatar.getId(),
             });

@@ -37,12 +37,12 @@ export class Router {
         return this;
     }
 
-    public start() {
+    public start(pathname?: string) {
         window.onpopstate = (event: PopStateEvent) => {
             this._onRoute((event.currentTarget as any).location.pathname);
         };
 
-        this._onRoute(window.location.pathname);
+        this.go(pathname || window.location.pathname);
     }
 
     private _onRoute(pathname: string) {

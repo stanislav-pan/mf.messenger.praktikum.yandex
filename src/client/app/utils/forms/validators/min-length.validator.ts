@@ -7,7 +7,7 @@ export const minLengthValidator = (min: number): ValidatorFn => {
 
         if (value.length < min) {
             return {
-                minLength: 'tuts',
+                minLength: min,
             };
         }
 

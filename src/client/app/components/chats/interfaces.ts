@@ -1,10 +1,10 @@
+import { Chat } from '../../core/models/chat.js';
 import { ICommonPropFields } from '../../utils/block';
-import { IChat } from '../chat/interfaces';
 
 export interface IChatsComponentExternalProps extends ICommonPropFields {
-    chats: IChat[];
+    chats: Chat[];
     handlers: {
-        click: (event: MouseEvent, chat: IChat) => void;
+        click: (event: MouseEvent, chat: Chat) => void;
     };
 }
 

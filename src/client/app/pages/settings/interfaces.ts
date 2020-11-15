@@ -21,3 +21,17 @@ export interface ISettingsPageInnerProps {
         changePasswordForm: FormComponent;
     };
 }
+
+export interface IEditProfileData {
+    firstName: string;
+    secondName: string;
+    login: string;
+    email: string;
+    phone: string;
+}
+
+export interface IChangePasswordData {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordConfirm: string;
+}

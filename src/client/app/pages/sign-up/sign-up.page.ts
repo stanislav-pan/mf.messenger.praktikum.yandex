@@ -5,15 +5,19 @@ import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
 import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys.js';
 import { SubmitEvent } from '../../core/interfaces.js';
 import { router } from '../../init-router.js';
+import { apiService } from '../../services/chats-api/api.service.js';
 import { localStorageService } from '../../services/localstorage.service.js';
 import { templator } from '../../services/templator.service.js';
+import { userService } from '../../services/user.service.js';
 import { Block } from '../../utils/block.js';
 import { FormControl } from '../../utils/forms/form-control.js';
 import { FormGroup } from '../../utils/forms/form-group.js';
 import { EmailValidator } from '../../utils/forms/validators/email.validator.js';
 import { minLengthValidator } from '../../utils/forms/validators/min-length.validator.js';
+import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator.js';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
-import { SignUpPageProps, SignUpPageSteps } from './interfaces.js';
+import { objToSnakeCase } from '../../utils/to-snake-case.js';
+import { ISignupData, SignUpPageProps, SignUpPageSteps } from './interfaces.js';
 
 export default class SignUpPage extends Block<SignUpPageProps> {
     get firstStepFormGroup(): FormGroup {
@@ -33,46 +37,47 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                     fistStepForm: new FormComponent({
                         formGroup: new FormGroup(),
                         components: {
-                            fistNameInput: new Input({
-                                name: 'firstName',
+                            firstName: new Input({
                                 label: 'First name',
                                 placeholder: 'Type your first name',
-                                iconTemplate: 'static/icons/login-icon.tmpl.njk',
+                                iconTemplate:
+                                    'static/icons/login-icon.tmpl.njk',
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                 ]),
                             }),
-                            secondNameInput: new Input({
-                                name: 'secondName',
+                            secondName: new Input({
                                 label: 'Second name',
                                 placeholder: 'Type your second name',
-                                iconTemplate: 'static/icons/login-icon.tmpl.njk',
+                                iconTemplate:
+                                    'static/icons/login-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                 ]),
                             }),
-                            emailInput: new Input({
-                                name: 'email',
+                            email: new Input({
                                 type: 'email',
                                 label: 'Email',
                                 placeholder: 'Type your email',
-                                iconTemplate: 'static/icons/email-icon.tmpl.njk',
+                                iconTemplate:
+                                    'static/icons/email-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
                                     EmailValidator,
                                 ]),
                             }),
-                            phoneInput: new Input({
-                                name: 'phone',
+                            phone: new Input({
                                 type: 'tel',
                                 label: 'Phone',
                                 placeholder: 'Type your phone',
-                                iconTemplate: 'static/icons/phone-icon.tmpl.njk',
+                                iconTemplate:
+                                    'static/icons/phone-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
+                                    OnlyNumberValidator,
                                 ]),
                             }),
                             nextButton: new Button({
@@ -88,8 +93,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                     secondStepForm: new FormComponent({
                         formGroup: new FormGroup(),
                         components: {
-                            loginInput: new Input({
-                                name: 'login',
+                            login: new Input({
                                 label: 'Username',
                                 placeholder: 'Type your username',
                                 iconTemplate:
@@ -98,12 +102,12 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                                     RequiredValidator,
                                 ]),
                             }),
-                            passwordInput: new Input({
-                                name: 'password',
+                            password: new Input({
                                 type: 'password',
                                 label: 'Password',
                                 placeholder: 'Type your password',
-                                iconTemplate: 'static/icons/password-icon.tmpl.njk',
+                                iconTemplate:
+                                    'static/icons/password-icon.tmpl.njk',
                                 withPaddingTop: true,
                                 formControl: new FormControl('', [
                                     RequiredValidator,
@@ -176,14 +180,30 @@ export default class SignUpPage extends Block<SignUpPageProps> {
             return;
         }
 
-        console.log({
+        const data: ISignupData = {
             ...firstStepFormGroup.value,
             ...secondStepFormGroup.value,
-        });
+        };
 
         localStorageService.removeItem(SIGN_UP_STEP_ONE);
 
-        router.go('/messanger');
+        this._signUpReq(data);
+    }
+
+    private _signUpReq(data: ISignupData) {
+        apiService.auth.signup(objToSnakeCase(data)).then(() => {
+            userService.initUser();
+
+            router.go('/messanger');
+        });
+    }
+
+    componentDidMount() {
+        if (localStorageService.get(SIGN_UP_STEP_ONE)) {
+            this.setProps({
+                currentStep: SignUpPageSteps.SECOND,
+            });
+        }
     }
 
     public render() {
@@ -198,8 +218,8 @@ export default class SignUpPage extends Block<SignUpPageProps> {
         const { fistStepForm } = this.props.components;
 
         return templator
-            .getEnvironment()
-            .render('app/pages/sign-up/sign-up-step-one.tmpl.njk', {
+            .getTemplate('app/pages/sign-up/sign-up-step-one.tmpl.njk')
+            .render({
                 ...this.props,
                 fistStepFormId: fistStepForm.getId(),
             });
@@ -209,8 +229,8 @@ export default class SignUpPage extends Block<SignUpPageProps> {
         const { secondStepForm } = this.props.components;
 
         return templator
-            .getEnvironment()
-            .render('app/pages/sign-up/sign-up-step-two.tmpl.njk', {
+            .getTemplate('app/pages/sign-up/sign-up-step-two.tmpl.njk')
+            .render({
                 ...this.props,
                 secondStepFormId: secondStepForm.getId(),
             });

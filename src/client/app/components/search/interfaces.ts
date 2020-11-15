@@ -3,7 +3,8 @@ import { ICommonPropFields } from '../../utils/block';
 
 export interface ISearchComponentExternalProps extends ICommonPropFields {
     handlers: {
-        submit: (event: SubmitEvent, value: string) => void;
+        submit?: (event: SubmitEvent, value: string) => void;
+        input?: (event: InputEvent, value: string) => void;
     };
 }
 

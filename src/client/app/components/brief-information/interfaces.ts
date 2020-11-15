@@ -8,6 +8,12 @@ export interface IBriefInformationExternalProps extends ICommonPropFields {
     avatarSrc: string;
     canChangeName?: boolean;
     canChangeAvatar?: boolean;
+
+    handlers?: {
+        click?: () => void;
+    };
+
+    selected?: boolean;
 }
 
 export type BriefInformationProps = IBriefInformationExternalProps &
@@ -18,5 +24,9 @@ export interface IBriefInformationInnerProps {
 
     components: {
         avatar: Avatar;
+    };
+
+    handlers: {
+        showNameInput: () => void;
     };
 }

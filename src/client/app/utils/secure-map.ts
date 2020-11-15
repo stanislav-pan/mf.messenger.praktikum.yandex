@@ -35,4 +35,6 @@ export class SecureMap implements ISecureMap {
 
         return this;
     };
+
+    public getValues = () => this._items;
 }

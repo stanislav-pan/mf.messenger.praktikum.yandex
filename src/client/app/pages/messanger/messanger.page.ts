@@ -1,11 +1,17 @@
 import BriefInformationComponent from '../../components/brief-information/brief-information.js';
-import { IChat } from '../../components/chat/interfaces.js';
 import ChatsComponent from '../../components/chats/chats.js';
+import CreateChatComponent from '../../components/create-chat/create-chat.js';
+import { IMenuItem } from '../../components/menu/interfaces.js';
+import MenuComponent from '../../components/menu/menu.js';
 import { IMessage } from '../../components/message/interfaces.js';
 import MessagesComponent from '../../components/messages/messages.js';
+import ModalComponent from '../../components/modal/modal.js';
 import SearchComponent from '../../components/search/search.js';
+import { Chat } from '../../core/models/chat.js';
 import { router } from '../../init-router.js';
+import { chatsService } from '../../services/chats.service.js';
 import { templator } from '../../services/templator.service.js';
+import { userService } from '../../services/user.service.js';
 import { Block } from '../../utils/block.js';
 import { FormGroup } from '../../utils/forms/form-group.js';
 import { MessangerPageProps } from './interfaces.js';
@@ -16,6 +22,8 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     }
 
     constructor() {
+        const { avatar } = userService.getUser();
+
         const messages = [
             {
                 type: 'dateDivider',
@@ -41,6 +49,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
         super({
             tagName: 'app-messanger-page',
             props: {
+                currectChatId: null,
                 components: {
                     search: new SearchComponent({
                         handlers: {
@@ -51,33 +60,102 @@ export default class MessangerPage extends Block<MessangerPageProps> {
                     }),
                     messages: new MessagesComponent({ messages }),
                     briefInformation: new BriefInformationComponent({
-                        name: 'Stanislav',
-                        lastVisit: 'was last seen today at 21:37',
+                        name: userService.getUser().getDisplayName(),
+                        lastVisit: userService.getUser().getLastVisit(),
 
-                        avatarSrc: '/assets/images/my-avatar.png',
+                        avatarSrc: avatar,
                     }),
                     chats: new ChatsComponent({
-                        chats: [
-                            {
-                                avatarSrc: '/assets/images/my-avatar.png',
-                                name: 'Andrew',
-                                text:
-                                    'ImageImageImageImage ImageImageImage ImageImageImage ImageImageImage ImageImage',
-                                date: '10:49',
-                                numberOfUnreadMessages: 2,
-                            },
-                        ],
+                        chats: [],
                         handlers: {
-                            click: (_, chat: IChat) => {
-                                console.log(chat);
+                            click: (_, chat: Chat) => {
+                                this.setProps({
+                                    currectChatId: chat.id,
+                                });
                             },
                         },
                     }),
                 },
                 handlers: {
                     goToSettings: () => this._goToSettings(),
+                    createChat: () => this._createChat(),
+                    showChatMenu: () => this._showOrHideChatMenu(),
                 },
             } as MessangerPageProps,
+        });
+    }
+
+    componentDidMount() {
+        chatsService.fetchChats();
+
+        chatsService.subscribe((chats) => {
+            this.props.components.chats.setProps({
+                chats
+                // chats: chats.map((chat) => ({
+                //     avatarSrc: chat.avatar,
+                //     name: chat.title,
+                //     text: '',
+                //     data: '10:49',
+                //     numberOfUnreadMessages: 2,
+                // })),
+            });
+            console.error(chats);
+        });
+    }
+
+    private _createChat() {
+        this._showOrHideCreateChatModal(true);
+    }
+
+    private _showOrHideCreateChatModal(show: boolean = true) {
+        this.setProps({
+            components: {
+                ...this.props.components,
+                modal: show
+                    ? new ModalComponent({
+                          component: new CreateChatComponent({
+                              handlers: {
+                                  complete: () =>
+                                      this._showOrHideCreateChatModal(false),
+                              },
+                          }),
+                          handlers: {
+                              close: () =>
+                                  this._showOrHideCreateChatModal(false),
+                          },
+                      })
+                    : null,
+            },
+        });
+    }
+
+    private _showOrHideChatMenu(show: boolean = true) {
+        this.setProps({
+            components: {
+                ...this.props.components,
+                chatMenu: show
+                    ? new MenuComponent({
+                          items: [
+                              {
+                                  title: 'Edit participants',
+                                  callback: () => {
+                                      //   apiService.chats.getChatUsers();
+                                  },
+                              },
+                              {
+                                  title: 'Delete chat',
+                                  callback: () => {},
+                              },
+                          ],
+                          handlers: {
+                              select: (item: IMenuItem) => {
+                                  console.log(item);
+                              },
+                          },
+                          class: 'messanger__chat-menu',
+                      })
+                    : null,
+            },
         });
     }
 
@@ -86,12 +164,25 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     }
 
     public render() {
-        return templator.getEnvironment().render('app/pages/messanger/messanger.tmpl.njk', {
-            ...this.props,
-            briefInformationComponentId: this.props.components.briefInformation.getId(),
-            chatsCopmonentId: this.props.components.chats.getId(),
-            searchComponentId: this.props.components.search.getId(),
-            messagesComponentId: this.props.components.messages.getId(),
-        });
+        const {
+            briefInformation,
+            chats,
+            search,
+            messages,
+            modal,
+            chatMenu,
+        } = this.props.components;
+
+        return templator
+            .getTemplate('app/pages/messanger/messanger.tmpl.njk')
+            .render({
+                ...this.props,
+                briefInformationComponentId: briefInformation.getId(),
+                chatsCopmonentId: chats.getId(),
+                searchComponentId: search.getId(),
+                messagesComponentId: messages.getId(),
+                modalComponentId: modal?.getId(),
+                chatMenuComponentId: chatMenu?.getId(),
+            });
     }
 }

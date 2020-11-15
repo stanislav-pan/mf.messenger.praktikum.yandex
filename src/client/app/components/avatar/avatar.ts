@@ -8,7 +8,7 @@ import {
 
 export default class Avatar extends Block<AvatarComponentProps> {
     constructor(props: IAvatarComponentExternalProps) {
-        let upload: (base64: string) => void;
+        let upload: (file: File) => void;
 
         if (props.handlers) {
             upload = props.handlers.upload;
@@ -32,16 +32,16 @@ export default class Avatar extends Block<AvatarComponentProps> {
         });
     }
 
-    private _uploadAvatar(callback: (base64: string) => void) {
+    private _uploadAvatar(callback: (ile: File) => void) {
         UploadService.upload()
-            .then((fileList) => UploadService.getBase64(fileList[0]))
-            .then((base64) => callback(base64));
+            .then((fileList) => fileList[0])
+            .then((file) => callback(file));
     }
 
     render() {
         return templator
-            .getEnvironment()
-            .render('../app/components/avatar/avatar.tmpl.njk', {
+            .getTemplate('../app/components/avatar/avatar.tmpl.njk')
+            .render({
                 ...this.props,
             });
     }

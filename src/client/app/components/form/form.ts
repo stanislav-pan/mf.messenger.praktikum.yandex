@@ -38,8 +38,8 @@ export default class FormComponent extends Block<FormComponentProps> {
         ).map((component) => component.getId());
 
         return templator
-            .getEnvironment()
-            .render('../app/components/form/form.tmpl.njk', {
+            .getTemplate('../app/components/form/form.tmpl.njk')
+            .render({
                 ...this.props,
                 controlsComponentsIds,
             });

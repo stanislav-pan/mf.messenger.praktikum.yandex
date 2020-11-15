@@ -1,0 +1,22 @@
+.create-chat {
+    padding : 30px;
+    position: relative;
+
+    width: 288px;
+
+    &__divider {
+        left    : 0;
+        position: absolute;
+
+        width : 100%;
+        height: 7px;
+
+        margin-top: 35px;
+
+        background-color: var(--settings-divider-color);
+    }
+
+    &__create-btn {
+        margin-top: 24px;
+    }
+}

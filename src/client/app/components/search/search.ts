@@ -10,6 +10,7 @@ import {
 export default class SearchComponent extends Block<SearchComponentProps> {
     constructor(props: ISearchComponentExternalProps) {
         const submit = props.handlers.submit;
+        const input = props.handlers.input;
 
         super({
             tagName: 'app-search',
@@ -19,6 +20,10 @@ export default class SearchComponent extends Block<SearchComponentProps> {
                     submit: (event: SubmitEvent) => {
                         event.preventDefault();
 
+                        if (typeof submit !== 'function') {
+                            return;
+                        }
+
                         const form = event.target as HTMLFormElement;
 
                         const { search } = FormDataPerserService.getFormValues(
@@ -27,6 +32,16 @@ export default class SearchComponent extends Block<SearchComponentProps> {
 
                         submit(event, search);
                     },
+                    change: (event: InputEvent) => {
+                        if (typeof input !== 'function') {
+                            return;
+                        }
+
+                        input(
+                            event,
+                            (event.currentTarget as HTMLInputElement).value
+                        );
+                    },
                 },
             } as SearchComponentProps,
         });
@@ -34,8 +49,8 @@ export default class SearchComponent extends Block<SearchComponentProps> {
 
     render() {
         return templator
-            .getEnvironment()
-            .render('../app/components/search/search.tmpl.njk', {
+            .getTemplate('../app/components/search/search.tmpl.njk')
+            .render({
                 ...this.props,
             });
     }

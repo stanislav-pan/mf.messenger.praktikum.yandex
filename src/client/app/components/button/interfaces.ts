@@ -5,6 +5,10 @@ export interface IButtonComponentExternalProps extends ICommonPropFields {
     text: string;
 
     class?: string;
+
+    handlers?: {
+        click?: () => void;
+    };
 }
 
 export type ButtonComponentProps = IButtonComponentExternalProps &

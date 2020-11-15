@@ -1,3 +1,7 @@
+{% if modalComponentId %}
+    <ng-container data-componentsids="{{modalComponentId}}"></ng-container>
+{% endif %}
+
 <div class="messanger">
     <aside class="messanger__left">
         <header class="messanger__left-header">
@@ -11,35 +15,48 @@
             </div>
         </header>
 
+        <div class="create-chat" onclick="createChat">
+            Create chat
+        </div>
         <ng-container data-componentsids="{{chatsCopmonentId}}"></ng-container>
     </aside>
     <main class="messanger__chat">
-        <header class="messanger__chat-header">
-            <div class="messanger__chat-header-brief-information">
-                <ng-container data-componentsids="{{briefInformationComponentId}}"></ng-container>
-            </div>
+        {% if currectChatId %}
+            <header class="messanger__chat-header">
+                <div class="messanger__chat-header-brief-information">
+                    <ng-container data-componentsids="{{briefInformationComponentId}}"></ng-container>
+                </div>
 
-            <button class="messanger__chat-action-btn btn-icon">
-                {% include 'static/icons/more-settings.tmpl.njk' %}
-            </button>
-        </header>
+                <button class="messanger__chat-action-btn btn-icon" onclick="showChatMenu">
+                    {% include 'static/icons/more-settings.tmpl.njk' %}
+                </button>
+
+                {% if chatMenuComponentId %}
+                    <ng-container data-componentsids="{{chatMenuComponentId}}"></ng-container>
+                {% endif %}
+            </header>
+        {% endif %}
 
         <div class="messanger__chat-main">
-            <ng-container data-componentsids="{{messagesComponentId}}"></ng-container>
+            {% if currectChatId %}
+                <ng-container data-componentsids="{{messagesComponentId}}"></ng-container>
+            {% endif %}
         </div>
 
-        <footer class="messanger__chat-footer">
-            <button class="btn-icon messanger__chat-footer-attach-btn">
-                {% include 'static/icons/attach.tmpl.njk' %}
-            </button>
+        {% if currectChatId %}
+            <footer class="messanger__chat-footer">
+                <button class="btn-icon messanger__chat-footer-attach-btn">
+                    {% include 'static/icons/attach.tmpl.njk' %}
+                </button>
 
-            <input type="text" class="messanger__chat-input" placeholder="Message">
+                <input type="text" class="messanger__chat-input" placeholder="Message">
 
-            <button class="btn-icon messanger__chat-footer-send-btn">
-                <div class="badge">
-                    {% include 'static/icons/send.tmpl.njk' %}
-                </div>
-            </button>
-        </footer>
+                <button class="btn-icon messanger__chat-footer-send-btn">
+                    <div class="badge">
+                        {% include 'static/icons/send.tmpl.njk' %}
+                    </div>
+                </button>
+            </footer>
+        {% endif %}
     </main>
 </div>

@@ -1,0 +1,11 @@
+<div class="modal">
+    <div class="modal__container">
+        <button class="btn-icon modal__close-btn" onclick="close">
+            {% include 'static/icons/close.tmpl.njk' %}
+        </button>
+
+        <ng-container data-componentsids="{{componentId}}"></ng-container>
+    </div>
+
+    <div class="modal__overlay" onclick="close"></div>
+</div>

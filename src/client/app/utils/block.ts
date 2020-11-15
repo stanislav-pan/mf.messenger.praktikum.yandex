@@ -4,7 +4,7 @@ import { FormControl } from './forms/form-control.js';
 export type MapOfBlockLike = { [key: string]: Block<any> };
 
 export interface ICommonPropFields {
-    handlers?: Record<string, Function>;
+    handlers?: Partial<Record<string, Function>>;
     components?: MapOfBlockLike;
     class?: string;
     formControl?: FormControl;
@@ -15,12 +15,15 @@ export interface IBlockMeta<T> {
     props: T;
 }
 
-export abstract class Block<T extends Record<string, any> | ICommonPropFields = {}> {
+export abstract class Block<
+    T extends Record<string, any> | ICommonPropFields = {}
+> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_CDU: 'flow:component-did-update',
         FLOW_RENDER: 'flow:render',
+        FLOW_CWU: 'flow:component-will-unmount',
     };
 
     static componentsCount = 0;
@@ -55,6 +58,10 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields = 
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        eventBus.on(
+            Block.EVENTS.FLOW_CWU,
+            this._componentWillUnmount.bind(this)
+        );
     }
 
     private _createResources() {
@@ -75,13 +82,19 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields = 
     public componentDidMount() {}
 
     private _componentDidUpdate(oldProps: T, newProps: T) {
-        this.componentDidUpdate(oldProps, newProps);
+        this.componentDidUpdate(oldProps, newProps)
     }
 
     public componentDidUpdate(oldProps: T, newProps: T) {
         // TODO: написать глубокое сравнение свойств в следующем спринте
         return JSON.stringify(oldProps) !== JSON.stringify(newProps);
     }
+
+    private _componentWillUnmount() {
+        this.componentWillUnmount();
+    }
+
+    public componentWillUnmount() {}
 
     public setProps = (nextProps: T | {}) => {
         if (!nextProps) {
@@ -264,6 +277,8 @@ export abstract class Block<T extends Record<string, any> | ICommonPropFields = 
     }
 
     public remove() {
+        this.eventBus().emit(Block.EVENTS.FLOW_CWU);
+
         this.getContent().remove();
     }
 

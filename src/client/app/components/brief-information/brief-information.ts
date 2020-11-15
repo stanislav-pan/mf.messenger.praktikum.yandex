@@ -1,6 +1,7 @@
 import { SubmitEvent } from '../../core/interfaces.js';
 import FormDataPerserService from '../../services/form-data-parser.service.js';
 import { templator } from '../../services/templator.service.js';
+import { userService } from '../../services/user.service.js';
 import { Block } from '../../utils/block.js';
 import Avatar from '../avatar/avatar.js';
 import {
@@ -16,6 +17,7 @@ export default class BriefInformationComponent extends Block<
             avatarSrc,
             canChangeName = false,
             canChangeAvatar = false,
+            handlers: { click } = {},
         } = props as IBriefInformationExternalProps;
 
         super({
@@ -30,13 +32,13 @@ export default class BriefInformationComponent extends Block<
                         avatarSrc,
                         canChangeAvatar,
                         handlers: {
-                            upload: (base64: string) => {
-                                this._uploadAvatar(base64);
-                            },
+                            upload: (file: File) =>
+                                userService.changeAvatar(file),
                         },
                     }),
                 },
                 handlers: {
+                    ...(click && { click }),
                     ...(canChangeName && {
                         changeName: (event: SubmitEvent) =>
                             this._changeName(event),
@@ -53,6 +55,7 @@ export default class BriefInformationComponent extends Block<
     ) {
         if (old.canChangeName !== current.canChangeName) {
             this.setProps({
+                displayedNameInput: false,
                 handlers: {
                     ...current.handlers,
                     ...(current.canChangeName && {
@@ -70,6 +73,12 @@ export default class BriefInformationComponent extends Block<
             });
         }
 
+        if (old.avatarSrc !== current.avatarSrc) {
+            this.props.components.avatar.setProps({
+                avatarSrc: current.avatarSrc,
+            });
+        }
+
         return true;
     }
 
@@ -82,28 +91,42 @@ export default class BriefInformationComponent extends Block<
             displayNameInput: string;
         }>(form);
 
-        this.setProps({
-            name: displayNameInput,
-            displayedNameInput: false,
-        });
+        userService
+            .changeProfile({
+                ...userService.getUser(),
+                displayName: displayNameInput,
+            })
+            .then(() => {
+                this.setProps({
+                    name: displayNameInput,
+                    displayedNameInput: false,
+                });
+            });
     }
 
     private _showNameInput() {
         this.setProps({
             displayedNameInput: true,
         });
-    }
 
-    private _uploadAvatar(base64: string) {
-        this.props.components.avatar.setProps({
-            avatarSrc: base64,
-        });
+        const input = document.querySelector(
+            '[name=displayNameInput]'
+        ) as HTMLInputElement;
+
+        if (!input) {
+            return;
+        }
+
+        input.focus();
+        input.selectionStart = input.value.length;
     }
 
     render() {
         return templator
-            .getEnvironment()
-            .render('../app/components/brief-information/brief-information.tmpl.njk', {
+            .getTemplate(
+                '../app/components/brief-information/brief-information.tmpl.njk'
+            )
+            .render({
                 ...this.props,
                 avatarComponentId: this.props.components.avatar.getId(),
             });

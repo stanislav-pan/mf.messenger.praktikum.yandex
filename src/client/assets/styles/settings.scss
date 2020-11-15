@@ -29,6 +29,22 @@
     &__settings-list {
         margin-bottom: 27px;
     }
+
+    &__logout {
+        &-wrapper {
+            display: flex;
+            justify-content: center;
+
+            margin-bottom: 27px;
+        }
+
+        &-btn {
+            font-size: 18px;
+
+            color: var(--color-error);
+            cursor: pointer;
+        }
+    }
 }
 
 .settings-header {

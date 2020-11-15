@@ -1,7 +1,10 @@
 <div class="avatar">
     {% if avatarSrc %}
         <img src="{{avatarSrc}}" alt="User avatar" class="avatar__image"/>
+    {% else %}
+        <div class="avatar__empty"></div>
     {% endif %}
+
     {% if canChangeAvatar %}
         <button class="avatar__change-btn btn-icon" onClick="upload">
             <div class="avatar__icon">

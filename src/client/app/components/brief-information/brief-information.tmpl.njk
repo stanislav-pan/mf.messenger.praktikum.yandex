@@ -1,6 +1,12 @@
-<div class="brief-information">
+<div class="brief-information" onclick="click">
     <div class="brief-information__avatar">
         <ng-container data-componentsids="{{avatarComponentId}}"></ng-container>
+
+        {% if selected %}
+            <div class="brief-information__tick">
+                {% include 'static/icons/done.tmpl.njk' %}
+            </div>
+        {% endif %}
     </div>
     <div class="brief-information__text">
 

@@ -1,19 +1,37 @@
 import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
+import { isEqual } from '../../utils/is-equal.js';
 import ChatComponent from '../chat/chat.js';
-import { IChat } from '../chat/interfaces.js';
 import {
+    ChatsComponentProps,
     IChatsComponentExternalProps,
-    IChatsComponentInnerProps,
 } from './interfaces.js';
 
-export default class ChatsComponent extends Block<IChatsComponentInnerProps> {
+export default class ChatsComponent extends Block<ChatsComponentProps> {
     constructor(props: IChatsComponentExternalProps) {
-        const click = props.handlers.click;
+        super({
+            tagName: 'app-chats',
+            props: {
+                ...props,
+                chatsComponentsIds: [],
+                components: {},
+            } as ChatsComponentProps,
+        });
+    }
 
+    componentDidUpdate(old: ChatsComponentProps, current: ChatsComponentProps) {
+        if (!isEqual(old.chats, current.chats)) {
+            this._setChats();
+        }
+
+        return true;
+    }
+
+    private _setChats() {
+        const click = this.props.handlers.click;
         const chatsComponentsIds: string[] = [];
 
-        const chats = props.chats.reduce((acc, chat) => {
+        const chats = this.props.chats.reduce((acc, chat) => {
             const chatComponent = new ChatComponent({
                 chat,
                 handlers: { click },
@@ -27,26 +45,18 @@ export default class ChatsComponent extends Block<IChatsComponentInnerProps> {
             return acc;
         }, {});
 
-        super({
-            tagName: 'app-chats',
-            props: {
-                ...props,
-                chatsComponentsIds,
-                components: {
-                    ...chats,
-                },
-                handlers: {
-                    click: (event: MouseEvent, chat: IChat) =>
-                        click(event, chat),
-                },
+        this.setProps({
+            components: {
+                ...chats,
             },
+            chatsComponentsIds,
         });
     }
 
     render() {
         return templator
-            .getEnvironment()
-            .render('../app/components/chats/chats.tmpl.njk', {
+            .getTemplate('../app/components/chats/chats.tmpl.njk')
+            .render({
                 ...this.props,
             });
     }

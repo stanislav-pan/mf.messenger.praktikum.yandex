@@ -5,7 +5,18 @@
     width : 100%;
     height: 100%;
 
-    overflow-y: scroll;
+    overflow-y     : scroll;
+    backdrop-filter: blur(1px);
+
+    &__close-btn {
+        position: relative;
+        z-index : 10;
+
+        float : right;
+        margin: 15px;
+
+        cursor: pointer;
+    }
 
     &__container {
         z-index: 2;
@@ -26,7 +37,5 @@
         z-index : 1;
         width   : 100%;
         height  : 100%;
-
-        backdrop-filter: blur(1px);
     }
 }

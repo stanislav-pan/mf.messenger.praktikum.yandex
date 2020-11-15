@@ -1,11 +1,5 @@
-import { queryStringify } from '../query-string.js';
-import { SecureMap } from '../secure-map.js';
-
-export class HttpHeaders extends SecureMap {
-    constructor(headers: Record<string, string | string[]> = {}) {
-        super(headers);
-    }
-}
+import { queryStringify } from '../../utils/query-string.js';
+import { SecureMap } from '../../utils/secure-map.js';
 
 export class HttpParams extends SecureMap {
     constructor(params: Record<string, string | string[]> = {}) {

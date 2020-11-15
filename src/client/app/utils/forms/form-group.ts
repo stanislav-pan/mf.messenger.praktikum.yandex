@@ -76,6 +76,28 @@ export class FormGroup extends AbstractControl {
         });
     }
 
+    public markAsPristineAllControls() {
+        Object.values(this.controls).forEach((control) => {
+            control.markAsPristine();
+        });
+    }
+
+    public reset(needResetValues: boolean = true) {
+        Object.values(this.controls).forEach((control) => {
+            control.reset(needResetValues);
+        });
+    }
+
+    public patchValue(obj: Record<string, unknown>) {
+        for (const [key, value] of Object.entries(obj)) {
+            if (!this.controls[key]) {
+                continue;
+            }
+
+            this.controls[key].setValue(value as any);
+        }
+    }
+
     private _getValue() {
         return Object.entries(this.controls).reduce((acc, [key, control]) => {
             acc[key] = control.getValue();

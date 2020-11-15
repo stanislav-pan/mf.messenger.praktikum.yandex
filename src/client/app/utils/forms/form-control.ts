@@ -25,6 +25,10 @@ export class FormControl extends AbstractControl {
         return this._valid;
     }
 
+    public get invalid() {
+        return !this._valid;
+    }
+
     protected _setValid(isValid: boolean) {
         this._valid = isValid;
 
@@ -53,8 +57,8 @@ export class FormControl extends AbstractControl {
         return this._touched;
     }
 
-    private setTouched() {
-        this._touched = true;
+    private _setTouched(touched: boolean) {
+        this._touched = touched;
 
         this._el.classList.toggle('touched');
     }
@@ -65,8 +69,8 @@ export class FormControl extends AbstractControl {
         return this._dirty;
     }
 
-    private setDirty() {
-        this._dirty = true;
+    private _setDirty(dirty: boolean) {
+        this._dirty = dirty;
 
         this._el.classList.toggle('dirty');
     }
@@ -130,7 +134,7 @@ export class FormControl extends AbstractControl {
             return;
         }
 
-        this.setTouched();
+        this._setTouched(true);
 
         this._el.removeEventListener('blur', this._blurHandlerBind);
     }
@@ -169,7 +173,15 @@ export class FormControl extends AbstractControl {
             return;
         }
 
-        this.setDirty();
+        this._setDirty(true);
+    }
+
+    public markAsPristine() {
+        if (!this._dirty) {
+            return;
+        }
+
+        this._setDirty(false);
     }
 
     public setErrors(error: ValidationErrors) {
@@ -184,5 +196,24 @@ export class FormControl extends AbstractControl {
 
             delete this.errors[key];
         }
+    }
+
+    public resetErrors() {
+        this.deleteErrors(Object.keys(this.errors));
+    }
+
+    public setValue(value: string) {
+        this._el.value = value;
+    }
+
+    public reset(needResetValue: boolean = true) {
+        if (needResetValue) {
+            this.setValue('');
+        }
+
+        this.resetErrors();
+
+        this._setTouched(true);
+        this.markAsPristine();
     }
 }

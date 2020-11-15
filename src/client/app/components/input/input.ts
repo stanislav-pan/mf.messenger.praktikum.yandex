@@ -2,6 +2,7 @@ import { templator } from '../../services/templator.service.js';
 import { Block } from '../../utils/block.js';
 import { FormControl } from '../../utils/forms/form-control.js';
 import { FormGroup } from '../../utils/forms/form-group.js';
+import { mapErrors } from '../../utils/forms/map-errors.js';
 import InputErrors from '../input-errors/input-errors.js';
 import {
     IInputComponentExternalProps,
@@ -18,7 +19,7 @@ export default class Input extends Block<InputComponentProps> {
                 ...props,
                 components: {
                     errors: new InputErrors({
-                        errors: [],
+                        error: '',
                     }),
                 },
             },
@@ -33,16 +34,14 @@ export default class Input extends Block<InputComponentProps> {
         }
 
         fc.subscribe(() => {
-            this.props.components.errors.setProps({
-                errors: Object.keys(fc.errors),
-            });
+            this.props.components.errors.setProps({ error: mapErrors(fc) });
         });
     }
 
     render() {
         return templator
-            .getEnvironment()
-            .render('../app/components/input/input.tmpl.njk', {
+            .getTemplate('../app/components/input/input.tmpl.njk')
+            .render({
                 ...this.props,
                 errorsComponentId: this.props.components.errors.getId(),
             });

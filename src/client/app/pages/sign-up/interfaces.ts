@@ -18,3 +18,19 @@ export enum SignUpPageSteps {
     FIRST,
     SECOND,
 }
+
+export interface IFirstStepFormGroup {
+    firstName: string;
+    secondName: string;
+    email: string;
+    phone: string;
+}
+
+export interface ISecondStepFormGroup {
+    login: string;
+    password: string;
+}
+
+export interface ISignupData
+    extends IFirstStepFormGroup,
+        ISecondStepFormGroup {}

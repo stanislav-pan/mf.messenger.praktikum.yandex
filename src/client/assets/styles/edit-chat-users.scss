@@ -1,0 +1,58 @@
+.edit-chat-users {
+    &__search-user {
+        margin-top: 64px;
+
+        margin-bottom: 16px;
+    }
+
+    &__selected-user {
+        .selected-user {
+            width  : 56px;
+            padding: 0 16px 16px 0;
+
+            cursor: pointer;
+        }
+    }
+
+    &__selected-users {
+        &-list {
+            display  : flex !important;
+            flex-wrap: wrap;
+            width    : 100%;
+            max-width: 292px;
+        }
+    }
+
+    &__users {
+        margin-right: -25px;
+        margin-left : -30px;
+
+        app-brief-information {
+            &:first-of-type {
+                .brief-information {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        .brief-information {
+            padding   : 4px 0 4px 30px;
+            margin-top: 16px;
+
+            cursor: pointer;
+
+            .avatar {
+                width : 50px;
+                height: 50px;
+            }
+
+            &:hover {
+                background-color: rgba(44, 44, 44, 0.1);
+            }
+        }
+
+        &-scrollbar {
+            max-height: 450px;
+        }
+    }
+}

@@ -5,7 +5,7 @@ export interface IAvatarComponentExternalProps extends ICommonPropFields {
     canChangeAvatar?: boolean;
 
     handlers?: {
-        upload: (base64: string) => void;
+        upload: (file: File) => void;
     };
 }
 

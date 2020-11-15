@@ -1,7 +1,7 @@
 <div class="search messanger__search">
     <form onsubmit="submit">
         <label class="search__label">
-            <input name="search" type="text" class="search__input" placeholder=" ">
+            <input name="search" type="text" class="search__input" oninput="change" placeholder=" ">
             <div class="search__placeholder">
                 {% include 'static/icons/search.tmpl.njk' %}
                 <span class="search__span">Search</span>

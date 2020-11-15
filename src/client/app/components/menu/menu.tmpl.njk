@@ -1,0 +1,15 @@
+<ul class="menu">
+    {% for item in items %}
+        <li class="menu__li">
+            <button class="menu__button" data-index="{{item.index}}" onclick="click(index)">
+                {% if item.iconTemplate %}
+                    <div class="menu__icon">
+                        {% include item.iconTemplate %}
+                    </div>
+                {% endif %}
+
+                <span class="menu__span">{{item.title}}</span>
+            </button>
+        </li>
+    {% endfor %}
+</ul>
