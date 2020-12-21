@@ -1,10 +1,10 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import Avatar from '../avatar/avatar.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import Avatar from '../avatar/avatar';
 import {
     SelectedUserComponentProps,
     ISelectedUserComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class SelectedUserComponent extends Block<
     SelectedUserComponentProps

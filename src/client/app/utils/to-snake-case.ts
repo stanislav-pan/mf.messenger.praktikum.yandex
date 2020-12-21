@@ -1,4 +1,4 @@
-import { isObject } from './is-object.js';
+import { isObject } from './is-object';
 
 const toSnakeCase = (str: string) =>
     (str &&

@@ -2,7 +2,7 @@ import {
     ISelectableUser,
     IUser,
 } from '../../services/chats-api/interfaces/user.interfaces';
-import { User } from './user.js';
+import { User } from './user';
 
 export class SelectableUser extends User implements ISelectableUser {
     public selected: boolean;

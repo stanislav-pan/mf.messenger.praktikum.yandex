@@ -1,15 +1,15 @@
-import Button from '../../components/button/button.js';
-import FormComponent from '../../components/form/form.js';
-import Input from '../../components/input/input.js';
-import { SubmitEvent } from '../../core/interfaces.js';
-import { router } from '../../init-router.js';
-import { templator } from '../../services/templator.service.js';
-import { userService } from '../../services/user.service.js';
-import { Block } from '../../utils/block.js';
-import { FormControl } from '../../utils/forms/form-control.js';
-import { FormGroup } from '../../utils/forms/form-group.js';
-import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
-import { ISigninData, LoginPageProps } from './interfaces.js';
+import Button from '../../components/button/button';
+import FormComponent from '../../components/form/form';
+import Input from '../../components/input/input';
+import { SubmitEvent } from '../../core/interfaces';
+import { router } from '../../init-router';
+import { templator } from '../../services/templator.service';
+import { userService } from '../../services/user.service';
+import { Block } from '../../utils/block';
+import { FormControl } from '../../utils/forms/form-control';
+import { FormGroup } from '../../utils/forms/form-group';
+import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
+import { ISigninData, LoginPageProps } from './interfaces';
 
 export default class LoginPage extends Block<LoginPageProps> {
     get loginFormGroup(): FormGroup {

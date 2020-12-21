@@ -1,4 +1,4 @@
-import { SecureMap } from '../../utils/secure-map.js';
+import { SecureMap } from '../../utils/secure-map';
 
 export class HttpHeaders extends SecureMap {
     constructor(headers: Record<string, string | string[]> = {}) {

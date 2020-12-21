@@ -1,7 +1,7 @@
-import { User } from '../../../core/models/user.js';
-import { Chat } from '../../../core/models/chat.js';
-import { HttpClientService } from '../../http/http.service.js';
-import { BaseApiService } from '../base-api.service.js';
+import { User } from '../../../core/models/user';
+import { Chat } from '../../../core/models/chat';
+import { HttpClientService } from '../../http/http.service';
+import { BaseApiService } from '../base-api.service';
 
 export class ChatsApiService extends BaseApiService {
     constructor(private http: HttpClientService) {

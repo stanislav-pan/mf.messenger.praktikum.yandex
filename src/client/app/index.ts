@@ -1,5 +1,5 @@
-import { router } from './init-router.js';
-import { userService } from './services/user.service.js';
+import { router } from './init-router';
+import { userService } from './services/user.service';
 
 userService
     .initUser()

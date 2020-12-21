@@ -1,5 +1,5 @@
-import { queryStringify } from '../../utils/query-string.js';
-import { SecureMap } from '../../utils/secure-map.js';
+import { queryStringify } from '../../utils/query-string';
+import { SecureMap } from '../../utils/secure-map';
 
 export class HttpParams extends SecureMap {
     constructor(params: Record<string, string | string[]> = {}) {

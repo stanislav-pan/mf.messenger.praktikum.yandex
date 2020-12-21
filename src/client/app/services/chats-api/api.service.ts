@@ -1,7 +1,7 @@
-import { HttpClientService, httpClientService } from '../http/http.service.js';
-import { AuthApiService } from './api-groups/auth-api.service.js';
-import { ChatsApiService } from './api-groups/chats-api.service.js';
-import { UsersApiService } from './api-groups/users-api.service.js';
+import { HttpClientService, httpClientService } from '../http/http.service';
+import { AuthApiService } from './api-groups/auth-api.service';
+import { ChatsApiService } from './api-groups/chats-api.service';
+import { UsersApiService } from './api-groups/users-api.service';
 
 export class ApiService {
     public host = 'https://ya-praktikum.tech';

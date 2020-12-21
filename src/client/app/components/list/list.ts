@@ -1,10 +1,10 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import { isEqual } from '../../utils/is-equal.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import { isEqual } from '../../utils/is-equal';
 import {
     ListComponentProps,
     IListComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class ListComponent extends Block<ListComponentProps> {
     constructor(props: IListComponentExternalProps) {

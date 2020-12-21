@@ -1,19 +1,27 @@
-import { Environment, Template } from 'nunjucks';
-import { LoadScriptService } from './load-script.service.js';
+import { Environment, FileSystemLoader, Template } from 'nunjucks';
+import { isNode } from '../utils/is-node';
 
-declare var nunjucks;
+let nunjucks;
+let path;
+
+if (isNode()) {
+    nunjucks = require('nunjucks');
+    path = require('path');
+} else {
+    nunjucks = window['nunjucks'];
+}
 
 class Templator {
     private _env: Environment;
     private _cachedTemplates: Record<string, Template> = {};
 
     constructor() {
-        LoadScriptService.load(
-            'https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.1/nunjucks.min.js'
-        ).then(() => {
-            this._env = new nunjucks.Environment(new nunjucks.WebLoader(''), {
-                autoescape: false,
-            });
+        const loader: FileSystemLoader = path
+            ? new nunjucks.FileSystemLoader(path.resolve(__dirname, '../'))
+            : new nunjucks.WebLoader('');
+
+        this._env = new nunjucks.Environment(loader, {
+            autoescape: false,
         });
     }
 

@@ -1,6 +1,6 @@
-import { AbstractControl } from './abstractal-control.js';
+import { AbstractControl } from './abstractal-control';
 import { FormGroup } from './form-group';
-import { IListenerFn } from './interfaces.js';
+import { IListenerFn } from './interfaces';
 import {
     Validator,
     ValidationErrors,

@@ -1,6 +1,6 @@
-import { AbstractControl } from './abstractal-control.js';
+import { AbstractControl } from './abstractal-control';
 import { FormControl } from './form-control';
-import { IListenerFn } from './interfaces.js';
+import { IListenerFn } from './interfaces';
 import { Validator, ValidatorFn } from './validator-interfaces';
 
 export class FormGroup extends AbstractControl {

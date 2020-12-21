@@ -1,11 +1,11 @@
-import { SubmitEvent } from '../../core/interfaces.js';
-import FormDataPerserService from '../../services/form-data-parser.service.js';
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
+import { SubmitEvent } from '../../core/interfaces';
+import FormDataPerserService from '../../services/form-data-parser.service';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
 import {
     SearchComponentProps,
     ISearchComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class SearchComponent extends Block<SearchComponentProps> {
     constructor(props: ISearchComponentExternalProps) {

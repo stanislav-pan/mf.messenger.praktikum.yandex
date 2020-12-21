@@ -1,6 +1,6 @@
-import { EventBus } from './event-bus.js';
-import { FormControl } from './forms/form-control.js';
-import { isEqual } from './is-equal.js';
+import { EventBus } from './event-bus';
+import { FormControl } from './forms/form-control';
+import { isEqual } from './is-equal';
 
 export type MapOfBlockLike = { [key: string]: Block<any> };
 

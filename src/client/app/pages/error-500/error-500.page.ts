@@ -1,6 +1,6 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import { Error500PageProps } from './interfaces.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import { Error500PageProps } from './interfaces';
 
 export default class Error500Page extends Block<Error500PageProps> {
     constructor() {

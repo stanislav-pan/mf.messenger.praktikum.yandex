@@ -1,13 +1,13 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import { FormControl } from '../../utils/forms/form-control.js';
-import { FormGroup } from '../../utils/forms/form-group.js';
-import { mapErrors } from '../../utils/forms/map-errors.js';
-import InputErrors from '../input-errors/input-errors.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import { FormControl } from '../../utils/forms/form-control';
+import { FormGroup } from '../../utils/forms/form-group';
+import { mapErrors } from '../../utils/forms/map-errors';
+import InputErrors from '../input-errors/input-errors';
 import {
     IInputComponentExternalProps,
     InputComponentProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export type AbstractalControl = FormControl | FormGroup;
 

@@ -1,8 +1,8 @@
-import { User } from '../../../core/models/user.js';
-import { HttpClientService } from '../../http/http.service.js';
-import { BaseApiService } from '../base-api.service.js';
-import { ISigninRequest } from '../interfaces/signin.interfaces.js';
-import { ISignupRequest } from '../interfaces/signup.interfaces.js';
+import { User } from '../../../core/models/user';
+import { HttpClientService } from '../../http/http.service';
+import { BaseApiService } from '../base-api.service';
+import { ISigninRequest } from '../interfaces/signin.interfaces';
+import { ISignupRequest } from '../interfaces/signup.interfaces';
 
 export class AuthApiService extends BaseApiService {
     constructor(private http: HttpClientService) {

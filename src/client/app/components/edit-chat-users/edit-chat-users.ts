@@ -1,16 +1,16 @@
-import { SelectableUser } from '../../core/models/selectable-user.js';
-import { apiService } from '../../services/chats-api/api.service.js';
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import { isArray } from '../../utils/is-array.js';
-import BriefInformationComponent from '../brief-information/brief-information.js';
-import ListComponent from '../list/list.js';
-import SearchComponent from '../search/search.js';
-import SelectedUserComponent from '../selected-user/selected-user.js';
+import { SelectableUser } from '../../core/models/selectable-user';
+import { apiService } from '../../services/chats-api/api.service';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import { isArray } from '../../utils/is-array';
+import BriefInformationComponent from '../brief-information/brief-information';
+import ListComponent from '../list/list';
+import SearchComponent from '../search/search';
+import SelectedUserComponent from '../selected-user/selected-user';
 import {
     IEditChatUsersComponentExternalProps,
     EditChatUsersComponentProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class EditChatUsersComponent extends Block<EditChatUsersComponentProps> {
     private _selectedUsers: SelectableUser[] = [];

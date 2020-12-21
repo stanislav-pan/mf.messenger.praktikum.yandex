@@ -1,10 +1,10 @@
-import { templator } from '../../services/templator.service.js';
-import UploadService from '../../services/upload.service.js';
-import { Block } from '../../utils/block.js';
+import { templator } from '../../services/templator.service';
+import UploadService from '../../services/upload.service';
+import { Block } from '../../utils/block';
 import {
     AvatarComponentProps,
     IAvatarComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class Avatar extends Block<AvatarComponentProps> {
     constructor(props: IAvatarComponentExternalProps) {

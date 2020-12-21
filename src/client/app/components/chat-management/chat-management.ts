@@ -1,17 +1,17 @@
-import { SelectableUser } from '../../core/models/selectable-user.js';
-import { chatsService } from '../../services/chats.service.js';
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import { FormControl } from '../../utils/forms/form-control.js';
-import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
-import { isArray } from '../../utils/is-array.js';
-import Button from '../button/button.js';
-import EditChatUsersComponent from '../edit-chat-users/edit-chat-users.js';
-import Input from '../input/input.js';
+import { SelectableUser } from '../../core/models/selectable-user';
+import { chatsService } from '../../services/chats.service';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import { FormControl } from '../../utils/forms/form-control';
+import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
+import { isArray } from '../../utils/is-array';
+import Button from '../button/button';
+import EditChatUsersComponent from '../edit-chat-users/edit-chat-users';
+import Input from '../input/input';
 import {
     ChatManagementComponentProps,
     IChatManagementComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class ChatManagementComponent extends Block<ChatManagementComponentProps> {
     get chatNameFormControl(): FormControl {

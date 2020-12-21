@@ -1,4 +1,4 @@
-import { Indexed, merge } from './merge.js';
+import { Indexed, merge } from './merge';
 
 /**
  * set({ foo: 5 }, 'bar.baz', 10); // { foo: 5, bar: { baz: 10 } }

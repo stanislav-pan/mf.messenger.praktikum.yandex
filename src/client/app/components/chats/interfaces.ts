@@ -1,4 +1,4 @@
-import { Chat } from '../../core/models/chat.js';
+import { Chat } from '../../core/models/chat';
 import { ICommonPropFields } from '../../utils/block';
 
 export interface IChatsComponentExternalProps extends ICommonPropFields {

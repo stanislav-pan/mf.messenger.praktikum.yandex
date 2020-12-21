@@ -1,10 +1,10 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import MessageComponent from '../message/message.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import MessageComponent from '../message/message';
 import {
     IMessagesComponentExternalProps,
     MessagesComponentProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class MessagesComponent extends Block<MessagesComponentProps> {
     constructor(props: IMessagesComponentExternalProps) {

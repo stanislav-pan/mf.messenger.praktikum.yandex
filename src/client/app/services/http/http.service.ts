@@ -1,7 +1,7 @@
-import { METHODS } from './const.js';
-import { HttpHeaders } from './http-headers.js';
-import { HttpParams } from './http-params.js';
-import { IHttpOptions, IHttpOptionsWithBody } from './interfaces.js';
+import { METHODS } from './const';
+import { HttpHeaders } from './http-headers';
+import { HttpParams } from './http-params';
+import { IHttpOptions, IHttpOptionsWithBody } from './interfaces';
 
 export class HttpClientService {
     public get = (url: string, options: IHttpOptions = {}) =>

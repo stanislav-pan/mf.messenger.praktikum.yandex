@@ -1,5 +1,5 @@
 import { ICommonPropFields } from '../../utils/block';
-import Avatar from '../avatar/avatar.js';
+import Avatar from '../avatar/avatar';
 
 export interface ISelectedUserComponentExternalProps extends ICommonPropFields {
     avatarSrc: string;

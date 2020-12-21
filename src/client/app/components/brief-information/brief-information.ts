@@ -1,13 +1,13 @@
-import { SubmitEvent } from '../../core/interfaces.js';
-import FormDataPerserService from '../../services/form-data-parser.service.js';
-import { templator } from '../../services/templator.service.js';
-import { userService } from '../../services/user.service.js';
-import { Block } from '../../utils/block.js';
-import Avatar from '../avatar/avatar.js';
+import { SubmitEvent } from '../../core/interfaces';
+import FormDataPerserService from '../../services/form-data-parser.service';
+import { templator } from '../../services/templator.service';
+import { userService } from '../../services/user.service';
+import { Block } from '../../utils/block';
+import Avatar from '../avatar/avatar';
 import {
     BriefInformationProps,
     IBriefInformationExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class BriefInformationComponent extends Block<
     BriefInformationProps

@@ -1,10 +1,10 @@
-import { SubmitEvent } from '../../core/interfaces.js';
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
+import { SubmitEvent } from '../../core/interfaces';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
 import {
     FormComponentProps,
     IFormComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class FormComponent extends Block<FormComponentProps> {
     constructor(props: IFormComponentExternalProps) {

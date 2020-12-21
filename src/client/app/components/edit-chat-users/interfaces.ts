@@ -1,7 +1,7 @@
-import { SelectableUser } from '../../core/models/selectable-user.js';
+import { SelectableUser } from '../../core/models/selectable-user';
 import { ICommonPropFields } from '../../utils/block';
-import ListComponent from '../list/list.js';
-import SearchComponent from '../search/search.js';
+import ListComponent from '../list/list';
+import SearchComponent from '../search/search';
 
 export interface IEditChatUsersComponentExternalProps
     extends ICommonPropFields {

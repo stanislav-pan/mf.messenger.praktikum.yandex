@@ -1,9 +1,9 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
 import {
     IMenuComponentExternalProps,
     MenuComponentProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class MenuComponent extends Block<MenuComponentProps> {
     private _bindedClickHandler: (event: Event) => void;

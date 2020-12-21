@@ -1,9 +1,9 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
 import {
     ISettingsHeaderExternalProps,
     SettingsHeaderProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class SettingsHeader extends Block<SettingsHeaderProps> {
     constructor(props: ISettingsHeaderExternalProps) {

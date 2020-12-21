@@ -24,5 +24,6 @@
         "alwaysStrict": true,
         "strictNullChecks": true
     },
-    "include": ["src/client/**/*"]
+    "include": ["src/client/**/*"],
+    "exclude": ["src/client/**/*.test.ts"]
 }

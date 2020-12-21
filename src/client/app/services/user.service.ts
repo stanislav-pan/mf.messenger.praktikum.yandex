@@ -1,10 +1,10 @@
-import { User } from '../core/models/user.js';
-import { ISigninData } from '../pages/login/interfaces.js';
-import { ISignupData } from '../pages/sign-up/interfaces.js';
-import { IListenerFn } from '../utils/forms/interfaces.js';
-import { objToSnakeCase } from '../utils/to-snake-case.js';
-import { ApiService, apiService } from './chats-api/api.service.js';
-import { IUser } from './chats-api/interfaces/user.interfaces.js';
+import { User } from '../core/models/user';
+import { ISigninData } from '../pages/login/interfaces';
+import { ISignupData } from '../pages/sign-up/interfaces';
+import { IListenerFn } from '../utils/forms/interfaces';
+import { objToSnakeCase } from '../utils/to-snake-case';
+import { ApiService, apiService } from './chats-api/api.service';
+import { IUser } from './chats-api/interfaces/user.interfaces';
 
 class UserService {
     private _user: User;

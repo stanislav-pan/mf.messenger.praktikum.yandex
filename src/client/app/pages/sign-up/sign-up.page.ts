@@ -1,21 +1,21 @@
-import Button from '../../components/button/button.js';
-import FormComponent from '../../components/form/form.js';
-import Input from '../../components/input/input.js';
-import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
-import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys.js';
-import { SubmitEvent } from '../../core/interfaces.js';
-import { router } from '../../init-router.js';
-import { localStorageService } from '../../services/localstorage.service.js';
-import { templator } from '../../services/templator.service.js';
-import { userService } from '../../services/user.service.js';
-import { Block } from '../../utils/block.js';
-import { FormControl } from '../../utils/forms/form-control.js';
-import { FormGroup } from '../../utils/forms/form-group.js';
-import { EmailValidator } from '../../utils/forms/validators/email.validator.js';
-import { minLengthValidator } from '../../utils/forms/validators/min-length.validator.js';
-import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator.js';
-import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
-import { ISignupData, SignUpPageProps, SignUpPageSteps } from './interfaces.js';
+import Button from '../../components/button/button';
+import FormComponent from '../../components/form/form';
+import Input from '../../components/input/input';
+import { MIN_PASSWORD_LENGTH } from '../../const/common';
+import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys';
+import { SubmitEvent } from '../../core/interfaces';
+import { router } from '../../init-router';
+import { localStorageService } from '../../services/localstorage.service';
+import { templator } from '../../services/templator.service';
+import { userService } from '../../services/user.service';
+import { Block } from '../../utils/block';
+import { FormControl } from '../../utils/forms/form-control';
+import { FormGroup } from '../../utils/forms/form-group';
+import { EmailValidator } from '../../utils/forms/validators/email.validator';
+import { minLengthValidator } from '../../utils/forms/validators/min-length.validator';
+import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator';
+import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
+import { ISignupData, SignUpPageProps, SignUpPageSteps } from './interfaces';
 
 export default class SignUpPage extends Block<SignUpPageProps> {
     get firstStepFormGroup(): FormGroup {

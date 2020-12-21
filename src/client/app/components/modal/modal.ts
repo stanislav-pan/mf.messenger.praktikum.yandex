@@ -1,9 +1,9 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
 import {
     IModalComponentExternalProps,
     ModalComponentProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class ModalComponent extends Block<ModalComponentProps> {
     private _bindedEscapeHandler: (event: KeyboardEvent) => void;

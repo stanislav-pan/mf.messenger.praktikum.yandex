@@ -1,7 +1,7 @@
 import { Chat } from '../core/models/chat';
 import { IListenerFn } from '../utils/forms/interfaces';
-import { isArray } from '../utils/is-array.js';
-import { ApiService, apiService } from './chats-api/api.service.js';
+import { isArray } from '../utils/is-array';
+import { ApiService, apiService } from './chats-api/api.service';
 
 class ChatsService {
     private _chats: Chat[] = [];

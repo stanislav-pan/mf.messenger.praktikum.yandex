@@ -1,11 +1,11 @@
-import { templator } from '../../services/templator.service.js';
-import { Block } from '../../utils/block.js';
-import { isEqual } from '../../utils/is-equal.js';
-import ChatComponent from '../chat/chat.js';
+import { templator } from '../../services/templator.service';
+import { Block } from '../../utils/block';
+import { isEqual } from '../../utils/is-equal';
+import ChatComponent from '../chat/chat';
 import {
     ChatsComponentProps,
     IChatsComponentExternalProps,
-} from './interfaces.js';
+} from './interfaces';
 
 export default class ChatsComponent extends Block<ChatsComponentProps> {
     constructor(props: IChatsComponentExternalProps) {

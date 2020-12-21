@@ -1,4 +1,4 @@
-import { HttpHeaders } from '../http/http-headers.js';
+import { HttpHeaders } from '../http/http-headers';
 
 export class BaseApiService {
     public host = 'https://ya-praktikum.tech';
