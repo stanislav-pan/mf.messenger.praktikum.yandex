@@ -1,13 +1,14 @@
 {
   "name": "mf.messenger.praktikum.yandex",
   "version": "0.0.1",
-  "description": "Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.",
+  "description": "Веб-приложение для обмена мгновенными сообщениями с акцентом на скорость и безопасность. Это быстрый, простой, безопасный и бесплатный сервис.",
   "main": "index.js",
   "scripts": {
     "start": "npm run build & node ./src/server/index.js",
     "build": "rm -r dist & cp -r ./src/client/ ./dist & node src/server/remover.js & rm -r dist/assets/styles & npx tsc & npx sass src/client/assets/styles:dist/assets/styles",
     "test": "npx jest",
-    "test:watch": "npx jest --watch"
+    "test:watch": "npx jest --watch",
+    "serve": "chokidar \"src/client/**/*.ts\" \"src/client/assets/styles/**/*.scss\" -c \"npm run build\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
   },
   "homepage": "https://github.com/stanislav-pan/mf.messenger.praktikum.yandex#readme",
   "dependencies": {
+    "chokidar": "^3.4.3",
+    "chokidar-cli": "^2.1.0",
     "express": "^4.17.1",
     "tslib": "^2.0.3"
   },
