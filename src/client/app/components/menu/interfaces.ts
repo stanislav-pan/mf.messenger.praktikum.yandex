@@ -5,6 +5,7 @@ export interface IMenuComponentExternalProps extends ICommonPropFields {
 
     handlers: {
         select: (item: IMenuItem) => void;
+        close?: () => void;
     };
 }
 

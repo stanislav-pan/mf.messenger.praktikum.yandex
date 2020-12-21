@@ -16,6 +16,12 @@
         background-color: var(--settings-divider-color);
     }
 
+    &__divider-hidden {
+        visibility: hidden;
+        
+        margin-bottom: 64px;
+    }
+
     &__create-btn {
         margin-top: 24px;
     }

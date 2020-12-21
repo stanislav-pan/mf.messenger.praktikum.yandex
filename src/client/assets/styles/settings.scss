@@ -7,6 +7,11 @@
 
     &__brief-information {
         margin: 37px 34px 20px 34px;
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+        }
     }
 
     &__divider {

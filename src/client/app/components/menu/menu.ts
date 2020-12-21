@@ -6,6 +6,8 @@ import {
 } from './interfaces.js';
 
 export default class MenuComponent extends Block<MenuComponentProps> {
+    private _bindedClickHandler: (event: Event) => void;
+
     constructor(props: IMenuComponentExternalProps) {
         const { select } = props.handlers;
 
@@ -32,6 +34,29 @@ export default class MenuComponent extends Block<MenuComponentProps> {
             },
         });
     }
+
+    componentDidMount() {
+        this._bindedClickHandler = this._clickHandler.bind(this);
+
+        document.addEventListener('click', this._bindedClickHandler);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this._bindedClickHandler);
+    }
+
+    private _clickHandler(event: Event) {
+        if (this.element.contains(event.target as HTMLElement)) {
+            return;
+        }
+
+        if (!(typeof this.props.handlers.close === 'function')) {
+            return;
+        }
+
+        this.props.handlers.close();
+    }
+
     render() {
         return templator
             .getTemplate('../app/components/menu/menu.tmpl.njk')

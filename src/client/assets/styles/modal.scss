@@ -8,6 +8,8 @@
     overflow-y     : scroll;
     backdrop-filter: blur(1px);
 
+    z-index: 9999;
+
     &__close-btn {
         position: relative;
         z-index : 10;

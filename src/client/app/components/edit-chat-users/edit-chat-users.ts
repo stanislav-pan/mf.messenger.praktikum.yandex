@@ -12,9 +12,7 @@ import {
     EditChatUsersComponentProps,
 } from './interfaces.js';
 
-export default class EditChatUsersComponent extends Block<
-    EditChatUsersComponentProps
-> {
+export default class EditChatUsersComponent extends Block<EditChatUsersComponentProps> {
     private _selectedUsers: SelectableUser[] = [];
 
     private get selectedUsers() {
@@ -23,7 +21,9 @@ export default class EditChatUsersComponent extends Block<
 
     private set selectedUsers(users: SelectableUser[]) {
         this._selectedUsers = users;
-        this.props.handlers.select(users);
+        setTimeout(() => {
+            this.props.handlers.select(users);
+        }, 0);
     }
 
     constructor(props: IEditChatUsersComponentExternalProps) {
@@ -51,11 +51,19 @@ export default class EditChatUsersComponent extends Block<
     }
 
     componentDidMount() {
+        // if (isArray(this.props.selectedUsers)) {
+        //     this.selectedUsers = this.props.selectedUsers;
+        // }
+
+        this._searchByLogin('');
+    }
+
+    componentDidUpdate() {
         if (isArray(this.props.selectedUsers)) {
             this.selectedUsers = this.props.selectedUsers;
         }
 
-        this._searchByLogin('');
+        return true;
     }
 
     private _searchByLogin(login: string) {
@@ -113,6 +121,10 @@ export default class EditChatUsersComponent extends Block<
         this.props.components.usersList.setProps({
             components: usersComponents,
         });
+
+        if (users.some(user => user.selected)) {
+            this._setSelectedUsers(users, this.selectedUsers);
+        }
     }
 
     private _setSelectedUsers(

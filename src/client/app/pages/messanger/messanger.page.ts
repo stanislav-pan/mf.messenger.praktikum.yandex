@@ -1,6 +1,7 @@
 import BriefInformationComponent from '../../components/brief-information/brief-information.js';
+import ChatManagementComponent from '../../components/chat-management/chat-management.js';
+import { ChatManagementComponentType } from '../../components/chat-management/interfaces.js';
 import ChatsComponent from '../../components/chats/chats.js';
-import CreateChatComponent from '../../components/create-chat/create-chat.js';
 import { IMenuItem } from '../../components/menu/interfaces.js';
 import MenuComponent from '../../components/menu/menu.js';
 import { IMessage } from '../../components/message/interfaces.js';
@@ -8,7 +9,9 @@ import MessagesComponent from '../../components/messages/messages.js';
 import ModalComponent from '../../components/modal/modal.js';
 import SearchComponent from '../../components/search/search.js';
 import { Chat } from '../../core/models/chat.js';
+import { User } from '../../core/models/user.js';
 import { router } from '../../init-router.js';
+import { apiService } from '../../services/chats-api/api.service.js';
 import { chatsService } from '../../services/chats.service.js';
 import { templator } from '../../services/templator.service.js';
 import { userService } from '../../services/user.service.js';
@@ -17,6 +20,8 @@ import { FormGroup } from '../../utils/forms/form-group.js';
 import { MessangerPageProps } from './interfaces.js';
 
 export default class MessangerPage extends Block<MessangerPageProps> {
+    private _bindedChatsChangingHandler;
+
     get loginFormGroup(): FormGroup {
         return this.props.components?.loginForm?.props?.formGroup;
     }
@@ -69,9 +74,12 @@ export default class MessangerPage extends Block<MessangerPageProps> {
                         chats: [],
                         handlers: {
                             click: (_, chat: Chat) => {
-                                this.setProps({
-                                    currectChatId: chat.id,
-                                });
+                                this.setProps({ currectChatId: chat.id });
+
+                                this.props.components.briefInformation.setProps({
+                                    name: chat.title,
+                                    avatarSrc: chat.avatar
+                                })
                             },
                         },
                     }),
@@ -79,7 +87,13 @@ export default class MessangerPage extends Block<MessangerPageProps> {
                 handlers: {
                     goToSettings: () => this._goToSettings(),
                     createChat: () => this._createChat(),
-                    showChatMenu: () => this._showOrHideChatMenu(),
+                    showChatMenu: (event: Event) => {
+                        event.stopPropagation();
+
+                        this._showOrHideChatMenu(
+                            !this.props.components.chatMenu
+                        );
+                    },
                 },
             } as MessangerPageProps,
         });
@@ -88,32 +102,50 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     componentDidMount() {
         chatsService.fetchChats();
 
-        chatsService.subscribe((chats) => {
-            this.props.components.chats.setProps({
-                chats
-                // chats: chats.map((chat) => ({
-                //     avatarSrc: chat.avatar,
-                //     name: chat.title,
-                //     text: '',
-                //     data: '10:49',
-                //     numberOfUnreadMessages: 2,
-                // })),
-            });
-            console.error(chats);
+        this._bindedChatsChangingHandler = this._chatsChangingHandler.bind(
+            this
+        );
+
+        chatsService.subscribe(this._bindedChatsChangingHandler);
+    }
+
+    componentWillUnmount() {
+        chatsService.unsubscribe(this._bindedChatsChangingHandler);
+    }
+
+    private _chatsChangingHandler(chats: Chat[]) {
+        this.props.components.chats.setProps({
+            chats,
+            // chats: chats.map((chat) => ({
+            //     avatarSrc: chat.avatar,
+            //     name: chat.title,
+            //     text: '',
+            //     data: '10:49',
+            //     numberOfUnreadMessages: 2,
+            // })),
         });
+
+        console.error(chats);
     }
 
     private _createChat() {
         this._showOrHideCreateChatModal(true);
     }
 
-    private _showOrHideCreateChatModal(show: boolean = true) {
+    private _showOrHideCreateChatModal(
+        show: boolean = true,
+        componentType: ChatManagementComponentType = 'create',
+        selectedUsers?: User[]
+    ) {
         this.setProps({
             components: {
                 ...this.props.components,
                 modal: show
                     ? new ModalComponent({
-                          component: new CreateChatComponent({
+                          component: new ChatManagementComponent({
+                              componentType,
+                              currectChatId: this.props.currectChatId,
+                              ...(selectedUsers && { selectedUsers }),
                               handlers: {
                                   complete: () =>
                                       this._showOrHideCreateChatModal(false),
@@ -139,22 +171,58 @@ export default class MessangerPage extends Block<MessangerPageProps> {
                               {
                                   title: 'Edit participants',
                                   callback: () => {
-                                      //   apiService.chats.getChatUsers();
+                                      if (!this.props.currectChatId) {
+                                          return;
+                                      }
+
+                                      apiService.chats
+                                          .getChatUsers(
+                                              this.props.currectChatId
+                                          )
+                                          .then((users) => {
+                                              this._showOrHideCreateChatModal(
+                                                  true,
+                                                  'edit',
+                                                  users.filter(
+                                                      (user) =>
+                                                          user.id !==
+                                                          userService.getUser()
+                                                              .id
+                                                  )
+                                              );
+                                          });
                                   },
                               },
                               {
                                   title: 'Delete chat',
-                                  callback: () => {},
+                                  callback: () => {
+                                      if (!this.props.currectChatId) {
+                                          return;
+                                      }
+
+                                      chatsService
+                                          .deleteChat(this.props.currectChatId)
+                                          .then(() => {
+                                              this.props.currectChatId = null;
+                                          });
+                                  },
                               },
                           ],
                           handlers: {
                               select: (item: IMenuItem) => {
-                                  console.log(item);
+                                  this._showOrHideChatMenu(false);
+
+                                  item.callback();
                               },
+                              close: () => this._showOrHideChatMenu(false),
                           },
                           class: 'messanger__chat-menu',
                       })
-                    : null,
+                    : (() => {
+                          this.props.components.chatMenu?.remove();
+
+                          return null;
+                      })(),
             },
         });
     }

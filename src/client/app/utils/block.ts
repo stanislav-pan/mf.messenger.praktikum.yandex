@@ -1,5 +1,6 @@
 import { EventBus } from './event-bus.js';
 import { FormControl } from './forms/form-control.js';
+import { isEqual } from './is-equal.js';
 
 export type MapOfBlockLike = { [key: string]: Block<any> };
 
@@ -82,12 +83,12 @@ export abstract class Block<
     public componentDidMount() {}
 
     private _componentDidUpdate(oldProps: T, newProps: T) {
-        this.componentDidUpdate(oldProps, newProps)
+        this.componentDidUpdate(oldProps, newProps);
     }
 
     public componentDidUpdate(oldProps: T, newProps: T) {
-        // TODO: написать глубокое сравнение свойств в следующем спринте
-        return JSON.stringify(oldProps) !== JSON.stringify(newProps);
+        return !isEqual(oldProps, newProps);
+        // return JSON.stringify(oldProps) !== JSON.stringify(newProps);
     }
 
     private _componentWillUnmount() {
@@ -188,7 +189,7 @@ export abstract class Block<
                 const component = Object.values(
                     this.props.components || {}
                 ).find(
-                    (component: Block<any>) => component._id === componentId
+                    (component: Block<any>) => component?._id === componentId
                 ) as Block<any>;
 
                 if (!component) {

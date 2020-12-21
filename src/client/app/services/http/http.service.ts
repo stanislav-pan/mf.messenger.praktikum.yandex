@@ -18,8 +18,8 @@ export class HttpClientService {
         return this.request(METHODS.POST, url, { ...options, body });
     };
 
-    public delete = (url: string, options: IHttpOptions = {}) => {
-        return this.request(METHODS.DELETE, url, { ...options });
+    public delete = (url: string, body: unknown, options: IHttpOptions = {}) => {
+        return this.request(METHODS.DELETE, url, { ...options, body });
     };
 
     public request = (

@@ -11,7 +11,7 @@ export default class SettingsHeader extends Block<SettingsHeaderProps> {
         const back = props.handlers.back;
 
         super({
-            tagName: 'app-avatar',
+            tagName: 'app-settings-header',
             props: {
                 ...props,
                 handlers: {

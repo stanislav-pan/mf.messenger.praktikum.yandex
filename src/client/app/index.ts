@@ -15,5 +15,13 @@ userService
         router.start();
     })
     .catch(() => {
+        const pathname = window.location.pathname;
+
+        if (pathname.includes('/sign-up')) {
+            router.start('/sign-up');
+
+            return;
+        }
+
         router.start('/login');
     });

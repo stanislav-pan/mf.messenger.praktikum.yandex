@@ -24,6 +24,25 @@ export class ChatsApiService extends BaseApiService {
             .then((xhr) => Chat.mapChatFromServer(JSON.parse(xhr.response)));
     }
 
+    public deleteChat(chatId: number) {
+        return this.http
+            .delete(
+                this.getUrl(),
+                {
+                    chatId: String(chatId),
+                },
+                {
+                    headers: new HttpHeaders({
+                        'content-type': 'application/json',
+                    }),
+                    withCredentials: true,
+                }
+            )
+            .then((xhr) => {
+                console.log(xhr.response);
+            });
+    }
+
     public get(): Promise<Array<Chat>> {
         return this.http
             .get(this.getUrl(), {
@@ -57,7 +76,25 @@ export class ChatsApiService extends BaseApiService {
             .then((xhr) => xhr);
     }
 
-    public getChatUsers(chatId: number) {
+    public deleteUsersFromChat(chatId: number, usersIds: number[]) {
+        return this.http
+            .delete(
+                this.getUrl('users'),
+                {
+                    chatId,
+                    users: usersIds,
+                },
+                {
+                    headers: new HttpHeaders({
+                        'content-type': 'application/json',
+                    }),
+                    withCredentials: true,
+                }
+            )
+            .then((xhr) => xhr);
+    }
+
+    public getChatUsers(chatId: number): Promise<User[]> {
         return this.http
             .get(this.getUrl(`${chatId}/users`), {
                 headers: new HttpHeaders({

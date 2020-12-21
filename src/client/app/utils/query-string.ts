@@ -1,7 +1,7 @@
 export type StringIndexed = Record<string, unknown>;
 
 const isPrimitive = (value: unknown) =>
-    typeof value !== 'object' && value === null;
+    typeof value !== 'object' || value === null;
 
 const generateTree = (obj: Object | Array<any>) => {
     return Object.entries(obj).reduce((acc: any[], [key, item]) => {
@@ -16,8 +16,7 @@ const flatTree = (tree: Array<any>) => {
 
     const temp = (tree: Array<any>, res: Array<any>) =>
         tree.forEach(([key, value]) => {
-            // Если примитив
-            if (typeof value !== 'object' || value === null) {
+            if (isPrimitive(value)) {
                 res.push([key, value]);
             } else if (Array.isArray(value)) {
                 value.forEach((arrValue) => {
