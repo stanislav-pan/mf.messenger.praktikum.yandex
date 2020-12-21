@@ -21,5 +21,7 @@ export const mapErrors = (control: FormControl) => {
         return 'This field is required';
     }
 
-    return '';
+    const firstError = (Object.values(control.errors) || [])[0];
+
+    return firstError;
 };

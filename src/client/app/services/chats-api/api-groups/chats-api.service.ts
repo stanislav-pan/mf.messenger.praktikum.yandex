@@ -1,6 +1,5 @@
 import { User } from '../../../core/models/user.js';
 import { Chat } from '../../../core/models/chat.js';
-import { HttpHeaders } from '../../http/http-headers.js';
 import { HttpClientService } from '../../http/http.service.js';
 import { BaseApiService } from '../base-api.service.js';
 
@@ -9,48 +8,29 @@ export class ChatsApiService extends BaseApiService {
         super('chats/');
     }
 
-    public createChat(title: string) {
+    public async createChat(title: string) {
         return this.http
-            .post(
-                this.getUrl(),
-                { title },
-                {
-                    headers: new HttpHeaders({
-                        'content-type': 'application/json',
-                    }),
-                    withCredentials: true,
-                }
-            )
+            .post(this.getUrl(), { title }, this.commonOptions)
             .then((xhr) => Chat.mapChatFromServer(JSON.parse(xhr.response)));
     }
 
-    public deleteChat(chatId: number) {
+    public async deleteChat(chatId: number) {
         return this.http
             .delete(
                 this.getUrl(),
                 {
                     chatId: String(chatId),
                 },
-                {
-                    headers: new HttpHeaders({
-                        'content-type': 'application/json',
-                    }),
-                    withCredentials: true,
-                }
+                this.commonOptions
             )
             .then((xhr) => {
                 console.log(xhr.response);
             });
     }
 
-    public get(): Promise<Array<Chat>> {
+    public async get(): Promise<Array<Chat>> {
         return this.http
-            .get(this.getUrl(), {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .get(this.getUrl(), this.commonOptions)
             .then((xhr) =>
                 JSON.parse(xhr.response).map((chat) =>
                     Chat.mapChatFromServer(chat)
@@ -58,7 +38,7 @@ export class ChatsApiService extends BaseApiService {
             );
     }
 
-    public addUsersToChat(chatId: number, usersIds: number[]) {
+    public async addUsersToChat(chatId: number, usersIds: number[]) {
         return this.http
             .put(
                 this.getUrl('users'),
@@ -66,17 +46,12 @@ export class ChatsApiService extends BaseApiService {
                     chatId,
                     users: usersIds,
                 },
-                {
-                    headers: new HttpHeaders({
-                        'content-type': 'application/json',
-                    }),
-                    withCredentials: true,
-                }
+                this.commonOptions
             )
             .then((xhr) => xhr);
     }
 
-    public deleteUsersFromChat(chatId: number, usersIds: number[]) {
+    public async deleteUsersFromChat(chatId: number, usersIds: number[]) {
         return this.http
             .delete(
                 this.getUrl('users'),
@@ -84,24 +59,14 @@ export class ChatsApiService extends BaseApiService {
                     chatId,
                     users: usersIds,
                 },
-                {
-                    headers: new HttpHeaders({
-                        'content-type': 'application/json',
-                    }),
-                    withCredentials: true,
-                }
+                this.commonOptions
             )
             .then((xhr) => xhr);
     }
 
-    public getChatUsers(chatId: number): Promise<User[]> {
+    public async getChatUsers(chatId: number): Promise<User[]> {
         return this.http
-            .get(this.getUrl(`${chatId}/users`), {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .get(this.getUrl(`${chatId}/users`), this.commonOptions)
             .then((xhr) =>
                 JSON.parse(xhr.response).map((user) =>
                     User.mapUserFromServer(user)

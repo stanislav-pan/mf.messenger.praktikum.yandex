@@ -1,5 +1,4 @@
 import { User } from '../../../core/models/user.js';
-import { HttpHeaders } from '../../http/http-headers.js';
 import { HttpClientService } from '../../http/http.service.js';
 import { BaseApiService } from '../base-api.service.js';
 import {
@@ -12,18 +11,13 @@ export class UsersApiService extends BaseApiService {
         super('user/');
     }
 
-    public changePassword(data: IChangePasswordRequest) {
+    public async changePassword(data: IChangePasswordRequest) {
         return this.http
-            .put(this.getUrl('password'), data, {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .put(this.getUrl('password'), data, this.commonOptions)
             .then((xhr) => xhr.response);
     }
 
-    public changeAvatar(file: File) {
+    public async changeAvatar(file: File) {
         const data = new FormData();
         data.append('avatar', file);
 
@@ -34,29 +28,15 @@ export class UsersApiService extends BaseApiService {
             .then((xhr) => User.mapUserFromServer(JSON.parse(xhr.response)));
     }
 
-    public changeProfile(data: IChangeProfileRequest) {
+    public async changeProfile(data: IChangeProfileRequest) {
         return this.http
-            .put(this.getUrl('profile'), data, {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .put(this.getUrl('profile'), data, this.commonOptions)
             .then((xhr) => User.mapUserFromServer(JSON.parse(xhr.response)));
     }
 
-    public searchByLogin(login: string): Promise<User[]> {
+    public async searchByLogin(login: string): Promise<User[]> {
         return this.http
-            .post(
-                this.getUrl('search'),
-                { login },
-                {
-                    headers: new HttpHeaders({
-                        'content-type': 'application/json',
-                    }),
-                    withCredentials: true,
-                }
-            )
+            .post(this.getUrl('search'), { login }, this.commonOptions)
             .then((xhr) =>
                 JSON.parse(xhr.response).map((user) =>
                     User.mapUserFromServer(user)

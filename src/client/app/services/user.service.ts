@@ -1,4 +1,6 @@
 import { User } from '../core/models/user.js';
+import { ISigninData } from '../pages/login/interfaces.js';
+import { ISignupData } from '../pages/sign-up/interfaces.js';
 import { IListenerFn } from '../utils/forms/interfaces.js';
 import { objToSnakeCase } from '../utils/to-snake-case.js';
 import { ApiService, apiService } from './chats-api/api.service.js';
@@ -18,23 +20,41 @@ class UserService {
 
     constructor(private apiService: ApiService) {}
 
-    public initUser() {
+    public async initUser() {
         return this.apiService.auth
             .fetchUser()
             .then((user) => (this.user = user));
+    }
+
+    public async auth(data: ISigninData) {
+        return apiService.auth.signin(data).then(() => userService.initUser());
+    }
+
+    public async signUp(data: ISignupData) {
+        return apiService.auth
+            .signup(objToSnakeCase(data))
+            .then(() => userService.initUser());
+    }
+
+    public async logout() {
+        return apiService.auth.logout().then(() => {
+            this._listeners = [];
+            
+            this.user = null as any;
+        });
     }
 
     public getUser() {
         return this._user || {};
     }
 
-    public changeAvatar(file: File) {
+    public async changeAvatar(file: File) {
         return apiService.users.changeAvatar(file).then((user) => {
             this.user = user;
         });
     }
 
-    public changeProfile(user: IUser) {
+    public async changeProfile(user: IUser) {
         const {
             firstName,
             secondName,

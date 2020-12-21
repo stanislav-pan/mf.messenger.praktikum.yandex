@@ -15,7 +15,6 @@ export interface IInputComponentExternalProps extends ICommonPropFields {
     iconTemplate?: string;
 
     formControl?: FormControl;
-    formControlName?: string;
 }
 
 export interface IInputComponentInnerProps {

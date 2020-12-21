@@ -312,7 +312,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
     }
 
     private _logout() {
-        apiService.auth.logout().then(() => {
+        userService.logout().then(() => {
             router.go('/login');
         });
     }

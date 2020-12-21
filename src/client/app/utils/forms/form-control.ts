@@ -78,6 +78,7 @@ export class FormControl extends AbstractControl {
     private set value(value: any) {
         this._value = value;
 
+        this.resetErrors();
         this._checkError();
 
         if (this._listeners) {
@@ -168,6 +169,10 @@ export class FormControl extends AbstractControl {
         this._listeners.push(next);
     }
 
+    public unsubscribe(next: (value: any) => void) {
+        this._listeners = this._listeners.filter((item) => item !== next);
+    }
+
     public markAsDirty() {
         if (this._dirty) {
             return;
@@ -186,6 +191,12 @@ export class FormControl extends AbstractControl {
 
     public setErrors(error: ValidationErrors) {
         Object.assign(this.errors, error);
+
+        if (this._listeners) {
+            for (const listener of this._listeners) {
+                listener(this._value);
+            }
+        }
     }
 
     public deleteErrors(keys: string[]) {

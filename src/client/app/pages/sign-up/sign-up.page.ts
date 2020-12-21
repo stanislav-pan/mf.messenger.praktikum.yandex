@@ -5,7 +5,6 @@ import { MIN_PASSWORD_LENGTH } from '../../const/common.js';
 import { SIGN_UP_STEP_ONE } from '../../const/localstorage.keys.js';
 import { SubmitEvent } from '../../core/interfaces.js';
 import { router } from '../../init-router.js';
-import { apiService } from '../../services/chats-api/api.service.js';
 import { localStorageService } from '../../services/localstorage.service.js';
 import { templator } from '../../services/templator.service.js';
 import { userService } from '../../services/user.service.js';
@@ -16,7 +15,6 @@ import { EmailValidator } from '../../utils/forms/validators/email.validator.js'
 import { minLengthValidator } from '../../utils/forms/validators/min-length.validator.js';
 import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator.js';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator.js';
-import { objToSnakeCase } from '../../utils/to-snake-case.js';
 import { ISignupData, SignUpPageProps, SignUpPageSteps } from './interfaces.js';
 
 export default class SignUpPage extends Block<SignUpPageProps> {
@@ -124,6 +122,13 @@ export default class SignUpPage extends Block<SignUpPageProps> {
                         },
                     }),
                 },
+                handlers: {
+                    goToLoginPage: (event: Event) => {
+                        event.preventDefault();
+                        
+                        router.go('/login')
+                    }
+                }
             },
         });
     }
@@ -191,9 +196,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     }
 
     private _signUpReq(data: ISignupData) {
-        apiService.auth.signup(objToSnakeCase(data)).then(() => {
-            userService.initUser();
-
+        userService.signUp(data).then(() => {
             router.go('/messanger');
         });
     }

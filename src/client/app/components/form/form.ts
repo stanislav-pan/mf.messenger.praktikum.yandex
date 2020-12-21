@@ -28,6 +28,10 @@ export default class FormComponent extends Block<FormComponentProps> {
                     key,
                     component.props.formControl
                 );
+
+                component.setProps({
+                    name: key
+                })
             }
         });
     }

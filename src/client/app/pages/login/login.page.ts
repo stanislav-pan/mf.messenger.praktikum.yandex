@@ -3,7 +3,6 @@ import FormComponent from '../../components/form/form.js';
 import Input from '../../components/input/input.js';
 import { SubmitEvent } from '../../core/interfaces.js';
 import { router } from '../../init-router.js';
-import { apiService } from '../../services/chats-api/api.service.js';
 import { templator } from '../../services/templator.service.js';
 import { userService } from '../../services/user.service.js';
 import { Block } from '../../utils/block.js';
@@ -55,6 +54,13 @@ export default class LoginPage extends Block<LoginPageProps> {
                         },
                     }),
                 },
+                handlers: {
+                    goToSignUpPage: (event: Event) => {
+                        event.preventDefault();
+                        
+                        router.go('/sign-up')
+                    }
+                }
             },
         });
     }
@@ -70,11 +76,24 @@ export default class LoginPage extends Block<LoginPageProps> {
 
         const value: ISigninData = this.loginFormGroup.value;
 
-        apiService.auth.signin(value).then(() => {
-            userService.initUser();
+        userService
+            .auth(value)
+            .then(() => router.go('/messanger'))
+            .catch((xhr: XMLHttpRequest) => {
+                if (xhr.status !== 401) {
+                    return;
+                }
 
-            router.go('/messanger');
-        });
+                this.loginFormGroup.markAsDirtyAllControls();
+
+                this.loginFormGroup.get('login').setErrors({
+                    invalidCredentials: '',
+                });
+
+                this.loginFormGroup.get('password').setErrors({
+                    invalidCredentials: 'Credentials are invalid',
+                });
+            });
     }
 
     public render() {

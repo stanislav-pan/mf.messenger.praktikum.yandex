@@ -12,6 +12,8 @@ import {
 export type AbstractalControl = FormControl | FormGroup;
 
 export default class Input extends Block<InputComponentProps> {
+    private _bindedFormControlChangingHandler;
+
     constructor(props: IInputComponentExternalProps) {
         super({
             tagName: 'app-input',
@@ -33,8 +35,26 @@ export default class Input extends Block<InputComponentProps> {
             return;
         }
 
-        fc.subscribe(() => {
-            this.props.components.errors.setProps({ error: mapErrors(fc) });
+        this._bindedFormControlChangingHandler = this._formControlChangingHandler.bind(
+            this
+        );
+
+        fc.subscribe(this._bindedFormControlChangingHandler);
+    }
+
+    componentWillUnmount() {
+        const fc = this.props?.formControl as FormControl;
+
+        if (!fc) {
+            return;
+        }
+
+        fc.unsubscribe(this._bindedFormControlChangingHandler);
+    }
+
+    private _formControlChangingHandler() {
+        this.props.components.errors.setProps({
+            error: mapErrors(this.props.formControl as FormControl),
         });
     }
 

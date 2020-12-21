@@ -1,5 +1,4 @@
 import { User } from '../../../core/models/user.js';
-import { HttpHeaders } from '../../http/http-headers.js';
 import { HttpClientService } from '../../http/http.service.js';
 import { BaseApiService } from '../base-api.service.js';
 import { ISigninRequest } from '../interfaces/signin.interfaces.js';
@@ -10,51 +9,27 @@ export class AuthApiService extends BaseApiService {
         super('auth/');
     }
 
-    public signup(data: ISignupRequest) {
+    public async signup(data: ISignupRequest) {
         return this.http
-            .post(this.getUrl('signup'), data, {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .post(this.getUrl('signup'), data, this.commonOptions)
             .then((xhr) => xhr.response);
     }
 
-    public signin(data: ISigninRequest) {
+    public async signin(data: ISigninRequest) {
         return this.http
-            .post(this.getUrl('signin'), data, {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .post(this.getUrl('signin'), data, this.commonOptions)
             .then((xhr) => xhr.response);
     }
 
-    public logout() {
+    public async logout() {
         return this.http
-            .post(
-                this.getUrl('logout'),
-                {},
-                {
-                    headers: new HttpHeaders({
-                        'content-type': 'application/json',
-                    }),
-                    withCredentials: true,
-                }
-            )
+            .post(this.getUrl('logout'), {}, this.commonOptions)
             .then((xhr) => xhr.response);
     }
 
-    public fetchUser(): Promise<User> {
+    public async fetchUser(): Promise<User> {
         return this.http
-            .get(this.getUrl('user'), {
-                headers: new HttpHeaders({
-                    'content-type': 'application/json',
-                }),
-                withCredentials: true,
-            })
+            .get(this.getUrl('user'), this.commonOptions)
             .then((xhr) => User.mapUserFromServer(JSON.parse(xhr.response)));
     }
 }
