@@ -33,7 +33,7 @@ describe('components/Button', () => {
         });
 
         expect(actualBtn.render().trim()).toBe(
-            '<button class="btn btn_size_normal">test</button>'
+            '<button class="btn btn_size_normal" onclick="click">test</button>'
         );
     });
 
@@ -48,10 +48,24 @@ describe('components/Button', () => {
             },
         });
 
-        console.dir(actualBtn.element)
-
-        actualBtn.element.click();
+        const btn = actualBtn.element.querySelector('button');
+        btn.click();
 
         expect(mock).toBeCalled();
+    });
+
+    it('Должен делать ререндер после обновления свойств', () => {
+        const btnText = 'test';
+        const newBtnText = 'new test text';
+
+        const actualBtn = new Button({
+            text: btnText,
+        });
+
+        actualBtn.setProps({
+            text: newBtnText,
+        });
+
+        expect(actualBtn.element.textContent).toBe(newBtnText);
     });
 });
