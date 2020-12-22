@@ -271,9 +271,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
 
         apiService.users
             .changePassword({ newPassword, oldPassword })
-            .then((response) => {
-                console.log(response);
-
+            .then(() => {
                 this._back();
             });
     }

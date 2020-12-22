@@ -22,10 +22,7 @@ export class ChatsApiService extends BaseApiService {
                     chatId: String(chatId),
                 },
                 this.commonOptions
-            )
-            .then((xhr) => {
-                console.log(xhr.response);
-            });
+            );
     }
 
     public async get(): Promise<Array<Chat>> {

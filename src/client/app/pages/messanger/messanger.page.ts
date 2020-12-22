@@ -58,9 +58,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
                 components: {
                     search: new SearchComponent({
                         handlers: {
-                            submit: (_, query: string) => {
-                                console.log(query);
-                            },
+                            submit: () => {},
                         },
                     }),
                     messages: new MessagesComponent({ messages }),
@@ -76,10 +74,12 @@ export default class MessangerPage extends Block<MessangerPageProps> {
                             click: (_, chat: Chat) => {
                                 this.setProps({ currectChatId: chat.id });
 
-                                this.props.components.briefInformation.setProps({
-                                    name: chat.title,
-                                    avatarSrc: chat.avatar
-                                })
+                                this.props.components.briefInformation.setProps(
+                                    {
+                                        name: chat.title,
+                                        avatarSrc: chat.avatar,
+                                    }
+                                );
                             },
                         },
                     }),
@@ -124,8 +124,6 @@ export default class MessangerPage extends Block<MessangerPageProps> {
             //     numberOfUnreadMessages: 2,
             // })),
         });
-
-        console.error(chats);
     }
 
     private _createChat() {

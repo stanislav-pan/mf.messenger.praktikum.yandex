@@ -130,9 +130,6 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
             removeFromChat.push(user)
         );
 
-        console.log('addToChat', addToChat);
-        console.log('removeFromChat', removeFromChat);
-
         chatsService
             .updateUsers(
                 this.props.currectChatId,
@@ -143,8 +140,6 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
     }
 
     render() {
-        console.log(this._defaultSelectedUsers);
-
         const { chatName, createBtn, editChatUsers } = this.props.components;
 
         return templator

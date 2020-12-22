@@ -31,7 +31,5 @@ export function set(
         return acc;
     }, {});
 
-    console.log(obj);
-
     return merge(object, obj);
 }

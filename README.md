@@ -11,7 +11,7 @@
 - `sign-up-step-two` - второй шаг регистрации;
 - `settings` - страница с настройками;
 
-Ссылка на проект в netlify: [messanger](https://wizardly-shannon-8ef09d.netlify.app/)
+Ссылка на проект в netlify: [messanger](https://wizardly-shannon-8ef09d.netlify.app/login)
 
 ## Запуск
 
@@ -19,6 +19,10 @@
 - `npm run build` — сборка стабильной версии (используется для сборки в Netlify).
 - `npm run serve` — запускает скрипт для отслеживания изменений в файлах.
 - `npm run test:watch` — запускает тесты. В проект также был добавлен конфиг для дебаггинга тестов. Для запуска тестов в режиме дебаггинга необходимо использовать VSCode и нажать на F5.
+
+## Деплой с помощью CLI
+- `netlify build`
+- `netlify deploy --prod`
 
 ## Макет
 

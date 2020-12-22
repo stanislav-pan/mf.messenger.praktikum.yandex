@@ -20,15 +20,10 @@ files.then((filePaths) => {
                 '$1$2.js'
             );
             if (err) throw err;
-
-            console.log(`writing to ${filepath}`)
-
             fs.writeFile(filepath, newData, function (err) {
                 if (err) {
                     throw err;
                 }
-
-                console.log('complete');
             });
         });
     });
