@@ -207,10 +207,8 @@ export abstract class Block<
   }
 
   private _makePropsProxy(props: T): T {
-    const self = this;
-
     return new Proxy(props, {
-      get(target: T, p: string): boolean | never {
+      get: (target: T, p: string): boolean | never => {
         if (p.toString().startsWith('_')) {
           throw new Error('нет доступа');
         }
@@ -219,17 +217,17 @@ export abstract class Block<
 
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(taget: T, p: string, value: any): boolean | never {
+      set: (taget: T, p: string, value: any): boolean | never => {
         if (p.toString().startsWith('_')) {
           throw new Error('нет доступа');
         }
 
         taget[p] = value;
 
-        self._render();
+        this._render();
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw new Error('нет доступа');
       },
     });

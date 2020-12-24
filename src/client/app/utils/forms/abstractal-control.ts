@@ -10,24 +10,22 @@ export abstract class AbstractControl {
   protected abstract _setValid(isValid: boolean): void;
 
   private _setErrorsProxy() {
-    const self = this;
-
     this.errors = new Proxy(this.errors, {
-      get(target: ValidationErrors, prop: string) {
-        self._setValid(!Object.keys(target).length);
+      get: (target: ValidationErrors, prop: string) => {
+        this._setValid(!Object.keys(target).length);
 
         return target[prop];
       },
-      set(target: ValidationErrors, prop: string, value: any) {
+      set: (target: ValidationErrors, prop: string, value: any) => {
         target[prop] = value;
 
-        self._setValid(!Object.keys(target).length);
+        this._setValid(!Object.keys(target).length);
         return true;
       },
-      deleteProperty(target: ValidationErrors, prop: string) {
+      deleteProperty: (target: ValidationErrors, prop: string) => {
         delete target[prop];
 
-        self._setValid(!Object.keys(target).length);
+        this._setValid(!Object.keys(target).length);
         return true;
       },
     });
