@@ -191,12 +191,6 @@ export class FormControl extends AbstractControl {
 
   public setErrors(error: ValidationErrors) {
     Object.assign(this.errors, error);
-
-    if (this._listeners) {
-      for (const listener of this._listeners) {
-        listener(this._value);
-      }
-    }
   }
 
   public deleteErrors(keys: string[]) {
