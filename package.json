@@ -8,7 +8,8 @@
     "build": "rm -r dist & cp -r ./src/client/ ./dist & node src/server/remover.js & rm -r dist/assets/styles & npx tsc & node importer.js & npx sass src/client/styles.scss:dist/assets/styles/styles.css",
     "test": "npx jest",
     "test:watch": "npx jest --watch",
-    "serve": "chokidar \"src/client/**/*.ts\" \"src/client/assets/styles/**/*.scss\" -c \"npm run build\""
+    "serve": "chokidar \"src/client/**/*.ts\" \"src/client/assets/styles/**/*.scss\" -c \"npm run build\"",
+    "prettier": "npx prettier --write --ignore-unknown \"./src/**/*.*\""
   },
   "repository": {
     "type": "git",

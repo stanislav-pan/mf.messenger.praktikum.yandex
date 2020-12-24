@@ -17,7 +17,6 @@
         "lib": ["es2018", "dom", "dom.iterable"],
         "paths": {
             "tslib": ["node_modules/tslib/tslib.d.ts"]
-            // "@env/*": ["src/environments/*"]
         },
         "noUnusedLocals": true,
         "noUnusedParameters": true,
