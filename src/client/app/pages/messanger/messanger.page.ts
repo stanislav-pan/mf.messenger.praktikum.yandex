@@ -1,4 +1,5 @@
 import BriefInformationComponent from '../../components/brief-information/brief-information';
+import Button from '../../components/button/button';
 import ChatManagementComponent from '../../components/chat-management/chat-management';
 import { ChatManagementComponentType } from '../../components/chat-management/interfaces';
 import ChatsComponent from '../../components/chats/chats';
@@ -81,10 +82,20 @@ export default class MessangerPage extends Block<MessangerPageProps> {
               },
             },
           }),
+          createChatBtn: new Button({
+            text: 'Create chat',
+            class: 'messanger__create-chat-btn',
+            handlers: {
+              click: (event: Event) => {
+                event.preventDefault();
+
+                this._createChat();
+              },
+            },
+          }),
         },
         handlers: {
           goToSettings: () => this._goToSettings(),
-          createChat: () => this._createChat(),
           showChatMenu: (event: Event) => {
             event.stopPropagation();
 
@@ -224,6 +235,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
       messages,
       modal,
       chatMenu,
+      createChatBtn,
     } = this.props.components;
 
     return templator
@@ -236,6 +248,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
         messagesComponentId: messages.getId(),
         modalComponentId: modal?.getId(),
         chatMenuComponentId: chatMenu?.getId(),
+        createChatBtnCopmonentId: createChatBtn?.getId(),
       });
   }
 }

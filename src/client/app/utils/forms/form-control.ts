@@ -128,16 +128,14 @@ export class FormControl extends AbstractControl {
     return this._value;
   }
 
-  private _blurHandlerBind: () => void;
-
-  private _blurHandler() {
+  private _blurHandler = () => {
     if (this.touched) {
       return;
     }
 
     this._setTouched(true);
 
-    this._el.removeEventListener('blur', this._blurHandlerBind);
+    this._el.removeEventListener('blur', this._blurHandler);
   }
 
   public init(element: HTMLInputElement) {
@@ -152,9 +150,7 @@ export class FormControl extends AbstractControl {
       this.markAsDirty();
     });
 
-    this._blurHandlerBind = this._blurHandler.bind(this);
-
-    element.addEventListener('blur', this._blurHandlerBind);
+    element.addEventListener('blur', this._blurHandler);
 
     if (!this._wasInitialValueSet) {
       this._wasInitialValueSet = true;

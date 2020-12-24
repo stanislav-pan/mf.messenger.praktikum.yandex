@@ -4,6 +4,10 @@ import { HttpParams } from './http-params';
 import { IHttpOptions, IHttpOptionsWithBody } from './interfaces';
 
 export class HttpClientService {
+  private _defaultHeaders =  {
+    'content-type': 'application/json'
+  };
+
   public get = (url: string, options: IHttpOptions = {}) =>
     this.request(METHODS.GET, url, options);
 
@@ -36,9 +40,7 @@ export class HttpClientService {
     xhr.withCredentials = Boolean(withCredentials);
     xhr.timeout = timeout;
 
-    if (headers && headers instanceof HttpHeaders) {
-      this._setHeaders(xhr, headers);
-    }
+    this._setHeaders(xhr, headers);
 
     if (method === METHODS.GET || method === METHODS.HEAD) {
       xhr.send();
@@ -73,13 +75,19 @@ export class HttpClientService {
     return `${url}?${params.toString()}`;
   }
 
-  private _setHeaders(xhr: XMLHttpRequest, headers: HttpHeaders) {
-    const mappedHeaders = headers.getValues();
-    if (!mappedHeaders.size) {
-      return;
+  private _setHeaders(xhr: XMLHttpRequest, headers: HttpHeaders | undefined) {
+    let externalHeaders: Map<string, string> | undefined;
+
+    if (headers && headers instanceof HttpHeaders) {
+      externalHeaders = headers.getValues();
     }
 
-    for (const [key, value] of mappedHeaders.entries()) {
+    const mergedHeaders: Record<string, string> = {
+      ...this._defaultHeaders,
+      ...(externalHeaders && Object.fromEntries(externalHeaders.entries())),
+    };
+
+    for (const [key, value] of Object.entries(mergedHeaders)) {
       xhr.setRequestHeader(key, value);
     }
   }

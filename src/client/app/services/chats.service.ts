@@ -41,7 +41,7 @@ class ChatsService {
   ): Promise<unknown> {
     const needAdd = isArray(addToChatIds) && addToChatIds.length;
     const needRemove = isArray(removeFromChatIds) && removeFromChatIds.length;
-
+    
     if (needAdd && needRemove) {
       return Promise.all([
         apiService.chats.addUsersToChat(chatId, addToChatIds),

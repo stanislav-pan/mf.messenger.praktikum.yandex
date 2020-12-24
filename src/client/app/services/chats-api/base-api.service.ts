@@ -1,12 +1,9 @@
-import { HttpHeaders } from '../http/http-headers';
+// import { HttpHeaders } from '../http/http-headers';
 
 export class BaseApiService {
   public host = 'https://ya-praktikum.tech';
 
   protected commonOptions = {
-    headers: new HttpHeaders({
-      'content-type': 'application/json',
-    }),
     withCredentials: true,
   };
 
