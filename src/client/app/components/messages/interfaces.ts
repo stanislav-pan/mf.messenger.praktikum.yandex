@@ -2,12 +2,12 @@ import { ICommonPropFields } from '../../utils/block';
 import { IMessage } from '../message/interfaces';
 
 export interface IMessagesComponentExternalProps extends ICommonPropFields {
-    messages: IMessage[];
+  messages: IMessage[];
 }
 
 export interface IMessagesComponentInnerProps {
-    messagesComponentsIds: string[];
+  messagesComponentsIds: string[];
 }
 
 export type MessagesComponentProps = IMessagesComponentExternalProps &
-    IMessagesComponentInnerProps;
+  IMessagesComponentInnerProps;

@@ -2,26 +2,26 @@ import { router } from './init-router';
 import { userService } from './services/user.service';
 
 userService
-    .initUser()
-    .then(() => {
-        const pathname = window.location.pathname;
+  .initUser()
+  .then(() => {
+    const pathname = window.location.pathname;
 
-        if (pathname.includes('/login') || pathname.includes('/sign-up')) {
-            router.start('/messanger');
+    if (pathname.includes('/login') || pathname.includes('/sign-up')) {
+      router.start('/messanger');
 
-            return;
-        }
+      return;
+    }
 
-        router.start();
-    })
-    .catch(() => {
-        const pathname = window.location.pathname;
+    router.start();
+  })
+  .catch(() => {
+    const pathname = window.location.pathname;
 
-        if (pathname.includes('/sign-up')) {
-            router.start('/sign-up');
+    if (pathname.includes('/sign-up')) {
+      router.start('/sign-up');
 
-            return;
-        }
+      return;
+    }
 
-        router.start('/login');
-    });
+    router.start('/login');
+  });

@@ -1,68 +1,68 @@
 .brief-information {
+  display: flex;
+
+  &__text {
+    margin: auto 0;
+  }
+
+  &__avatar {
+    margin-right: 22px;
+
+    position: relative;
+  }
+
+  &__name {
+    font-weight: 500;
+    color: var(--form-color-light);
+
+    line-height: 24px;
+  }
+
+  &__name-input {
+    padding: 0;
+
+    border: none;
+
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--form-color-light);
+
+    line-height: 24px;
+    outline: none;
+  }
+
+  &__name-wrapper {
     display: flex;
+  }
 
-    &__text {
-        margin: auto 0;
+  &__visit-info {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--form-color-normal);
+
+    line-height: 21px;
+  }
+
+  &__tick {
+    position: absolute;
+
+    bottom: 0;
+    right: 0;
+
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--color-primary);
+    background-color: white;
+    border-radius: 100px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+
+      path {
+        fill: var(--color-primary);
+      }
     }
-
-    &__avatar {
-        margin-right: 22px;
-
-        position: relative;
-    }
-
-    &__name {
-        font-weight: 500;
-        color      : var(--form-color-light);
-
-        line-height: 24px;
-    }
-
-    &__name-input {
-        padding: 0;
-
-        border: none;
-
-        font-size  : inherit;
-        font-family: inherit;
-        font-weight: 500;
-        color      : var(--form-color-light);
-
-        line-height: 24px;
-        outline    : none;
-    }
-
-    &__name-wrapper {
-        display: flex;
-    }
-
-    &__visit-info {
-        font-size  : 14px;
-        font-weight: 300;
-        color      : var(--form-color-normal);
-
-        line-height: 21px;
-    }
-
-    &__tick {
-        position: absolute;
-
-        bottom: 0;
-        right : 0;
-
-        width           : 18px;
-        height          : 18px;
-        border          : 2px solid var(--color-primary);
-        background-color: white;
-        border-radius   : 100px;
-
-        svg {
-            width : 18px;
-            height: 18px;
-
-            path {
-                fill: var(--color-primary);
-            }
-        }
-    }
+  }
 }

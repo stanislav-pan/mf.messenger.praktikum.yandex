@@ -4,21 +4,21 @@ import ListComponent from '../list/list';
 import SearchComponent from '../search/search';
 
 export interface IEditChatUsersComponentExternalProps
-    extends ICommonPropFields {
-    handlers: {
-        select: (selectedUsers: SelectableUser[]) => void;
-    };
+  extends ICommonPropFields {
+  handlers: {
+    select: (selectedUsers: SelectableUser[]) => void;
+  };
 
-    selectedUsers?: SelectableUser[];
+  selectedUsers?: SelectableUser[];
 }
 
 export interface IEditChatUsersComponentInnerProps {
-    components: {
-        searchUser: SearchComponent;
-        usersList: ListComponent;
-        selectedUsersList: ListComponent;
-    };
+  components: {
+    searchUser: SearchComponent;
+    usersList: ListComponent;
+    selectedUsersList: ListComponent;
+  };
 }
 
 export type EditChatUsersComponentProps = IEditChatUsersComponentExternalProps &
-    IEditChatUsersComponentInnerProps;
+  IEditChatUsersComponentInnerProps;

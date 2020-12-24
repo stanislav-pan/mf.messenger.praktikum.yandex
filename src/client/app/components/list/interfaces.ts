@@ -1,12 +1,12 @@
 import { ICommonPropFields, MapOfBlockLike } from '../../utils/block';
 
 export interface IListComponentExternalProps extends ICommonPropFields {
-    components: MapOfBlockLike;
+  components: MapOfBlockLike;
 }
 
 export interface IListComponentInnerProps {
-    componentsIds: string[];
+  componentsIds: string[];
 }
 
 export type ListComponentProps = IListComponentExternalProps &
-    IListComponentInnerProps;
+  IListComponentInnerProps;

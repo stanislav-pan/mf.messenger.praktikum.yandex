@@ -1,107 +1,107 @@
 :root {
-    --settings-divider-color: #ECE9FA;
+  --settings-divider-color: #ece9fa;
 }
 
 .settings {
-    width: 430px;
+  width: 430px;
 
-    &__brief-information {
-        margin: 37px 34px 20px 34px;
+  &__brief-information {
+    margin: 37px 34px 20px 34px;
 
-        .avatar {
-            width: 90px;
-            height: 90px;
-        }
+    .avatar {
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  &__divider {
+    width: 100%;
+    height: 7px;
+
+    background-color: var(--settings-divider-color);
+  }
+
+  &__form form {
+    margin-top: 20px;
+  }
+
+  &__form-btn-wrapper {
+    display: block !important;
+
+    margin: 42px 0;
+  }
+
+  &__settings-list {
+    margin-bottom: 27px;
+  }
+
+  &__logout {
+    &-wrapper {
+      display: flex;
+      justify-content: center;
+
+      margin-bottom: 27px;
     }
 
-    &__divider {
-        width : 100%;
-        height: 7px;
+    &-btn {
+      font-size: 18px;
 
-        background-color: var(--settings-divider-color);
+      color: var(--color-error);
+      cursor: pointer;
     }
-
-    &__form form {
-        margin-top: 20px;
-    }
-
-    &__form-btn-wrapper {
-        display: block !important;
-
-        margin: 42px 0;
-    }
-
-    &__settings-list {
-        margin-bottom: 27px;
-    }
-
-    &__logout {
-        &-wrapper {
-            display: flex;
-            justify-content: center;
-
-            margin-bottom: 27px;
-        }
-
-        &-btn {
-            font-size: 18px;
-
-            color: var(--color-error);
-            cursor: pointer;
-        }
-    }
+  }
 }
 
 .settings-header {
-    display        : flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    height: 38px;
+  height: 38px;
 
-    margin: 17px 25px 0 25px;
+  margin: 17px 25px 0 25px;
 
-    &__left {
-        display: flex;
-    }
+  &__left {
+    display: flex;
+  }
 
-    &__back-icon {
-        margin: 0 13px 0 -5px;
-    }
+  &__back-icon {
+    margin: 0 13px 0 -5px;
+  }
 }
 
 .settings-list {
-    &__li {
-        height: 43px;
+  &__li {
+    height: 43px;
 
-        border-bottom: 7px solid var(--settings-divider-color);
-    }
+    border-bottom: 7px solid var(--settings-divider-color);
+  }
 
-    &__li:first-of-type {
-        border-top: 7px solid var(--settings-divider-color);
-    }
+  &__li:first-of-type {
+    border-top: 7px solid var(--settings-divider-color);
+  }
 
-    &__button {
-        display    : flex;
-        align-items: center;
+  &__button {
+    display: flex;
+    align-items: center;
 
-        width : 100%;
-        height: 100%;
+    width: 100%;
+    height: 100%;
 
-        padding-left: 38px;
+    padding-left: 38px;
 
-        cursor: pointer;
-    }
+    cursor: pointer;
+  }
 
-    &__icon {
-        margin-right: 26px;
+  &__icon {
+    margin-right: 26px;
 
-        width: 24px;
-    }
+    width: 24px;
+  }
 
-    &__span {
-        font-weight: 500;
-        font-size  : 16px;
+  &__span {
+    font-weight: 500;
+    font-size: 16px;
 
-        color: var(--form-color-normal);
-    }
+    color: var(--form-color-normal);
+  }
 }

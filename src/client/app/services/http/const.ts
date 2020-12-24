@@ -1,7 +1,7 @@
 export enum METHODS {
-    GET = 'GET',
-    HEAD = 'HEAD',
-    PUT = 'PUT',
-    POST = 'POST',
-    DELETE = 'DELETE',
+  GET = 'GET',
+  HEAD = 'HEAD',
+  PUT = 'PUT',
+  POST = 'POST',
+  DELETE = 'DELETE',
 }

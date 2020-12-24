@@ -1,27 +1,27 @@
 import { ICommonPropFields } from '../../utils/block';
 
 export interface IMenuComponentExternalProps extends ICommonPropFields {
-    items: IMenuItem[];
+  items: IMenuItem[];
 
-    handlers: {
-        select: (item: IMenuItem) => void;
-        close?: () => void;
-    };
+  handlers: {
+    select: (item: IMenuItem) => void;
+    close?: () => void;
+  };
 }
 
 export interface IMenuComponentInnerProps {
-    handlers: {
-        click: (event: Event, index: number) => void;
-    };
+  handlers: {
+    click: (event: Event, index: number) => void;
+  };
 }
 
 export type MenuComponentProps = IMenuComponentExternalProps &
-    IMenuComponentInnerProps;
+  IMenuComponentInnerProps;
 
 export interface IMenuItem {
-    index?: number;
-    title: string;
-    iconTemplate?: string;
+  index?: number;
+  title: string;
+  iconTemplate?: string;
 
-    callback: () => void;
+  callback: () => void;
 }

@@ -1,27 +1,25 @@
-@import "assets/styles/reset.scss";
-@import "assets/styles/variables.scss";
-@import "assets/styles/layout.scss";
-@import "assets/styles/common.scss";
-@import "assets/styles/input.scss";
-@import "assets/styles/btn.scss";
-@import "assets/styles/modal.scss";
-@import "assets/styles/scrollbar.scss";
+@import 'assets/styles/reset.scss';
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/layout.scss';
+@import 'assets/styles/common.scss';
+@import 'assets/styles/input.scss';
+@import 'assets/styles/btn.scss';
+@import 'assets/styles/modal.scss';
+@import 'assets/styles/scrollbar.scss';
 
+@import 'assets/styles/avatar.scss';
+@import 'assets/styles/badge.scss';
+@import 'assets/styles/brief-information.scss';
+@import 'assets/styles/create-chat.scss';
+@import 'assets/styles/edit-chat-users.scss';
+@import 'assets/styles/menu.scss';
+@import 'assets/styles/search.scss';
+@import 'assets/styles/selected-user.scss';
 
-@import "assets/styles/avatar.scss";
-@import "assets/styles/badge.scss";
-@import "assets/styles/brief-information.scss";
-@import "assets/styles/create-chat.scss";
-@import "assets/styles/edit-chat-users.scss";
-@import "assets/styles/menu.scss";
-@import "assets/styles/search.scss";
-@import "assets/styles/selected-user.scss";
+@import 'assets/styles/auth.scss';
+@import 'assets/styles/error-page.scss';
+@import 'assets/styles/settings.scss';
 
-@import "assets/styles/auth.scss";
-@import "assets/styles/error-page.scss";
-@import "assets/styles/settings.scss";
-
-@import "assets/styles/messanger/chat-list.scss";
-@import "assets/styles/messanger/message-list.scss";
-@import "assets/styles/messanger/messanger.scss";
-
+@import 'assets/styles/messanger/chat-list.scss';
+@import 'assets/styles/messanger/message-list.scss';
+@import 'assets/styles/messanger/messanger.scss';

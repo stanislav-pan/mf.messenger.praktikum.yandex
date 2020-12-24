@@ -6,12 +6,12 @@ export interface ILoginPageExternalProps extends ICommonPropFields {}
 export type LoginPageProps = ILoginPageExternalProps & ILoginPageInnerProps;
 
 export interface ILoginPageInnerProps {
-    components: {
-        loginForm: FormComponent;
-    };
+  components: {
+    loginForm: FormComponent;
+  };
 }
 
 export interface ISigninData {
-    login: string;
-    password: string;
+  login: string;
+  password: string;
 }

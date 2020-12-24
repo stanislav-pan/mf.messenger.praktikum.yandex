@@ -3,16 +3,16 @@ import { ICommonPropFields } from '../../utils/block';
 import { FormGroup } from '../../utils/forms/form-group';
 
 export interface IFormComponentExternalProps extends ICommonPropFields {
-    formGroup: FormGroup;
+  formGroup: FormGroup;
 
-    handlers: {
-        submit: (event: SubmitEvent) => void;
-    };
+  handlers: {
+    submit: (event: SubmitEvent) => void;
+  };
 }
 
 export interface IFormComponentInnerProps {
-    components: {};
+  components: {};
 }
 
 export type FormComponentProps = IFormComponentExternalProps &
-    IFormComponentInnerProps;
+  IFormComponentInnerProps;

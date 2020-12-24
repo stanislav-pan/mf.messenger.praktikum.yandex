@@ -6,31 +6,31 @@ export interface ISignUpPageExternalProps extends ICommonPropFields {}
 export type SignUpPageProps = ISignUpPageExternalProps & ISignUpPageInnerProps;
 
 export interface ISignUpPageInnerProps {
-    currentStep: SignUpPageSteps;
+  currentStep: SignUpPageSteps;
 
-    components: {
-        fistStepForm: FormComponent;
-        secondStepForm: FormComponent;
-    };
+  components: {
+    fistStepForm: FormComponent;
+    secondStepForm: FormComponent;
+  };
 }
 
 export enum SignUpPageSteps {
-    FIRST,
-    SECOND,
+  FIRST,
+  SECOND,
 }
 
 export interface IFirstStepFormGroup {
-    firstName: string;
-    secondName: string;
-    email: string;
-    phone: string;
+  firstName: string;
+  secondName: string;
+  email: string;
+  phone: string;
 }
 
 export interface ISecondStepFormGroup {
-    login: string;
-    password: string;
+  login: string;
+  password: string;
 }
 
 export interface ISignupData
-    extends IFirstStepFormGroup,
-        ISecondStepFormGroup {}
+  extends IFirstStepFormGroup,
+    ISecondStepFormGroup {}

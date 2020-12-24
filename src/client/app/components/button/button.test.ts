@@ -1,71 +1,71 @@
 import Button from './button';
 
 describe('components/Button', () => {
-    it('Должен создавать кнопку с заданным текстом', () => {
-        const btnText = 'test';
+  it('Должен создавать кнопку с заданным текстом', () => {
+    const btnText = 'test';
 
-        const actualBtn = new Button({
-            text: btnText,
-        });
-
-        expect(actualBtn.element.textContent.trim()).toEqual(btnText);
+    const actualBtn = new Button({
+      text: btnText,
     });
 
-    it('Должен создавать кнопку с заданным классом', () => {
-        const btnText = 'test';
-        const btnClass = 'test-class';
+    expect(actualBtn.element.textContent.trim()).toEqual(btnText);
+  });
 
-        const actualBtn = new Button({
-            text: btnText,
-            class: btnClass,
-        });
+  it('Должен создавать кнопку с заданным классом', () => {
+    const btnText = 'test';
+    const btnClass = 'test-class';
 
-        expect(actualBtn.element.classList.contains(btnClass)).toBe(true);
+    const actualBtn = new Button({
+      text: btnText,
+      class: btnClass,
     });
 
-    it('Должен рендерить кнопку', () => {
-        const btnText = 'test';
-        const btnClass = 'test-class';
+    expect(actualBtn.element.classList.contains(btnClass)).toBe(true);
+  });
 
-        const actualBtn = new Button({
-            text: btnText,
-            class: btnClass,
-        });
+  it('Должен рендерить кнопку', () => {
+    const btnText = 'test';
+    const btnClass = 'test-class';
 
-        expect(actualBtn.render().trim()).toBe(
-            '<button class="btn btn_size_normal" onclick="click">test</button>'
-        );
+    const actualBtn = new Button({
+      text: btnText,
+      class: btnClass,
     });
 
-    it('Должно эмититься событие click при нажатии на кнопку', () => {
-        const btnText = 'test';
-        const mock = jest.fn();
+    expect(actualBtn.render().trim()).toBe(
+      '<button class="btn btn_size_normal" onclick="click">test</button>'
+    );
+  });
 
-        const actualBtn = new Button({
-            text: btnText,
-            handlers: {
-                click: mock,
-            },
-        });
+  it('Должно эмититься событие click при нажатии на кнопку', () => {
+    const btnText = 'test';
+    const mock = jest.fn();
 
-        const btn = actualBtn.element.querySelector('button');
-        btn.click();
-
-        expect(mock).toBeCalled();
+    const actualBtn = new Button({
+      text: btnText,
+      handlers: {
+        click: mock,
+      },
     });
 
-    it('Должен делать ререндер после обновления свойств', () => {
-        const btnText = 'test';
-        const newBtnText = 'new test text';
+    const btn = actualBtn.element.querySelector('button');
+    btn.click();
 
-        const actualBtn = new Button({
-            text: btnText,
-        });
+    expect(mock).toBeCalled();
+  });
 
-        actualBtn.setProps({
-            text: newBtnText,
-        });
+  it('Должен делать ререндер после обновления свойств', () => {
+    const btnText = 'test';
+    const newBtnText = 'new test text';
 
-        expect(actualBtn.element.textContent).toBe(newBtnText);
+    const actualBtn = new Button({
+      text: btnText,
     });
+
+    actualBtn.setProps({
+      text: newBtnText,
+    });
+
+    expect(actualBtn.element.textContent).toBe(newBtnText);
+  });
 });

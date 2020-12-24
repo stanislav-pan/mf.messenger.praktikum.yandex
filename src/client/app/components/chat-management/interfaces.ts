@@ -7,23 +7,23 @@ import Input from '../input/input';
 export type ChatManagementComponentType = 'edit' | 'create';
 
 export interface IChatManagementComponentExternalProps
-    extends ICommonPropFields {
-    componentType: ChatManagementComponentType;
-    currectChatId?: number | null;
+  extends ICommonPropFields {
+  componentType: ChatManagementComponentType;
+  currectChatId?: number | null;
 
-    selectedUsers?: User[];
-    handlers: {
-        complete: () => void;
-    };
+  selectedUsers?: User[];
+  handlers: {
+    complete: () => void;
+  };
 }
 
 export interface IChatManagementComponentInnerProps {
-    components: {
-        chatName: Input;
-        editChatUsers: EditChatUsersComponent;
-        createBtn: Button;
-    };
+  components: {
+    chatName: Input;
+    editChatUsers: EditChatUsersComponent;
+    createBtn: Button;
+  };
 }
 
 export type ChatManagementComponentProps = IChatManagementComponentExternalProps &
-    IChatManagementComponentInnerProps;
+  IChatManagementComponentInnerProps;

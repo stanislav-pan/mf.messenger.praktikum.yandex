@@ -5,31 +5,31 @@ import { Indexed, merge } from './merge';
  * set(3, 'foo.bar', 'baz'); // 3
  */
 export function set(
-    object: Indexed | unknown,
-    path: string,
-    value: unknown
+  object: Indexed | unknown,
+  path: string,
+  value: unknown
 ): Indexed | unknown {
-    if (typeof object !== 'object' || object === null) {
-        return object;
+  if (typeof object !== 'object' || object === null) {
+    return object;
+  }
+
+  if (typeof path !== 'string') {
+    throw new Error('path must be string');
+  }
+
+  const keys = path.split('.');
+
+  const obj = keys.reduceRight((acc, key, index) => {
+    if (index === keys.length - 1) {
+      acc[key] = value;
+
+      return acc;
     }
 
-    if (typeof path !== 'string') {
-        throw new Error('path must be string');
-    }
+    acc = { [key]: { ...acc } };
 
-    const keys = path.split('.');
+    return acc;
+  }, {});
 
-    const obj = keys.reduceRight((acc, key, index) => {
-        if (index === keys.length - 1) {
-            acc[key] = value;
-
-            return acc;
-        }
-
-        acc = { [key]: { ...acc } };
-
-        return acc;
-    }, {});
-
-    return merge(object, obj);
+  return merge(object, obj);
 }

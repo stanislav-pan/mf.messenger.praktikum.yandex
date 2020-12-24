@@ -9,17 +9,17 @@ import { ICommonPropFields } from '../../utils/block';
 export interface IMessangerPageExternalProps extends ICommonPropFields {}
 
 export type MessangerPageProps = IMessangerPageExternalProps &
-    IMessangerPageInnerProps;
+  IMessangerPageInnerProps;
 
 export interface IMessangerPageInnerProps {
-    currectChatId: number | null;
+  currectChatId: number | null;
 
-    components: {
-        search: SearchComponent;
-        messages: MessagesComponent;
-        briefInformation: BriefInformationComponent;
-        chats: ChatsComponent;
-        modal?: ModalComponent;
-        chatMenu?: MenuComponent;
-    };
+  components: {
+    search: SearchComponent;
+    messages: MessagesComponent;
+    briefInformation: BriefInformationComponent;
+    chats: ChatsComponent;
+    modal?: ModalComponent;
+    chatMenu?: MenuComponent;
+  };
 }

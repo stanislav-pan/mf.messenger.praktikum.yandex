@@ -5,65 +5,65 @@ import { FormGroup } from '../../utils/forms/form-group';
 import { mapErrors } from '../../utils/forms/map-errors';
 import InputErrors from '../input-errors/input-errors';
 import {
-    IInputComponentExternalProps,
-    InputComponentProps,
+  IInputComponentExternalProps,
+  InputComponentProps,
 } from './interfaces';
 
 export type AbstractalControl = FormControl | FormGroup;
 
 export default class Input extends Block<InputComponentProps> {
-    private _bindedFormControlChangingHandler;
+  private _bindedFormControlChangingHandler;
 
-    constructor(props: IInputComponentExternalProps) {
-        super({
-            tagName: 'app-input',
-            props: {
-                ...props,
-                components: {
-                    errors: new InputErrors({
-                        error: '',
-                    }),
-                },
-            },
-        });
+  constructor(props: IInputComponentExternalProps) {
+    super({
+      tagName: 'app-input',
+      props: {
+        ...props,
+        components: {
+          errors: new InputErrors({
+            error: '',
+          }),
+        },
+      },
+    });
+  }
+
+  componentDidMount() {
+    const fc = this.props?.formControl as FormControl;
+
+    if (!fc) {
+      return;
     }
 
-    componentDidMount() {
-        const fc = this.props?.formControl as FormControl;
+    this._bindedFormControlChangingHandler = this._formControlChangingHandler.bind(
+      this
+    );
 
-        if (!fc) {
-            return;
-        }
+    fc.subscribe(this._bindedFormControlChangingHandler);
+  }
 
-        this._bindedFormControlChangingHandler = this._formControlChangingHandler.bind(
-            this
-        );
+  componentWillUnmount() {
+    const fc = this.props?.formControl as FormControl;
 
-        fc.subscribe(this._bindedFormControlChangingHandler);
+    if (!fc) {
+      return;
     }
 
-    componentWillUnmount() {
-        const fc = this.props?.formControl as FormControl;
+    fc.unsubscribe(this._bindedFormControlChangingHandler);
+  }
 
-        if (!fc) {
-            return;
-        }
+  private _formControlChangingHandler() {
+    this.props.components.errors.setProps({
+      error: mapErrors(this.props.formControl as FormControl),
+    });
+  }
 
-        fc.unsubscribe(this._bindedFormControlChangingHandler);
-    }
-
-    private _formControlChangingHandler() {
-        this.props.components.errors.setProps({
-            error: mapErrors(this.props.formControl as FormControl),
-        });
-    }
-
-    render() {
-        return templator
-            .getTemplate('../app/components/input/input.tmpl.njk')
-            .render({
-                ...this.props,
-                errorsComponentId: this.props.components.errors.getId(),
-            });
-    }
+  render() {
+    return templator
+      .getTemplate('../app/components/input/input.tmpl.njk')
+      .render({
+        ...this.props,
+        errorsComponentId: this.props.components.errors.getId(),
+      });
+  }
 }

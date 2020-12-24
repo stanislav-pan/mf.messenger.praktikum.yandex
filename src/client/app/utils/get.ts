@@ -1,20 +1,20 @@
 export function get<T, K>(
-    obj: Object,
-    path: string = '',
-    defaulValue: K
+  obj: Object,
+  path: string = '',
+  defaulValue: K
 ): T | K {
-    const keys = path.split('.');
-    let res = obj;
+  const keys = path.split('.');
+  let res = obj;
 
-    for (const key of keys) {
-        const value = res[key];
+  for (const key of keys) {
+    const value = res[key];
 
-        if (value === undefined) {
-            return defaulValue;
-        }
-
-        res = value;
+    if (value === undefined) {
+      return defaulValue;
     }
 
-    return res as T;
+    res = value;
+  }
+
+  return res as T;
 }

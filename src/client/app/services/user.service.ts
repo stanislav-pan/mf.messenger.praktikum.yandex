@@ -7,80 +7,71 @@ import { ApiService, apiService } from './chats-api/api.service';
 import { IUser } from './chats-api/interfaces/user.interfaces';
 
 class UserService {
-    private _user: User;
-    private _listeners: Array<IListenerFn<IUser>> = [];
+  private _user: User;
+  private _listeners: Array<IListenerFn<IUser>> = [];
 
-    private set user(user: User) {
-        this._user = user;
+  private set user(user: User) {
+    this._user = user;
 
-        this._listeners.forEach((listener) => {
-            listener(user);
-        });
-    }
+    this._listeners.forEach((listener) => {
+      listener(user);
+    });
+  }
 
-    constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {}
 
-    public async initUser() {
-        return this.apiService.auth
-            .fetchUser()
-            .then((user) => (this.user = user));
-    }
+  public async initUser() {
+    return this.apiService.auth.fetchUser().then((user) => (this.user = user));
+  }
 
-    public async auth(data: ISigninData) {
-        return apiService.auth.signin(data).then(() => userService.initUser());
-    }
+  public async auth(data: ISigninData) {
+    return apiService.auth.signin(data).then(() => userService.initUser());
+  }
 
-    public async signUp(data: ISignupData) {
-        return apiService.auth
-            .signup(objToSnakeCase(data))
-            .then(() => userService.initUser());
-    }
+  public async signUp(data: ISignupData) {
+    return apiService.auth
+      .signup(objToSnakeCase(data))
+      .then(() => userService.initUser());
+  }
 
-    public async logout() {
-        return apiService.auth.logout().then(() => {
-            this._listeners = [];
-            
-            this.user = null as any;
-        });
-    }
+  public async logout() {
+    return apiService.auth.logout().then(() => {
+      this._listeners = [];
 
-    public getUser() {
-        return this._user || {};
-    }
+      this.user = null as any;
+    });
+  }
 
-    public async changeAvatar(file: File) {
-        return apiService.users.changeAvatar(file).then((user) => {
-            this.user = user;
-        });
-    }
+  public getUser() {
+    return this._user || {};
+  }
 
-    public async changeProfile(user: IUser) {
-        const {
-            firstName,
-            secondName,
-            displayName,
-            login,
-            email,
-            phone,
-        } = user;
+  public async changeAvatar(file: File) {
+    return apiService.users.changeAvatar(file).then((user) => {
+      this.user = user;
+    });
+  }
 
-        const req = {
-            firstName,
-            secondName,
-            login,
-            email,
-            phone,
-            displayName: displayName || this.user.getDisplayName(),
-        };
+  public async changeProfile(user: IUser) {
+    const { firstName, secondName, displayName, login, email, phone } = user;
 
-        return apiService.users
-            .changeProfile(objToSnakeCase(req))
-            .then((userData) => (this.user = userData));
-    }
+    const req = {
+      firstName,
+      secondName,
+      login,
+      email,
+      phone,
+      displayName: displayName || this.user.getDisplayName(),
+    };
 
-    public subscribe(func: IListenerFn<IUser>) {
-        this._listeners.push(func);
-    }
+    return apiService.users
+      .changeProfile(objToSnakeCase(req))
+      .then((userData) => (this.user = userData));
+  }
+
+  public subscribe(func: IListenerFn<IUser>) {
+    this._listeners.push(func);
+  }
 }
 
 export const userService = new UserService(apiService);

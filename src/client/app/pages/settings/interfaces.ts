@@ -7,31 +7,31 @@ import { ICommonPropFields } from '../../utils/block';
 export interface ISettingsPageExternalProps extends ICommonPropFields {}
 
 export type SettingsPageProps = ISettingsPageExternalProps &
-    ISettingsPageInnerProps;
+  ISettingsPageInnerProps;
 
 export interface ISettingsPageInnerProps {
-    settingsViewingTypes;
-    currentBlock: SETTINGS_VIEWING_TYPES;
-    previousBlock: SETTINGS_VIEWING_TYPES;
+  settingsViewingTypes;
+  currentBlock: SETTINGS_VIEWING_TYPES;
+  previousBlock: SETTINGS_VIEWING_TYPES;
 
-    components: {
-        settingsheader: SettingsHeader;
-        briefInformation: BriefInformationComponent;
-        editingProfileForm: FormComponent;
-        changePasswordForm: FormComponent;
-    };
+  components: {
+    settingsheader: SettingsHeader;
+    briefInformation: BriefInformationComponent;
+    editingProfileForm: FormComponent;
+    changePasswordForm: FormComponent;
+  };
 }
 
 export interface IEditProfileData {
-    firstName: string;
-    secondName: string;
-    login: string;
-    email: string;
-    phone: string;
+  firstName: string;
+  secondName: string;
+  login: string;
+  email: string;
+  phone: string;
 }
 
 export interface IChangePasswordData {
-    oldPassword: string;
-    newPassword: string;
-    newPasswordConfirm: string;
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
 }

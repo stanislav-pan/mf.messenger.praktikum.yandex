@@ -2,19 +2,19 @@ import { ICommonPropFields } from '../../utils/block';
 import Avatar from '../avatar/avatar';
 
 export interface ISelectedUserComponentExternalProps extends ICommonPropFields {
-    avatarSrc: string;
-    name: string;
+  avatarSrc: string;
+  name: string;
 
-    handlers: {
-        unselect: () => void;
-    };
+  handlers: {
+    unselect: () => void;
+  };
 }
 
 export interface ISelectedUserComponentInnerProps {
-    components: {
-        avatar: Avatar;
-    };
+  components: {
+    avatar: Avatar;
+  };
 }
 
 export type SelectedUserComponentProps = ISelectedUserComponentExternalProps &
-    ISelectedUserComponentInnerProps;
+  ISelectedUserComponentInnerProps;

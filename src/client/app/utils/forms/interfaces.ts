@@ -1,3 +1,3 @@
 export interface IListenerFn<T = any> {
-    (next: T, errors?: any): void;
+  (next: T, errors?: any): void;
 }

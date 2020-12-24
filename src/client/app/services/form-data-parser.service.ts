@@ -1,13 +1,13 @@
 export default class FormDataPerserService {
-    static getFormValues<T extends Object>(form: HTMLFormElement) {
-        const formData = new FormData(form);
+  static getFormValues<T extends Object>(form: HTMLFormElement) {
+    const formData = new FormData(form);
 
-        const result = {};
+    const result = {};
 
-        formData.forEach((value, key) => {
-            result[key] = value;
-        });
+    formData.forEach((value, key) => {
+      result[key] = value;
+    });
 
-        return result as T;
-    }
+    return result as T;
+  }
 }

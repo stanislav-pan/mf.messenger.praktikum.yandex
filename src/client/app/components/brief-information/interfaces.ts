@@ -2,31 +2,31 @@ import { ICommonPropFields } from '../../utils/block';
 import Avatar from '../avatar/avatar';
 
 export interface IBriefInformationExternalProps extends ICommonPropFields {
-    name: string;
-    lastVisit: string;
+  name: string;
+  lastVisit: string;
 
-    avatarSrc: string;
-    canChangeName?: boolean;
-    canChangeAvatar?: boolean;
+  avatarSrc: string;
+  canChangeName?: boolean;
+  canChangeAvatar?: boolean;
 
-    handlers?: {
-        click?: () => void;
-    };
+  handlers?: {
+    click?: () => void;
+  };
 
-    selected?: boolean;
+  selected?: boolean;
 }
 
 export type BriefInformationProps = IBriefInformationExternalProps &
-    IBriefInformationInnerProps;
+  IBriefInformationInnerProps;
 
 export interface IBriefInformationInnerProps {
-    displayedNameInput: boolean;
+  displayedNameInput: boolean;
 
-    components: {
-        avatar: Avatar;
-    };
+  components: {
+    avatar: Avatar;
+  };
 
-    handlers: {
-        showNameInput: () => void;
-    };
+  handlers: {
+    showNameInput: () => void;
+  };
 }

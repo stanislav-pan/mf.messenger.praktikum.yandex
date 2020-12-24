@@ -2,40 +2,40 @@ import { Block } from '../block';
 import { render } from '../renderDOM';
 
 export class Route {
-    private _pathname: string;
-    private _blockClass: Block;
-    private _block: Block | null;
-    private _props: {
-        rootQuery: string;
-    };
+  private _pathname: string;
+  private _blockClass: Block;
+  private _block: Block | null;
+  private _props: {
+    rootQuery: string;
+  };
 
-    constructor(pathname: string, view: Block, props: { rootQuery: string }) {
-        this._pathname = pathname;
-        this._blockClass = view;
-        this._block = null;
-        this._props = props;
+  constructor(pathname: string, view: Block, props: { rootQuery: string }) {
+    this._pathname = pathname;
+    this._blockClass = view;
+    this._block = null;
+    this._props = props;
+  }
+
+  public navigate(pathname: string) {
+    if (this.match(pathname)) {
+      this._pathname = pathname;
+      this.render();
     }
+  }
 
-    public navigate(pathname: string) {
-        if (this.match(pathname)) {
-            this._pathname = pathname;
-            this.render();
-        }
+  public leave() {
+    if (this._block) {
+      this._block.remove();
     }
+  }
 
-    public leave() {
-        if (this._block) {
-            this._block.remove();
-        }
-    }
+  public match = (pathname: string) => pathname === this._pathname;
 
-    public match = (pathname: string) => pathname === this._pathname;
+  public render() {
+    const blockClass = this._blockClass as any;
 
-    public render() {
-        const blockClass = this._blockClass as any;
+    this._block = new blockClass() as Block;
 
-        this._block = new blockClass() as Block;
-
-        render(this._props.rootQuery, this._block);
-    }
+    render(this._props.rootQuery, this._block);
+  }
 }

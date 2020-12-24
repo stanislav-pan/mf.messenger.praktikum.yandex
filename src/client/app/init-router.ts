@@ -8,9 +8,9 @@ import SignUpPage from './pages/sign-up/sign-up.page';
 import { Router } from './utils/router/router';
 
 export const router = new Router('#root')
-    .use('/login', LoginPage as any)
-    .use('/sign-up', SignUpPage as any)
-    .use('/settings', SettingsPage as any)
-    .use('/messanger', MessangerPage as any)
-    .use('/404', Error404Page as any)
-    .use('/500', Error500Page as any);
+  .use('/login', LoginPage as any)
+  .use('/sign-up', SignUpPage as any)
+  .use('/settings', SettingsPage as any)
+  .use('/messanger', MessangerPage as any)
+  .use('/404', Error404Page as any)
+  .use('/500', Error500Page as any);
