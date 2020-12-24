@@ -111,49 +111,46 @@ export abstract class Block<
   }
 
   private _render() {
-    this.render().then((block) => {
-      if (!this._element) {
-        return;
-      }
+    const block = this.render();
 
-      this._element.innerHTML = block;
+    if (!this._element) {
+      return;
+    }
 
-      if (this.props.formControl) {
-        const stack: Array<HTMLElement | Element> = [this.element];
+    this._element.innerHTML = block;
 
-        while (stack.length) {
-          const current = stack.pop();
+    if (this.props.formControl) {
+      const stack: Array<HTMLElement | Element> = [this.element];
 
-          if (!current) {
-            break;
-          }
+      while (stack.length) {
+        const current = stack.pop();
 
-          const attr = Array.from(current.attributes).find(
-            (attr) => attr.name === 'formcontrol'
-          );
-
-          if (attr) {
-            this.props.formControl.init(current);
-
-            break;
-          }
-
-          const children = Array.from(current.children);
-          stack.push(...children);
+        if (!current) {
+          break;
         }
-      }
 
-      if (this.props.handlers) {
-        this._attachListeners();
-      }
+        const attr = Array.from(current.attributes).find(
+          (attr) => attr.name === 'formcontrol'
+        );
 
-      if (
-        this.props.components &&
-        Object.values(this.props.components).length
-      ) {
-        this._renderComponents();
+        if (attr) {
+          this.props.formControl.init(current);
+
+          break;
+        }
+
+        const children = Array.from(current.children);
+        stack.push(...children);
       }
-    });
+    }
+
+    if (this.props.handlers) {
+      this._attachListeners();
+    }
+
+    if (this.props.components && Object.values(this.props.components).length) {
+      this._renderComponents();
+    }
   }
 
   private _renderComponents() {
@@ -204,7 +201,7 @@ export abstract class Block<
     }
   }
 
-  public abstract render(): Promise<string>;
+  public abstract render(): string;
 
   public getContent() {
     return this.element;

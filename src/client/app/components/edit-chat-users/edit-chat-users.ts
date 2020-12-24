@@ -3,6 +3,7 @@ import { apiService } from '../../services/chats-api/api.service';
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
 import { isArray } from '../../utils/is-array';
+import { isNode } from '../../utils/is-node';
 import BriefInformationComponent from '../brief-information/brief-information';
 import ListComponent from '../list/list';
 import SearchComponent from '../search/search';
@@ -167,7 +168,11 @@ export default class EditChatUsersComponent extends Block<EditChatUsersComponent
     const { searchUser, usersList, selectedUsersList } = this.props.components;
 
     return templator
-      .getTemplate('edit-chat-users.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/edit-chat-users/edit-chat-users.tmpl.njk'
+          : 'static/templates/edit-chat-users.tmpl.njk'
+      )
       .render({
         ...this.props,
         searchUserId: searchUser.getId(),

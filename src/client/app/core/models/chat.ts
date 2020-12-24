@@ -21,7 +21,10 @@ export class Chat implements IChat {
   }
 
   constructor(chat: IChat) {
-    Object.assign(this, chat);
+    Object.assign(this, {
+      ...chat,
+      ...(chat.avatar && { avatar: 'https://ya-praktikum.tech' + chat.avatar }),
+    });
   }
 
   public getData(): IChat {

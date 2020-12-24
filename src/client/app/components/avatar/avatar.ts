@@ -1,6 +1,7 @@
 import { templator } from '../../services/templator.service';
 import UploadService from '../../services/upload.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import {
   AvatarComponentProps,
   IAvatarComponentExternalProps,
@@ -40,7 +41,7 @@ export default class Avatar extends Block<AvatarComponentProps> {
 
   render() {
     return templator
-      .getTemplate('../app/components/avatar/avatar.tmpl.njk')
+      .getTemplate(isNode() ? 'components/avatar/avatar.tmpl.njk' : 'static/templates/avatar.tmpl.njk')
       .render({
         ...this.props,
       });

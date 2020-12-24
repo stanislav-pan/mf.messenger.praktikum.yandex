@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import {
   InputErrorsComponentProps,
   IInputErrorsComponentExternalProps,
@@ -15,7 +16,11 @@ export default class InputErrors extends Block<InputErrorsComponentProps> {
 
   render() {
     return templator
-      .getTemplate('input-errors.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/input-errors/input-errors.tmpl.njk'
+          : 'static/templates/input-errors.tmpl.njk'
+      )
       .render({
         ...this.props,
       });

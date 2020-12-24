@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import Avatar from '../avatar/avatar';
 import {
   SelectedUserComponentProps,
@@ -35,7 +36,11 @@ export default class SelectedUserComponent extends Block<SelectedUserComponentPr
 
   render() {
     return templator
-      .getTemplate('selected-user.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/selected-user/selected-user.tmpl.njk'
+          : 'static/templates/selected-user.tmpl.njk'
+      )
       .render({
         ...this.props,
         avatarComponentId: this.props.components.avatar.getId(),

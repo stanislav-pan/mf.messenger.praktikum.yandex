@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import {
   IModalComponentExternalProps,
   ModalComponentProps,
@@ -49,7 +50,11 @@ export default class ModalComponent extends Block<ModalComponentProps> {
 
   render() {
     return templator
-      .getTemplate('modal.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/modal/modal.tmpl.njk'
+          : 'static/templates/modal.tmpl.njk'
+      )
       .render({
         componentId: this.props.component.getId(),
       });

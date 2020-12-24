@@ -5,6 +5,7 @@ import { Block } from '../../utils/block';
 import { FormControl } from '../../utils/forms/form-control';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
 import { isArray } from '../../utils/is-array';
+import { isNode } from '../../utils/is-node';
 import Button from '../button/button';
 import EditChatUsersComponent from '../edit-chat-users/edit-chat-users';
 import Input from '../input/input';
@@ -134,13 +135,17 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
         removeFromChat.map((item) => item.id)
       )
       .then(() => this.props.handlers.complete());
-  }
+  };
 
   render() {
     const { chatName, createBtn, editChatUsers } = this.props.components;
 
     return templator
-      .getTemplate('chat-management.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/chat-management./chat-management.tmpl.njk'
+          : 'static/templates/chat-management.tmpl.njk'
+      )
       .render({
         ...this.props,
         canChangeName: this.props.componentType === 'create',

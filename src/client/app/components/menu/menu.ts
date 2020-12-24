@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import { IMenuComponentExternalProps, MenuComponentProps } from './interfaces';
 
 export default class MenuComponent extends Block<MenuComponentProps> {
@@ -56,7 +57,11 @@ export default class MenuComponent extends Block<MenuComponentProps> {
 
   render() {
     return templator
-      .getTemplate('menu.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/menu/menu.tmpl.njk'
+          : 'static/templates/menu.tmpl.njk'
+      )
       .render({
         ...this.props,
       });

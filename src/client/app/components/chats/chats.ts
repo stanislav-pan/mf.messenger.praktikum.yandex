@@ -1,6 +1,7 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
 import { isEqual } from '../../utils/is-equal';
+import { isNode } from '../../utils/is-node';
 import ChatComponent from '../chat/chat';
 import {
   ChatsComponentProps,
@@ -55,7 +56,11 @@ export default class ChatsComponent extends Block<ChatsComponentProps> {
 
   render() {
     return templator
-      .getTemplate('chats.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/chats/chats.tmpl.njk'
+          : 'static/templates/chats.tmpl.njk'
+      )
       .render({
         ...this.props,
       });

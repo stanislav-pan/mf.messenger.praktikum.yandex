@@ -9,6 +9,7 @@ import { Block } from '../../utils/block';
 import { FormControl } from '../../utils/forms/form-control';
 import { FormGroup } from '../../utils/forms/form-group';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
+import { isNode } from '../../utils/is-node';
 import { ISigninData, LoginPageProps } from './interfaces';
 
 export default class LoginPage extends Block<LoginPageProps> {
@@ -91,9 +92,15 @@ export default class LoginPage extends Block<LoginPageProps> {
   }
 
   public render() {
-    return templator.getEnvironment().render('login.tmpl.njk', {
-      ...this.props,
-      loginFormId: this.props.components.loginForm.getId(),
-    });
+    return templator
+      .getTemplate(
+        isNode()
+          ? 'pages/login/login.tmpl.njk'
+          : 'static/templates/login.tmpl.njk'
+      )
+      .render({
+        ...this.props,
+        loginFormId: this.props.components.loginForm.getId(),
+      });
   }
 }

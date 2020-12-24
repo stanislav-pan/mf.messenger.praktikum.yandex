@@ -2,6 +2,7 @@ import { SubmitEvent } from '../../core/interfaces';
 import FormDataPerserService from '../../services/form-data-parser.service';
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import {
   SearchComponentProps,
   ISearchComponentExternalProps,
@@ -44,7 +45,11 @@ export default class SearchComponent extends Block<SearchComponentProps> {
 
   render() {
     return templator
-      .getTemplate('search.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/search/search.tmpl.njk'
+          : 'static/templates/search.tmpl.njk'
+      )
       .render({
         ...this.props,
       });

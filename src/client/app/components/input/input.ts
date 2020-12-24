@@ -3,6 +3,7 @@ import { Block } from '../../utils/block';
 import { FormControl } from '../../utils/forms/form-control';
 import { FormGroup } from '../../utils/forms/form-group';
 import { mapErrors } from '../../utils/forms/map-errors';
+import { isNode } from '../../utils/is-node';
 import InputErrors from '../input-errors/input-errors';
 import {
   IInputComponentExternalProps,
@@ -60,7 +61,11 @@ export default class Input extends Block<InputComponentProps> {
 
   render() {
     return templator
-      .getTemplate('input.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/input/input.tmpl.njk'
+          : 'static/templates/input.tmpl.njk'
+      )
       .render({
         ...this.props,
         errorsComponentId: this.props.components.errors.getId(),

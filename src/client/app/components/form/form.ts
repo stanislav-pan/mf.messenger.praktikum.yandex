@@ -1,6 +1,7 @@
 import { SubmitEvent } from '../../core/interfaces';
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import { FormComponentProps, IFormComponentExternalProps } from './interfaces';
 
 export default class FormComponent extends Block<FormComponentProps> {
@@ -36,7 +37,11 @@ export default class FormComponent extends Block<FormComponentProps> {
     ).map((component) => component.getId());
 
     return templator
-      .getTemplate('form.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/form/form.tmpl.njk'
+          : 'static/templates/form.tmpl.njk'
+      )
       .render({
         ...this.props,
         controlsComponentsIds,

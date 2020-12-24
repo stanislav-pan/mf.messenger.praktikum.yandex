@@ -18,6 +18,7 @@ import { minLengthValidator } from '../../utils/forms/validators/min-length.vali
 import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
 import { validatePasswordConfirm } from '../../utils/forms/validators/valid-password.validator';
+import { isNode } from '../../utils/is-node';
 import {
   IChangePasswordData,
   IEditProfileData,
@@ -308,7 +309,11 @@ export default class SettingsPage extends Block<SettingsPageProps> {
     } = this.props.components;
 
     return templator
-      .getTemplate('settings.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'pages/settings/settings.tmpl.njk'
+          : 'static/templates/settings.tmpl.njk'
+      )
       .render({
         ...this.props,
         briefInformationComponentId: briefInformation.getId(),

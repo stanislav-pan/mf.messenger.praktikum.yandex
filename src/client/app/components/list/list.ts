@@ -1,6 +1,7 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
 import { isEqual } from '../../utils/is-equal';
+import { isNode } from '../../utils/is-node';
 import { ListComponentProps, IListComponentExternalProps } from './interfaces';
 
 export default class ListComponent extends Block<ListComponentProps> {
@@ -37,7 +38,11 @@ export default class ListComponent extends Block<ListComponentProps> {
 
   render() {
     return templator
-      .getTemplate('list.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/list/list.tmpl.njk'
+          : 'static/templates/list.tmpl.njk'
+      )
       .render({
         ...this.props,
       });

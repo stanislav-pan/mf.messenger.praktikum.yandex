@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import Avatar from '../avatar/avatar';
 import {
   IChatComponentExternalProps,
@@ -29,7 +30,11 @@ export default class ChatComponent extends Block<IChatComponentInnerProps> {
 
   render() {
     return templator
-      .getTemplate('chat.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/chat/chat.tmpl.njk'
+          : 'static/templates/chat.tmpl.njk'
+      )
       .render({
         ...this.props,
         avatarComponentId: this.props.components.avatar.getId(),

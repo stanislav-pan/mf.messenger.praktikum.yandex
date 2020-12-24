@@ -18,6 +18,7 @@ import { templator } from '../../services/templator.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
 import { FormGroup } from '../../utils/forms/form-group';
+import { isNode } from '../../utils/is-node';
 import { MessangerPageProps } from './interfaces';
 
 export default class MessangerPage extends Block<MessangerPageProps> {
@@ -239,7 +240,11 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     } = this.props.components;
 
     return templator
-      .getTemplate('messanger.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'pages/messanger/messanger.tmpl.njk'
+          : 'static/templates/messanger.tmpl.njk'
+      )
       .render({
         ...this.props,
         briefInformationComponentId: briefInformation.getId(),

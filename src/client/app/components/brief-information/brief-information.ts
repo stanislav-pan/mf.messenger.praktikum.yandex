@@ -3,6 +3,7 @@ import FormDataPerserService from '../../services/form-data-parser.service';
 import { templator } from '../../services/templator.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import Avatar from '../avatar/avatar';
 import {
   BriefInformationProps,
@@ -119,7 +120,9 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
   render() {
     return templator
       .getTemplate(
-        'brief-information.tmpl.njk'
+        isNode()
+          ? 'components/brief-information/brief-information.tmpl.njk'
+          : 'static/templates/brief-information.tmpl.njk'
       )
       .render({
         ...this.props,

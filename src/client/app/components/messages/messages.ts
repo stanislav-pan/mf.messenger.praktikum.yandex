@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import MessageComponent from '../message/message';
 import {
   IMessagesComponentExternalProps,
@@ -36,7 +37,11 @@ export default class MessagesComponent extends Block<MessagesComponentProps> {
 
   render() {
     return templator
-      .getTemplate('messages.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/messages/messages.tmpl.njk'
+          : 'static/templates/messages.tmpl.njk'
+      )
       .render({
         ...this.props,
       });

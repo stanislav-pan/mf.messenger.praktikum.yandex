@@ -15,6 +15,7 @@ import { EmailValidator } from '../../utils/forms/validators/email.validator';
 import { minLengthValidator } from '../../utils/forms/validators/min-length.validator';
 import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
+import { isNode } from '../../utils/is-node';
 import { ISignupData, SignUpPageProps, SignUpPageSteps } from './interfaces';
 
 export default class SignUpPage extends Block<SignUpPageProps> {
@@ -209,7 +210,11 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     const { fistStepForm } = this.props.components;
 
     return templator
-      .getTemplate('sign-up-step-one.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'pages/sign-up-step-one/sign-up-step-one.tmpl.njk'
+          : 'static/templates/sign-up-step-one.tmpl.njk'
+      )
       .render({
         ...this.props,
         fistStepFormId: fistStepForm.getId(),
@@ -220,7 +225,11 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     const { secondStepForm } = this.props.components;
 
     return templator
-      .getTemplate('sign-up-step-two.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'pages/sign-up-step-two/sign-up-step-two.tmpl.njk'
+          : 'static/templates/sign-up-step-two.tmpl.njk'
+      )
       .render({
         ...this.props,
         secondStepFormId: secondStepForm.getId(),

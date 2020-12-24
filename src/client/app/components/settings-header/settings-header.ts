@@ -1,5 +1,6 @@
 import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
+import { isNode } from '../../utils/is-node';
 import {
   ISettingsHeaderExternalProps,
   SettingsHeaderProps,
@@ -24,7 +25,11 @@ export default class SettingsHeader extends Block<SettingsHeaderProps> {
 
   render() {
     return templator
-      .getTemplate('settings-header.tmpl.njk')
+      .getTemplate(
+        isNode()
+          ? 'components/settings-header/settings-header.tmpl.njk'
+          : 'static/templates/settings-header.tmpl.njk'
+      )
       .render({
         ...this.props,
       });
