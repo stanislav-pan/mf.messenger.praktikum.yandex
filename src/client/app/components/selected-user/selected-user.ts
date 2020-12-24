@@ -35,7 +35,7 @@ export default class SelectedUserComponent extends Block<SelectedUserComponentPr
 
   render() {
     return templator
-      .getTemplate('../app/components/selected-user/selected-user.tmpl.njk')
+      .getTemplate('selected-user.tmpl.njk')
       .render({
         ...this.props,
         avatarComponentId: this.props.components.avatar.getId(),

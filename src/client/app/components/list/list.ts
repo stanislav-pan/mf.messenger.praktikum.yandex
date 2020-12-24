@@ -37,7 +37,7 @@ export default class ListComponent extends Block<ListComponentProps> {
 
   render() {
     return templator
-      .getTemplate('../app/components/list/list.tmpl.njk')
+      .getTemplate('list.tmpl.njk')
       .render({
         ...this.props,
       });

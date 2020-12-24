@@ -20,7 +20,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
 
   private _selectedUsers: SelectableUser[] = [];
 
-  private _defaultSelectedUsers: SelectableUser[] = [];
+  private _defaultSelectedUsers: SelectableUser[];
 
   public set defaultSelectedUsers(users: SelectableUser[]) {
     this._defaultSelectedUsers = users;
@@ -101,14 +101,14 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
       .then(() => this.props.handlers.complete());
   }
 
-  private _editChat() {
+  private _editChat = () => {
     if (!this.props.currectChatId) {
       return;
     }
 
     const defaultSelectedUsers: Record<string, SelectableUser> = {};
 
-    this._defaultSelectedUsers.forEach((user) => {
+    (this._defaultSelectedUsers || []).forEach((user) => {
       defaultSelectedUsers[user.id] = user;
     });
 
@@ -140,7 +140,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
     const { chatName, createBtn, editChatUsers } = this.props.components;
 
     return templator
-      .getTemplate('../app/components/chat-management/chat-management.tmpl.njk')
+      .getTemplate('chat-management.tmpl.njk')
       .render({
         ...this.props,
         canChangeName: this.props.componentType === 'create',

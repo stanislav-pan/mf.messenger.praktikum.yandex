@@ -84,7 +84,7 @@ body {
 
     overflow-y: hidden;
 
-    background: url('/assets/images/chat-bg.jpg');
+    background: url('/static/images/chat-bg.jpg');
   }
 
   &__chat-footer {
@@ -142,5 +142,12 @@ body {
   &__chat-action-btn {
     width: 30px;
     justify-content: center;
+  }
+
+  &__create-chat-btn {
+    display: flex!important;
+    justify-content: center;
+
+    margin: 16px 0 32px 0;
   }
 }

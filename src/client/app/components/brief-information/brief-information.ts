@@ -119,7 +119,7 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
   render() {
     return templator
       .getTemplate(
-        '../app/components/brief-information/brief-information.tmpl.njk'
+        'brief-information.tmpl.njk'
       )
       .render({
         ...this.props,

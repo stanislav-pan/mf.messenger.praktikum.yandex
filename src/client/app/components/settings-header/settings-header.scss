@@ -1,0 +1,16 @@
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+
+  height: 38px;
+
+  margin: 17px 25px 0 25px;
+
+  &__left {
+    display: flex;
+  }
+
+  &__back-icon {
+    margin: 0 13px 0 -5px;
+  }
+}

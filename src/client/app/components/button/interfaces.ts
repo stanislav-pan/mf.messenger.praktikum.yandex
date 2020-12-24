@@ -6,7 +6,7 @@ export interface IButtonComponentExternalProps extends ICommonPropFields {
   class?: string;
 
   handlers?: {
-    click?: () => void;
+    click?: (event?: Event) => void;
   };
 }
 

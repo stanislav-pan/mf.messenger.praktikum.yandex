@@ -91,7 +91,7 @@ export default class LoginPage extends Block<LoginPageProps> {
   }
 
   public render() {
-    return templator.getEnvironment().render('app/pages/login/login.tmpl.njk', {
+    return templator.getEnvironment().render('login.tmpl.njk', {
       ...this.props,
       loginFormId: this.props.components.loginForm.getId(),
     });

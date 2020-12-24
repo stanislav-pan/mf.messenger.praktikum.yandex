@@ -44,7 +44,7 @@ export default class SearchComponent extends Block<SearchComponentProps> {
 
   render() {
     return templator
-      .getTemplate('../app/components/search/search.tmpl.njk')
+      .getTemplate('search.tmpl.njk')
       .render({
         ...this.props,
       });

@@ -239,7 +239,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     } = this.props.components;
 
     return templator
-      .getTemplate('app/pages/messanger/messanger.tmpl.njk')
+      .getTemplate('messanger.tmpl.njk')
       .render({
         ...this.props,
         briefInformationComponentId: briefInformation.getId(),

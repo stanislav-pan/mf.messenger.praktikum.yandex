@@ -15,7 +15,7 @@ export default class InputErrors extends Block<InputErrorsComponentProps> {
 
   render() {
     return templator
-      .getTemplate('../app/components/input-errors/input-errors.tmpl.njk')
+      .getTemplate('input-errors.tmpl.njk')
       .render({
         ...this.props,
       });

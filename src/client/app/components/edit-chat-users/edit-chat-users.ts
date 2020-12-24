@@ -167,7 +167,7 @@ export default class EditChatUsersComponent extends Block<EditChatUsersComponent
     const { searchUser, usersList, selectedUsersList } = this.props.components;
 
     return templator
-      .getTemplate('../app/components/edit-chat-users/edit-chat-users.tmpl.njk')
+      .getTemplate('edit-chat-users.tmpl.njk')
       .render({
         ...this.props,
         searchUserId: searchUser.getId(),
