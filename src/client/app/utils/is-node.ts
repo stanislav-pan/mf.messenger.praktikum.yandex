@@ -1,11 +1,19 @@
 export const isNode = () => {
+  if (isNode['result'] !== undefined) {
+    return isNode['result'];
+  }
+
+  let result = false;
+
   if (typeof process === 'object') {
     if (typeof process.versions === 'object') {
       if (typeof process.versions.node !== 'undefined') {
-        return true;
+        result = true;
       }
     }
   }
 
-  return false;
+  isNode['result'] = result;
+
+  return result;
 };
