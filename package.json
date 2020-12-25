@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run build & node ./src/server/index.js",
     "build": "rm -r -f dist & mkdir dist && mkdir \"dist/static\" & cp ./src/client/index.html ./dist & cp -r ./src/client/static/. ./dist/static & node templates-builder.js & npx tsc & node importer.js & npx sass src/client/styles.scss:dist/static/styles.css",
+    "build:ios": "rm -r -f dist & mkdir dist && mkdir dist/static & cp ./src/client/index.html ./dist & cp -r ./src/client/static/. ./dist/static & node templates-builder.js & npx tsc & node importer.js & npx sass src/client/styles.scss:dist/static/styles.css",
     "test": "npx jest",
     "test:watch": "npx jest --watch",
     "serve": "chokidar \"src/client/**/*.ts\" \"src/client/assets/styles/**/*.scss\" -c \"npm run build\"",
