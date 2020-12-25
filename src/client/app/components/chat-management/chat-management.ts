@@ -141,11 +141,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
     const { chatName, createBtn, editChatUsers } = this.props.components;
 
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/chat-management./chat-management.tmpl.njk'
-          : 'static/templates/chat-management.tmpl.njk'
-      )
+      .getTemplate('chat-management.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         canChangeName: this.props.componentType === 'create',

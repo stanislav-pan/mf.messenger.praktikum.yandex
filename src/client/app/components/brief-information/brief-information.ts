@@ -119,11 +119,7 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/brief-information/brief-information.tmpl.njk'
-          : 'static/templates/brief-information.tmpl.njk'
-      )
+      .getTemplate('brief-information.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         avatarComponentId: this.props.components.avatar.getId(),

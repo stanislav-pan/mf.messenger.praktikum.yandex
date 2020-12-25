@@ -37,11 +37,7 @@ export default class FormComponent extends Block<FormComponentProps> {
     ).map((component) => component.getId());
 
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/form/form.tmpl.njk'
-          : 'static/templates/form.tmpl.njk'
-      )
+      .getTemplate('form.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         controlsComponentsIds,

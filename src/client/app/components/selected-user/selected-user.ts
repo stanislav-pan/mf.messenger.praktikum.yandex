@@ -36,11 +36,7 @@ export default class SelectedUserComponent extends Block<SelectedUserComponentPr
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/selected-user/selected-user.tmpl.njk'
-          : 'static/templates/selected-user.tmpl.njk'
-      )
+      .getTemplate('selected-user.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         avatarComponentId: this.props.components.avatar.getId(),

@@ -93,11 +93,7 @@ export default class LoginPage extends Block<LoginPageProps> {
 
   public render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'pages/login/login.tmpl.njk'
-          : 'static/templates/login.tmpl.njk'
-      )
+      .getTemplate('login.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         loginFormId: this.props.components.loginForm.getId(),

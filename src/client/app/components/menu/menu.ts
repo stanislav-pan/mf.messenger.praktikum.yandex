@@ -57,11 +57,7 @@ export default class MenuComponent extends Block<MenuComponentProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/menu/menu.tmpl.njk'
-          : 'static/templates/menu.tmpl.njk'
-      )
+      .getTemplate('menu.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });

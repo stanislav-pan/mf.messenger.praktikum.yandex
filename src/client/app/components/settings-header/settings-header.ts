@@ -25,11 +25,7 @@ export default class SettingsHeader extends Block<SettingsHeaderProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/settings-header/settings-header.tmpl.njk'
-          : 'static/templates/settings-header.tmpl.njk'
-      )
+      .getTemplate('settings-header.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });

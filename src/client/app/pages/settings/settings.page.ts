@@ -309,11 +309,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
     } = this.props.components;
 
     return templator
-      .getTemplate(
-        isNode()
-          ? 'pages/settings/settings.tmpl.njk'
-          : 'static/templates/settings.tmpl.njk'
-      )
+      .getTemplate('settings.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         briefInformationComponentId: briefInformation.getId(),

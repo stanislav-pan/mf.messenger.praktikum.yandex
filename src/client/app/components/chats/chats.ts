@@ -56,11 +56,7 @@ export default class ChatsComponent extends Block<ChatsComponentProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/chats/chats.tmpl.njk'
-          : 'static/templates/chats.tmpl.njk'
-      )
+      .getTemplate('chats.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });

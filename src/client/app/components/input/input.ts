@@ -61,11 +61,7 @@ export default class Input extends Block<InputComponentProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/input/input.tmpl.njk'
-          : 'static/templates/input.tmpl.njk'
-      )
+      .getTemplate('input.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         errorsComponentId: this.props.components.errors.getId(),

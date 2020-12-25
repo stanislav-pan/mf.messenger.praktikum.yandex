@@ -33,7 +33,9 @@ class Templator {
     return nunjucks.compile(template);
   }
 
-  public getTemplate(templatePath: string) {
+  public getTemplate(templateName: string, dirName?: string) {
+    const templatePath = this.getTemplatePath(templateName, dirName);
+
     if (templatePath in this._cachedTemplates) {
       return this._cachedTemplates[templatePath];
     }
@@ -43,6 +45,18 @@ class Templator {
     this._cachedTemplates[templatePath] = template;
 
     return template;
+  }
+
+  private getTemplatePath(templateName: string, dirName?: string) {
+    let res: string;
+
+    if (dirName) {
+      res = `${dirName}\\${templateName}`;
+    } else {
+      res = `static/templates/${templateName}`;
+    }
+
+    return res;
   }
 }
 

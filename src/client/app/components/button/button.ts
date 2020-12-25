@@ -17,10 +17,8 @@ export default class Button extends Block<ButtonComponentProps> {
   }
 
   render() {
-    return templator
-      .getTemplate(isNode() ? 'components/button/btn.tmpl.njk' : 'static/templates/btn.tmpl.njk')
-      .render({
-        ...this.props,
-      });
+    return templator.getTemplate('btn.tmpl.njk', isNode() && __dirname).render({
+      ...this.props,
+    });
   }
 }

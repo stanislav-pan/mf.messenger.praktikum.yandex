@@ -41,7 +41,7 @@ export default class Avatar extends Block<AvatarComponentProps> {
 
   render() {
     return templator
-      .getTemplate(isNode() ? 'components/avatar/avatar.tmpl.njk' : 'static/templates/avatar.tmpl.njk')
+      .getTemplate('avatar.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });

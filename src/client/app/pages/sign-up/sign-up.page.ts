@@ -210,11 +210,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     const { fistStepForm } = this.props.components;
 
     return templator
-      .getTemplate(
-        isNode()
-          ? 'pages/sign-up-step-one/sign-up-step-one.tmpl.njk'
-          : 'static/templates/sign-up-step-one.tmpl.njk'
-      )
+      .getTemplate('sign-up-step-one.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         fistStepFormId: fistStepForm.getId(),
@@ -225,11 +221,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     const { secondStepForm } = this.props.components;
 
     return templator
-      .getTemplate(
-        isNode()
-          ? 'pages/sign-up-step-two/sign-up-step-two.tmpl.njk'
-          : 'static/templates/sign-up-step-two.tmpl.njk'
-      )
+      .getTemplate('sign-up-step-two.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
         secondStepFormId: secondStepForm.getId(),

@@ -45,11 +45,7 @@ export default class MessageComponent extends Block<MessageComponentProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/message/message.tmpl.njk'
-          : 'static/templates/message.tmpl.njk'
-      )
+      .getTemplate('message.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });

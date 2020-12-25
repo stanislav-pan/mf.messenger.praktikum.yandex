@@ -50,11 +50,7 @@ export default class ModalComponent extends Block<ModalComponentProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/modal/modal.tmpl.njk'
-          : 'static/templates/modal.tmpl.njk'
-      )
+      .getTemplate('modal.tmpl.njk', isNode() && __dirname)
       .render({
         componentId: this.props.component.getId(),
       });

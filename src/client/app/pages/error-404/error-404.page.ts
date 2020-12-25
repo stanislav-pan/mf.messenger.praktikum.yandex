@@ -13,11 +13,7 @@ export default class Error404Page extends Block<Error404PageProps> {
 
   public render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'pages/error-404/error-404.tmpl.njk'
-          : 'static/templates/error-404.tmpl.njk'
-      )
+      .getTemplate('error-404.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });

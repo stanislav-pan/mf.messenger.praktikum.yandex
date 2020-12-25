@@ -38,11 +38,7 @@ export default class ListComponent extends Block<ListComponentProps> {
 
   render() {
     return templator
-      .getTemplate(
-        isNode()
-          ? 'components/list/list.tmpl.njk'
-          : 'static/templates/list.tmpl.njk'
-      )
+      .getTemplate('list.tmpl.njk', isNode() && __dirname)
       .render({
         ...this.props,
       });
