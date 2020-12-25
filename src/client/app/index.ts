@@ -12,7 +12,9 @@ userService
       return;
     }
 
-    router.start();
+    router.start(
+      window.location.pathname === '/' ? '/messanger' : window.location.pathname
+    );
   })
   .catch(() => {
     const pathname = window.location.pathname;
