@@ -1,5 +1,5 @@
 const express = require('express');
-const compression  = require('compression');
+const compression = require('compression');
 const path = require('path');
 const constants = require('./const');
 const app = express();
@@ -14,8 +14,8 @@ app.use(
 );
 
 app.use(
-  '/app',
-  express.static(path.resolve(__dirname, '../../dist/app'), {
+  '',
+  express.static(path.resolve(__dirname, '../../dist/'), {
     maxAge: constants.ONE_HOUR_IN_SECONDS,
   })
 );

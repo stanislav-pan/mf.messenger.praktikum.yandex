@@ -1,6 +1,8 @@
 import { router } from './init-router';
 import { userService } from './services/user.service';
 
+import './../styles.scss';
+
 userService
   .initUser()
   .then(() => {
