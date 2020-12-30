@@ -1,9 +1,8 @@
 import { SubmitEvent } from '../../core/interfaces';
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import { FormComponentProps, IFormComponentExternalProps } from './interfaces';
 
+import template from './form.tmpl.njk';
 export default class FormComponent extends Block<FormComponentProps> {
   constructor(props: IFormComponentExternalProps) {
     const submit = props.handlers?.submit;
@@ -36,11 +35,9 @@ export default class FormComponent extends Block<FormComponentProps> {
       this.props.components
     ).map((component) => component.getId());
 
-    return templator
-      .getTemplate('form.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        controlsComponentsIds,
-      });
+    return template({
+      ...this.props,
+      controlsComponentsIds,
+    });
   }
 }

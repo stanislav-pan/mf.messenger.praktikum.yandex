@@ -1,14 +1,14 @@
 import { SubmitEvent } from '../../core/interfaces';
 import FormDataPerserService from '../../services/form-data-parser.service';
-import { templator } from '../../services/templator.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import Avatar from '../avatar/avatar';
 import {
   BriefInformationProps,
   IBriefInformationExternalProps,
 } from './interfaces';
+
+import template from './brief-information.tmpl.njk';
 
 export default class BriefInformationComponent extends Block<BriefInformationProps> {
   constructor(props?: IBriefInformationExternalProps) {
@@ -118,11 +118,9 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
   }
 
   render() {
-    return templator
-      .getTemplate('brief-information.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        avatarComponentId: this.props.components.avatar.getId(),
-      });
+    return template({
+      ...this.props,
+      avatarComponentId: this.props.components.avatar.getId(),
+    });
   }
 }

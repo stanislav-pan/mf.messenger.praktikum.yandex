@@ -1,10 +1,10 @@
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import {
   IModalComponentExternalProps,
   ModalComponentProps,
 } from './interfaces';
+
+import template from './modal.tmpl.njk';
 
 export default class ModalComponent extends Block<ModalComponentProps> {
   private _bindedEscapeHandler: (event: KeyboardEvent) => void;
@@ -49,10 +49,8 @@ export default class ModalComponent extends Block<ModalComponentProps> {
   }
 
   render() {
-    return templator
-      .getTemplate('modal.tmpl.njk', isNode() && __dirname)
-      .render({
-        componentId: this.props.component.getId(),
-      });
+    return template({
+      componentId: this.props.component.getId(),
+    });
   }
 }

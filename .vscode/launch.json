@@ -12,7 +12,8 @@
               "--inspect-brk",
               "${workspaceRoot}/node_modules/jest/bin/jest.js",
               "--runInBand",
-              "--watch"
+              "--watch",
+              "--no-cache"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",

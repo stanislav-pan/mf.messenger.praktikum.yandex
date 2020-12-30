@@ -1,10 +1,10 @@
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import {
   ButtonComponentProps,
   IButtonComponentExternalProps,
 } from './interfaces';
+
+import template from './btn.tmpl.njk';
 
 export default class Button extends Block<ButtonComponentProps> {
   constructor(props: IButtonComponentExternalProps) {
@@ -17,8 +17,6 @@ export default class Button extends Block<ButtonComponentProps> {
   }
 
   render() {
-    return templator.getTemplate('btn.tmpl.njk', isNode() && __dirname).render({
-      ...this.props,
-    });
+    return template({ ...this.props });
   }
 }

@@ -1,11 +1,11 @@
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import Avatar from '../avatar/avatar';
 import {
   IChatComponentExternalProps,
   IChatComponentInnerProps,
 } from './interfaces';
+
+import template from './chat.tmpl.njk';
 
 export default class ChatComponent extends Block<IChatComponentInnerProps> {
   constructor(props: IChatComponentExternalProps) {
@@ -29,11 +29,9 @@ export default class ChatComponent extends Block<IChatComponentInnerProps> {
   }
 
   render() {
-    return templator
-      .getTemplate('chat.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        avatarComponentId: this.props.components.avatar.getId(),
-      });
+    return template({
+      ...this.props,
+      avatarComponentId: this.props.components.avatar.getId(),
+    });
   }
 }

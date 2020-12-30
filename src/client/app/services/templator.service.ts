@@ -18,7 +18,9 @@ class Templator {
   constructor() {
     const loader: FileSystemLoader = path
       ? new nunjucks.FileSystemLoader(path.resolve(__dirname, '../'))
-      : new nunjucks.WebLoader('');
+      : new nunjucks.WebLoader('', {
+        useCache: true
+      });
 
     this._env = new nunjucks.Environment(loader, {
       autoescape: false,

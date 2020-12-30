@@ -14,12 +14,12 @@ import { User } from '../../core/models/user';
 import { router } from '../../init-router';
 import { apiService } from '../../services/chats-api/api.service';
 import { chatsService } from '../../services/chats.service';
-import { templator } from '../../services/templator.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
 import { FormGroup } from '../../utils/forms/form-group';
-import { isNode } from '../../utils/is-node';
 import { MessangerPageProps } from './interfaces';
+
+import template from './messanger.tmpl.njk';
 
 export default class MessangerPage extends Block<MessangerPageProps> {
   private _bindedChatsChangingHandler;
@@ -239,17 +239,15 @@ export default class MessangerPage extends Block<MessangerPageProps> {
       createChatBtn,
     } = this.props.components;
 
-    return templator
-      .getTemplate('messanger.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        briefInformationComponentId: briefInformation.getId(),
-        chatsCopmonentId: chats.getId(),
-        searchComponentId: search.getId(),
-        messagesComponentId: messages.getId(),
-        modalComponentId: modal?.getId(),
-        chatMenuComponentId: chatMenu?.getId(),
-        createChatBtnCopmonentId: createChatBtn?.getId(),
-      });
+    return template({
+      ...this.props,
+      briefInformationComponentId: briefInformation.getId(),
+      chatsCopmonentId: chats.getId(),
+      searchComponentId: search.getId(),
+      messagesComponentId: messages.getId(),
+      modalComponentId: modal?.getId(),
+      chatMenuComponentId: chatMenu?.getId(),
+      createChatBtnCopmonentId: createChatBtn?.getId(),
+    });
   }
 }

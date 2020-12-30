@@ -23,6 +23,6 @@
         "alwaysStrict": true,
         "strictNullChecks": true
     },
-    "include": ["src/client/**/*"],
+    "include": ["declaration.d.ts", "src/client/**/*"],
     "exclude": ["src/client/**/*.test.ts"]
 }

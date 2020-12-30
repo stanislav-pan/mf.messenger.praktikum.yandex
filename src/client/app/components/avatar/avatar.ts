@@ -1,11 +1,11 @@
-import { templator } from '../../services/templator.service';
 import UploadService from '../../services/upload.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import {
   AvatarComponentProps,
   IAvatarComponentExternalProps,
 } from './interfaces';
+
+import template from './avatar.tmpl.njk';
 
 export default class Avatar extends Block<AvatarComponentProps> {
   constructor(props: IAvatarComponentExternalProps) {
@@ -40,10 +40,6 @@ export default class Avatar extends Block<AvatarComponentProps> {
   }
 
   render() {
-    return templator
-      .getTemplate('avatar.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-      });
+    return template({ ...this.props });
   }
 }

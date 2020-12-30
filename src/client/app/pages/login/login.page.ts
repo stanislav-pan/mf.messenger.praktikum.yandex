@@ -3,14 +3,14 @@ import FormComponent from '../../components/form/form';
 import Input from '../../components/input/input';
 import { SubmitEvent } from '../../core/interfaces';
 import { router } from '../../init-router';
-import { templator } from '../../services/templator.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
 import { FormControl } from '../../utils/forms/form-control';
 import { FormGroup } from '../../utils/forms/form-group';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
-import { isNode } from '../../utils/is-node';
 import { ISigninData, LoginPageProps } from './interfaces';
+
+import template from './login.tmpl.njk';
 
 export default class LoginPage extends Block<LoginPageProps> {
   get loginFormGroup(): FormGroup {
@@ -92,11 +92,9 @@ export default class LoginPage extends Block<LoginPageProps> {
   }
 
   public render() {
-    return templator
-      .getTemplate('login.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        loginFormId: this.props.components.loginForm.getId(),
-      });
+    return template({
+      ...this.props,
+      loginFormId: this.props.components.loginForm.getId(),
+    });
   }
 }

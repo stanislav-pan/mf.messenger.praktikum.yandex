@@ -1,11 +1,9 @@
 import { SelectableUser } from '../../core/models/selectable-user';
 import { chatsService } from '../../services/chats.service';
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
 import { FormControl } from '../../utils/forms/form-control';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
 import { isArray } from '../../utils/is-array';
-import { isNode } from '../../utils/is-node';
 import Button from '../button/button';
 import EditChatUsersComponent from '../edit-chat-users/edit-chat-users';
 import Input from '../input/input';
@@ -14,6 +12,7 @@ import {
   IChatManagementComponentExternalProps,
 } from './interfaces';
 
+import template from './chat-management.tmpl.njk';
 export default class ChatManagementComponent extends Block<ChatManagementComponentProps> {
   get chatNameFormControl(): FormControl {
     return this.props.components.chatName.props.formControl as FormControl;
@@ -140,14 +139,12 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
   render() {
     const { chatName, createBtn, editChatUsers } = this.props.components;
 
-    return templator
-      .getTemplate('chat-management.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        canChangeName: this.props.componentType === 'create',
-        chatNameId: chatName?.getId(),
-        editChatUsersId: editChatUsers.getId(),
-        createBtnId: createBtn.getId(),
-      });
+    return template({
+      ...this.props,
+      canChangeName: this.props.componentType === 'create',
+      chatNameId: chatName?.getId(),
+      editChatUsersId: editChatUsers.getId(),
+      createBtnId: createBtn.getId(),
+    });
   }
 }

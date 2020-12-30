@@ -1,11 +1,11 @@
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import Avatar from '../avatar/avatar';
 import {
   SelectedUserComponentProps,
   ISelectedUserComponentExternalProps,
 } from './interfaces';
+
+import template from './selected-user.tmpl.njk';
 
 export default class SelectedUserComponent extends Block<SelectedUserComponentProps> {
   constructor(props: ISelectedUserComponentExternalProps) {
@@ -35,11 +35,9 @@ export default class SelectedUserComponent extends Block<SelectedUserComponentPr
   }
 
   render() {
-    return templator
-      .getTemplate('selected-user.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        avatarComponentId: this.props.components.avatar.getId(),
-      });
+    return template({
+      ...this.props,
+      avatarComponentId: this.props.components.avatar.getId(),
+    });
   }
 }

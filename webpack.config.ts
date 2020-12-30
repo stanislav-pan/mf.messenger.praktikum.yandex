@@ -50,6 +50,17 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.njk$/,
+        use: [
+          {
+            loader: 'simple-nunjucks-loader',
+            options: {
+              searchPaths: ['./src/client/'],
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

@@ -1,9 +1,7 @@
 import { SelectableUser } from '../../core/models/selectable-user';
 import { apiService } from '../../services/chats-api/api.service';
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
 import { isArray } from '../../utils/is-array';
-import { isNode } from '../../utils/is-node';
 import BriefInformationComponent from '../brief-information/brief-information';
 import ListComponent from '../list/list';
 import SearchComponent from '../search/search';
@@ -12,6 +10,8 @@ import {
   IEditChatUsersComponentExternalProps,
   EditChatUsersComponentProps,
 } from './interfaces';
+
+import template from './edit-chat-users.tmpl.njk';
 
 export default class EditChatUsersComponent extends Block<EditChatUsersComponentProps> {
   private _selectedUsers: SelectableUser[] = [];
@@ -167,13 +167,11 @@ export default class EditChatUsersComponent extends Block<EditChatUsersComponent
   render() {
     const { searchUser, usersList, selectedUsersList } = this.props.components;
 
-    return templator
-      .getTemplate('edit-chat-users.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-        searchUserId: searchUser.getId(),
-        usersListId: usersList.getId(),
-        selectedUsersListId: selectedUsersList.getId(),
-      });
+    return template({
+      ...this.props,
+      searchUserId: searchUser.getId(),
+      usersListId: usersList.getId(),
+      selectedUsersListId: selectedUsersList.getId(),
+    });
   }
 }

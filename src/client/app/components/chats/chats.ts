@@ -1,13 +1,12 @@
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
 import { isEqual } from '../../utils/is-equal';
-import { isNode } from '../../utils/is-node';
 import ChatComponent from '../chat/chat';
 import {
   ChatsComponentProps,
   IChatsComponentExternalProps,
 } from './interfaces';
 
+import template from './chats.tmpl.njk';
 export default class ChatsComponent extends Block<ChatsComponentProps> {
   constructor(props: IChatsComponentExternalProps) {
     super({
@@ -55,10 +54,8 @@ export default class ChatsComponent extends Block<ChatsComponentProps> {
   }
 
   render() {
-    return templator
-      .getTemplate('chats.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-      });
+    return template({
+      ...this.props,
+    });
   }
 }

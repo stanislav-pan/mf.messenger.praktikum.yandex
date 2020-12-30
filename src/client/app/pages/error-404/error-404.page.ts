@@ -1,7 +1,7 @@
-import { templator } from '../../services/templator.service';
 import { Block } from '../../utils/block';
-import { isNode } from '../../utils/is-node';
 import { Error404PageProps } from './interfaces';
+
+import template from './error-404.tmpl.njk';
 
 export default class Error404Page extends Block<Error404PageProps> {
   constructor() {
@@ -12,10 +12,8 @@ export default class Error404Page extends Block<Error404PageProps> {
   }
 
   public render() {
-    return templator
-      .getTemplate('error-404.tmpl.njk', isNode() && __dirname)
-      .render({
-        ...this.props,
-      });
+    return template({
+      ...this.props,
+    });
   }
 }

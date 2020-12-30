@@ -1,5 +1,3 @@
-{% from "static/templates/settings-list.tmpl.njk" import settingsList %}
-
 <div class="modal">
     <div class="modal__container">
         {{name}}
@@ -16,11 +14,22 @@
 
             {% if isSettingsListBlock %}
                 <div class="settings__settings-list">
-                    {{settingsList(renderingSettingsList)}}
+                    <ul class="settings-list">
+                        {% for item in renderingSettingsList %}
+                            <li class="settings-list__li">
+                                <button class="settings-list__button" data-value="{{item.value}}" onclick="showBlock(value)">
+                                    <div class="settings-list__icon">
+                                        {% include item.iconTemplate %}
+                                    </div>
+                                    <span class="settings-list__span">{{item.title}}</span>
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
 
                 <div class="settings__logout-wrapper">
-                    <button class="settings__logout-btn" onClick="logout">Logout</button>
+                    <button class="settings__logout-btn" onclick="logout">Logout</button>
                 </div>
             {% endif %}
 
