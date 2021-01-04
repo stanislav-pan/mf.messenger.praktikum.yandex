@@ -5,6 +5,7 @@ import {
   IChatComponentInnerProps,
 } from './interfaces';
 
+import './chat.scss';
 import template from './chat.tmpl.njk';
 
 export default class ChatComponent extends Block<IChatComponentInnerProps> {

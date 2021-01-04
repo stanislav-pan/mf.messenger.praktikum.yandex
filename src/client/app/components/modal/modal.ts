@@ -4,6 +4,7 @@ import {
   ModalComponentProps,
 } from './interfaces';
 
+import './modal.scss';
 import template from './modal.tmpl.njk';
 
 export default class ModalComponent extends Block<ModalComponentProps> {

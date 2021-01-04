@@ -11,6 +11,7 @@ import {
   EditChatUsersComponentProps,
 } from './interfaces';
 
+import './edit-chat-users.scss';
 import template from './edit-chat-users.tmpl.njk';
 
 export default class EditChatUsersComponent extends Block<EditChatUsersComponentProps> {

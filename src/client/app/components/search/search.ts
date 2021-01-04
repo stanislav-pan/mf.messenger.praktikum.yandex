@@ -6,6 +6,7 @@ import {
   ISearchComponentExternalProps,
 } from './interfaces';
 
+import './search.scss';
 import template from './search.tmpl.njk';
 
 export default class SearchComponent extends Block<SearchComponentProps> {

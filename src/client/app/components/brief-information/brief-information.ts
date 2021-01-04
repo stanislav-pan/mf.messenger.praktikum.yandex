@@ -8,6 +8,7 @@ import {
   IBriefInformationExternalProps,
 } from './interfaces';
 
+import './brief-information.scss';
 import template from './brief-information.tmpl.njk';
 
 export default class BriefInformationComponent extends Block<BriefInformationProps> {

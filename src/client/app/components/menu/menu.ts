@@ -3,6 +3,7 @@ import { Block } from '../../utils/block';
 import { isNode } from '../../utils/is-node';
 import { IMenuComponentExternalProps, MenuComponentProps } from './interfaces';
 
+import './menu.scss';
 export default class MenuComponent extends Block<MenuComponentProps> {
   private _bindedClickHandler: (event: Event) => void;
 

@@ -4,7 +4,7 @@ import {
   IButtonComponentExternalProps,
 } from './interfaces';
 
-import template from './btn.tmpl.njk';
+import template from './button.tmpl.njk';
 
 export default class Button extends Block<ButtonComponentProps> {
   constructor(props: IButtonComponentExternalProps) {

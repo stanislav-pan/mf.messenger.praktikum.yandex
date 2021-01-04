@@ -12,6 +12,7 @@ import {
   IChatManagementComponentExternalProps,
 } from './interfaces';
 
+import './chat-management.scss';
 import template from './chat-management.tmpl.njk';
 export default class ChatManagementComponent extends Block<ChatManagementComponentProps> {
   get chatNameFormControl(): FormControl {

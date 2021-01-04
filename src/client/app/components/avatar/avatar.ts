@@ -5,6 +5,7 @@ import {
   IAvatarComponentExternalProps,
 } from './interfaces';
 
+import './avatar.scss';
 import template from './avatar.tmpl.njk';
 
 export default class Avatar extends Block<AvatarComponentProps> {

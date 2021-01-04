@@ -25,6 +25,8 @@ import {
   SettingsPageProps,
 } from './interfaces';
 
+import './settings.scss';
+
 export default class SettingsPage extends Block<SettingsPageProps> {
   get editingProfileFormGroup(): FormGroup {
     return this.props.components?.editingProfileForm?.props?.formGroup;

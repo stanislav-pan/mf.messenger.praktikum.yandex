@@ -19,6 +19,7 @@ import { Block } from '../../utils/block';
 import { FormGroup } from '../../utils/forms/form-group';
 import { MessangerPageProps } from './interfaces';
 
+import './messanger.scss';
 import template from './messanger.tmpl.njk';
 
 export default class MessangerPage extends Block<MessangerPageProps> {

@@ -5,6 +5,7 @@ import {
   MessagesComponentProps,
 } from './interfaces';
 
+import './messages.scss';
 import template from './messages.tmpl.njk';
 
 export default class MessagesComponent extends Block<MessagesComponentProps> {

@@ -10,6 +10,8 @@ import {
   InputComponentProps,
 } from './interfaces';
 
+import './input.scss';
+
 export type AbstractalControl = FormControl | FormGroup;
 
 export default class Input extends Block<InputComponentProps> {

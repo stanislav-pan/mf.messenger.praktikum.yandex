@@ -4,6 +4,7 @@ import {
   SettingsHeaderProps,
 } from './interfaces';
 
+import './settings-header.scss';
 import template from './settings-header.tmpl.njk';
 
 export default class SettingsHeader extends Block<SettingsHeaderProps> {

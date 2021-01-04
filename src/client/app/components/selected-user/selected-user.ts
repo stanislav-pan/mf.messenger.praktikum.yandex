@@ -5,6 +5,7 @@ import {
   ISelectedUserComponentExternalProps,
 } from './interfaces';
 
+import './selected-user.scss';
 import template from './selected-user.tmpl.njk';
 
 export default class SelectedUserComponent extends Block<SelectedUserComponentProps> {
