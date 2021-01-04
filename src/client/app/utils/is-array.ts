@@ -1,3 +1,3 @@
-export function isArray(value: unknown): value is [] {
+export function isArray<T>(value: unknown): value is Array<T> {
   return Array.isArray(value);
 }
