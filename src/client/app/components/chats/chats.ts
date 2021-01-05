@@ -19,7 +19,10 @@ export default class ChatsComponent extends Block<ChatsComponentProps> {
     });
   }
 
-  componentDidUpdate(old: ChatsComponentProps, current: ChatsComponentProps) {
+  componentDidUpdate(
+    old: ChatsComponentProps,
+    current: ChatsComponentProps
+  ): boolean {
     if (!isEqual(old.chats, current.chats)) {
       this._setChats();
     }
@@ -53,7 +56,7 @@ export default class ChatsComponent extends Block<ChatsComponentProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });

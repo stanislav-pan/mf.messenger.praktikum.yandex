@@ -3,18 +3,23 @@ export type StringIndexed = Record<string, unknown>;
 const isPrimitive = (value: unknown) =>
   typeof value !== 'object' || value === null;
 
-const generateTree = (obj: Object | Array<any>) => {
-  return Object.entries(obj).reduce((acc: any[], [key, item]) => {
-    acc.push([key, isPrimitive(item) ? item : generateTree(item)]);
+const generateTree = (obj: Record<string, unknown> | Array<unknown>) => {
+  return Object.entries(obj).reduce((acc: unknown[], [key, item]) => {
+    acc.push([
+      key,
+      isPrimitive(item)
+        ? item
+        : generateTree(item as Record<string, unknown> | Array<unknown>),
+    ]);
 
     return acc;
   }, []);
 };
 
-const flatTree = (tree: Array<any>) => {
-  const res: any[] = [];
+const flatTree = (tree: Array<unknown>) => {
+  const res: unknown[][] = [];
 
-  const temp = (tree: Array<any>, res: Array<any>) =>
+  const temp = (tree: Array<unknown>, res: Array<unknown>) =>
     tree.forEach(([key, value]) => {
       if (isPrimitive(value)) {
         res.push([key, value]);
@@ -43,7 +48,7 @@ const flatTree = (tree: Array<any>) => {
   return res;
 };
 
-const convertFlattenTreeToString = (flattenTree: Array<any[]>) => {
+const convertFlattenTreeToString = (flattenTree: Array<unknown[]>) => {
   const res: string[] = [];
 
   for (const item of flattenTree) {
@@ -64,7 +69,7 @@ const convertFlattenTreeToString = (flattenTree: Array<any[]>) => {
         str += `=${item[index]}`;
       }
 
-      res.push(str);
+      res.push(String(str));
     }
   }
 

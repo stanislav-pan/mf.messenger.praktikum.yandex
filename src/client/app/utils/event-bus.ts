@@ -1,5 +1,9 @@
+type callbackSignature = {
+  (...args: unknown[]): void;
+};
+
 export class EventBus {
-  public listeners: { [key: string]: Array<Function> };
+  public listeners: Record<string, Array<callbackSignature>>;
 
   constructor() {
     this.listeners = this._getListenersProxy();
@@ -9,7 +13,7 @@ export class EventBus {
     return new Proxy(
       {},
       {
-        get: (target: {}, p: string) => {
+        get: (target: Record<string, Array<callbackSignature>>, p: string) => {
           if (p in target) {
             return target[p];
           }
@@ -22,11 +26,11 @@ export class EventBus {
     );
   }
 
-  public on(event: string, callback) {
+  public on(event: string, callback: callbackSignature): void {
     this.listeners[event].push(callback);
   }
 
-  public off(event: string, callback) {
+  public off(event: string, callback: callbackSignature): void {
     this.isEventHandling(event);
 
     this.listeners[event] = this.listeners[event].filter(
@@ -34,15 +38,15 @@ export class EventBus {
     );
   }
 
-  public emit(event: string, ...args) {
+  public emit(event: string, ...args: unknown[]): void {
     this.isEventHandling(event);
 
-    for (let listener of this.listeners[event]) {
+    for (const listener of this.listeners[event]) {
       listener.apply({}, args);
     }
   }
 
-  isEventHandling(event) {
+  private isEventHandling(event: string): never | void {
     if (!this.listeners[event].length) {
       throw new Error(`Нет события: ${event}`);
     }

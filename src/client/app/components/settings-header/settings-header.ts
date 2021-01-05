@@ -24,7 +24,7 @@ export default class SettingsHeader extends Block<SettingsHeaderProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });

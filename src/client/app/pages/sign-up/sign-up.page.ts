@@ -16,7 +16,13 @@ import { minLengthValidator } from '../../utils/forms/validators/min-length.vali
 import { OnlyNumberValidator } from '../../utils/forms/validators/only-number.validator';
 import { RequiredValidator } from '../../utils/forms/validators/reguired.validator';
 import { isNode } from '../../utils/is-node';
-import { ISignupData, SignUpPageProps, SignUpPageSteps } from './interfaces';
+import {
+  IFirstStepFormGroup,
+  ISecondStepFormGroup,
+  ISignupData,
+  SignUpPageProps,
+  SignUpPageSteps,
+} from './interfaces';
 
 export default class SignUpPage extends Block<SignUpPageProps> {
   get firstStepFormGroup(): FormGroup {
@@ -175,8 +181,8 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     }
 
     const data: ISignupData = {
-      ...firstStepFormGroup.value,
-      ...secondStepFormGroup.value,
+      ...(firstStepFormGroup.value as IFirstStepFormGroup),
+      ...(secondStepFormGroup.value as ISecondStepFormGroup),
     };
 
     localStorageService.removeItem(SIGN_UP_STEP_ONE);
@@ -190,7 +196,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     if (localStorageService.get(SIGN_UP_STEP_ONE)) {
       this.setProps({
         currentStep: SignUpPageSteps.SECOND,
@@ -198,7 +204,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     }
   }
 
-  public render() {
+  public render(): string {
     if (this.props.currentStep === SignUpPageSteps.FIRST) {
       return this._renderFirstStep();
     }

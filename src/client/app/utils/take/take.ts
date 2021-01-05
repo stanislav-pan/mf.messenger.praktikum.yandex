@@ -1,14 +1,14 @@
 import { isArray } from '../is-array';
 
 class ValidationError extends Error {
-  constructor(m: string = 'bad value') {
+  constructor(m = 'bad value') {
     super(m);
 
     this.name = 'ValidationError';
   }
 }
 
-export const take = (list: number[], num: number = 1): number[] => {
+export const take = (list: number[], num = 1): number[] => {
   if (!isArray(list)) {
     throw new ValidationError();
   }
@@ -17,7 +17,7 @@ export const take = (list: number[], num: number = 1): number[] => {
     throw new ValidationError();
   }
 
-  let res: Array<number> = [];
+  const res: Array<number> = [];
   const clonedList = [...list];
 
   if (num >= list.length) {

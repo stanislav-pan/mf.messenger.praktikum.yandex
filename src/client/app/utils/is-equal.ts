@@ -1,13 +1,15 @@
 import { isObject } from './is-object';
 
-export function isEqual(a: object, b: object): boolean {
+type argType = Record<string, unknown> | Array<unknown>;
+
+export function isEqual(a: argType, b: argType): boolean {
   if (!isObject(a) || !isObject(b)) {
     throw new Error('Params should be objects');
   }
 
   let res = true;
 
-  const comparator = (lhs: object, rhs: object) => {
+  const comparator = (lhs: argType, rhs: argType) => {
     const mappedLhs = Object.entries(lhs);
     const mappedRhs = Object.entries(rhs);
 
@@ -23,7 +25,7 @@ export function isEqual(a: object, b: object): boolean {
       }
 
       if (isObject(value) && isObject(rhs[key])) {
-        comparator(value, rhs[key]);
+        comparator(value as any, rhs[key] as any);
 
         continue;
       }

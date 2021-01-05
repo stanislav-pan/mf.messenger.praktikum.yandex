@@ -51,15 +51,11 @@ export default class EditChatUsersComponent extends Block<EditChatUsersComponent
     });
   }
 
-  componentDidMount() {
-    // if (isArray(this.props.selectedUsers)) {
-    //     this.selectedUsers = this.props.selectedUsers;
-    // }
-
+  componentDidMount(): void {
     this._searchByLogin('');
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): boolean {
     if (isArray(this.props.selectedUsers)) {
       this.selectedUsers = this.props.selectedUsers;
     }
@@ -165,7 +161,7 @@ export default class EditChatUsersComponent extends Block<EditChatUsersComponent
     });
   }
 
-  render() {
+  render(): string {
     const { searchUser, usersList, selectedUsersList } = this.props.components;
 
     return template({

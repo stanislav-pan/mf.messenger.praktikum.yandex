@@ -16,22 +16,22 @@ export class Route {
     this._props = props;
   }
 
-  public navigate(pathname: string) {
+  public navigate(pathname: string): void {
     if (this.match(pathname)) {
       this._pathname = pathname;
       this.render();
     }
   }
 
-  public leave() {
+  public leave(): void {
     if (this._block) {
       this._block.remove();
     }
   }
 
-  public match = (pathname: string) => pathname === this._pathname;
+  public match = (pathname: string): boolean => pathname === this._pathname;
 
-  public render() {
+  public render(): void {
     const blockClass = this._blockClass as any;
 
     this._block = new blockClass() as Block;

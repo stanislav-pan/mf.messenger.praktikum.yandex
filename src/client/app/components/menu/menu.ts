@@ -34,13 +34,13 @@ export default class MenuComponent extends Block<MenuComponentProps> {
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this._bindedClickHandler = this._clickHandler.bind(this);
 
     document.addEventListener('click', this._bindedClickHandler);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     document.removeEventListener('click', this._bindedClickHandler);
   }
 
@@ -56,7 +56,7 @@ export default class MenuComponent extends Block<MenuComponentProps> {
     this.props.handlers.close();
   }
 
-  render() {
+  render(): string {
     return templator
       .getTemplate('menu.tmpl.njk', isNode() && __dirname)
       .render({

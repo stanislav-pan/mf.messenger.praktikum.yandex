@@ -14,7 +14,7 @@ describe('Тестирование функции rle', () => {
   it('Должна генерировать ошибку в случае, если аргумент не состоит из букв A-Z', () => {
     const testCase = ['21', 'a', 'true'];
 
-    for (let i in testCase) {
+    for (const i in testCase) {
       try {
         rle(testCase[i]);
       } catch (error) {

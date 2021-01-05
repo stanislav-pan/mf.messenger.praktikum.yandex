@@ -16,7 +16,7 @@ const getRanges = (sortedList: number[]) => {
   return ranges;
 };
 
-export const compress = (list: number[]) => {
+export const compress = (list: number[]): string | undefined => {
   if (!Array.isArray(list) || !list.length) {
     return undefined;
   }
@@ -25,7 +25,7 @@ export const compress = (list: number[]) => {
 
   const ranges = getRanges(sortedList);
 
-  let setOfRanges: string[] = [];
+  const setOfRanges: string[] = [];
 
   for (const range of ranges) {
     const mappedRange = (range.length > 1

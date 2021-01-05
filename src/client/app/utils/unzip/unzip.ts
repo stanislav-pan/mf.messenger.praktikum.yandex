@@ -12,7 +12,7 @@ const createUnion = (values: arraysType, indexOfItem: number) => {
   return item;
 };
 
-export const unzip = (...values: arraysType) => {
+export const unzip = (...values: arraysType): arraysType => {
   let theMostLongArrayLength = 0;
   const res: arraysType = [];
 

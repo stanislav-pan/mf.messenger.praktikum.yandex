@@ -27,7 +27,7 @@ export class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: string, block: Block) {
+  public use(pathname: string, block: Block): this {
     const route = new Route(pathname, block, {
       rootQuery: this._rootQuery,
     });
@@ -37,7 +37,7 @@ export class Router {
     return this;
   }
 
-  public start(pathname?: string) {
+  public start(pathname?: string): void {
     window.onpopstate = (event: PopStateEvent) => {
       this._onRoute((event.currentTarget as any).location.pathname);
     };
@@ -61,21 +61,21 @@ export class Router {
     route.render();
   }
 
-  public go(pathname: string) {
+  public go(pathname: string): void {
     this.history.pushState({}, '', pathname);
 
     this._onRoute(pathname);
   }
 
-  public back() {
+  public back(): void {
     window.history.back();
   }
 
-  public forward() {
+  public forward(): void {
     window.history.forward();
   }
 
-  public getRoute(pathname: string) {
+  public getRoute(pathname: string): Route | undefined {
     return this.routes.find((route) => route.match(pathname));
   }
 }

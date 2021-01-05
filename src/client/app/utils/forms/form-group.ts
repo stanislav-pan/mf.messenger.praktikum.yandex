@@ -8,11 +8,11 @@ export class FormGroup extends AbstractControl {
   private _listeners: Array<IListenerFn> = [];
   private _validators: Validator[] = [];
 
-  public get value() {
+  public get value(): unknown {
     return this._getValue();
   }
 
-  public set value(value: any) {
+  public set value(value: unknown) {
     if (this._listeners?.length) {
       for (const listener of this._listeners) {
         listener(value);
@@ -22,16 +22,16 @@ export class FormGroup extends AbstractControl {
 
   private _valid = true;
 
-  public get valid() {
+  public get valid(): boolean {
     return this._valid;
   }
 
-  protected _setValid(isValid: boolean) {
+  protected _setValid(isValid: boolean): void {
     this._valid =
       isValid && Object.values(this.controls).every((control) => control.valid);
   }
 
-  get invalid() {
+  get invalid(): boolean {
     return !this._valid;
   }
 
@@ -50,7 +50,7 @@ export class FormGroup extends AbstractControl {
     }));
   }
 
-  public addControl(key: string, control: FormControl) {
+  public addControl(key: string, control: FormControl): void {
     this.controls[key] = control;
 
     control.subscribe(() => {
@@ -61,39 +61,39 @@ export class FormGroup extends AbstractControl {
     this._checkError();
   }
 
-  public subscribe(next: (value: any) => void) {
+  public subscribe(next: (value: any) => void): void {
     this._listeners.push(next);
   }
 
-  public get(key: string) {
+  public get(key: string): FormControl {
     return this.controls[key];
   }
 
-  public markAsDirtyAllControls() {
+  public markAsDirtyAllControls(): void {
     Object.values(this.controls).forEach((control) => {
       control.markAsDirty();
     });
   }
 
-  public markAsPristineAllControls() {
+  public markAsPristineAllControls(): void {
     Object.values(this.controls).forEach((control) => {
       control.markAsPristine();
     });
   }
 
-  public reset(needResetValues: boolean = true) {
+  public reset(needResetValues = true): void {
     Object.values(this.controls).forEach((control) => {
       control.reset(needResetValues);
     });
   }
 
-  public patchValue(obj: Record<string, unknown>) {
+  public patchValue(obj: Record<string, unknown>): void {
     for (const [key, value] of Object.entries(obj)) {
       if (!this.controls[key]) {
         continue;
       }
 
-      this.controls[key].setValue(value as any);
+      this.controls[key].setValue(value as string);
     }
   }
 

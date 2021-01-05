@@ -4,7 +4,7 @@ export interface IUploadConfig {
 
 export default class UploadService {
   static upload(config: IUploadConfig = {}): Promise<FileList> {
-    let fileInput: HTMLInputElement = document.createElement('input');
+    const fileInput: HTMLInputElement = document.createElement('input');
     fileInput.type = 'file';
 
     if (config.multiple) {
@@ -29,7 +29,7 @@ export default class UploadService {
   }
 
   static getBase64(file: File): Promise<string> {
-    let fileReader = new FileReader();
+    const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 
     return new Promise<string>((resolve) => {

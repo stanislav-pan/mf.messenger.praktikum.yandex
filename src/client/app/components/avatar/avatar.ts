@@ -40,7 +40,7 @@ export default class Avatar extends Block<AvatarComponentProps> {
       .then((file) => callback(file));
   }
 
-  render() {
+  render(): string {
     return template({ ...this.props });
   }
 }

@@ -1,7 +1,7 @@
 import FormComponent from '../../components/form/form';
 import { ICommonPropFields } from '../../utils/block';
 
-export interface ILoginPageExternalProps extends ICommonPropFields {}
+export type ILoginPageExternalProps = ICommonPropFields
 
 export type LoginPageProps = ILoginPageExternalProps & ILoginPageInnerProps;
 

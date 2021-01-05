@@ -1,8 +1,5 @@
 import { ICommonPropFields } from '../../utils/block';
 
-export interface IError500PageExternalProps extends ICommonPropFields {}
+export type IError500PageExternalProps = ICommonPropFields;
 
-export type Error500PageProps = IError500PageExternalProps &
-  IError500PageInnerProps;
-
-export interface IError500PageInnerProps {}
+export type Error500PageProps = IError500PageExternalProps;

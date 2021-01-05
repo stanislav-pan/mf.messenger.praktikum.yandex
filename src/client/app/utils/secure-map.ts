@@ -23,18 +23,18 @@ export class SecureMap implements ISecureMap {
     );
   }
 
-  public has = (name: string) => this._items.has(name);
-  public keys = () => this._items.keys();
-  public get = (name: string) => this._items.get(name);
+  public has = (name: string): boolean => this._items.has(name);
+  public keys = (): IterableIterator<string> => this._items.keys();
+  public get = (name: string): string | undefined => this._items.get(name);
 
-  public set = (name: string, value: string | string[]) =>
+  public set = (name: string, value: string | string[]): this =>
     this._items.set(name, value.toString()) && this;
 
-  public delete = (name: string) => {
+  public delete = (name: string): this => {
     this._items.delete(name);
 
     return this;
   };
 
-  public getValues = () => this._items;
+  public getValues = (): Map<string, string> => this._items;
 }

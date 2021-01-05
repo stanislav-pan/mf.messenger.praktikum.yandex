@@ -37,7 +37,7 @@ export default class ModalComponent extends Block<ModalComponentProps> {
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const bindedEscapeHandler = (this._bindedEscapeHandler = this._escapeHandler.bind(
       this
     ));
@@ -45,11 +45,11 @@ export default class ModalComponent extends Block<ModalComponentProps> {
     window.addEventListener('keydown', bindedEscapeHandler);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener('keydown', this._bindedEscapeHandler);
   }
 
-  render() {
+  render(): string {
     return template({
       componentId: this.props.component.getId(),
     });

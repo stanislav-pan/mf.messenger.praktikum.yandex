@@ -6,7 +6,7 @@ import ModalComponent from '../../components/modal/modal';
 import SearchComponent from '../../components/search/search';
 import { ICommonPropFields } from '../../utils/block';
 
-export interface IMessangerPageExternalProps extends ICommonPropFields {}
+export type IMessangerPageExternalProps = ICommonPropFields
 
 export type MessangerPageProps = IMessangerPageExternalProps &
   IMessangerPageInnerProps;

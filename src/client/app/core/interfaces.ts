@@ -4,6 +4,8 @@ export interface SubmitEvent extends Event {
 
 declare global {
   interface ObjectConstructor {
-    fromEntries(xs: IterableIterator<[string, string]>): object;
+    fromEntries(
+      xs: IterableIterator<[string, string]>
+    ): Record<string, unknown>;
   }
 }

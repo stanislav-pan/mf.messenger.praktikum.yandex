@@ -1,3 +1,4 @@
+import { isObject } from './is-object';
 import { Indexed, merge } from './merge';
 
 /**
@@ -9,7 +10,7 @@ export function set(
   path: string,
   value: unknown
 ): Indexed | unknown {
-  if (typeof object !== 'object' || object === null) {
+  if (!isObject(object)) {
     return object;
   }
 

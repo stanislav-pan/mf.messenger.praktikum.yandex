@@ -1,5 +1,5 @@
 import { SubmitEvent } from '../../core/interfaces';
-import FormDataPerserService from '../../services/form-data-parser.service';
+import FormDataParserService from '../../services/form-data-parser.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
 import Avatar from '../avatar/avatar';
@@ -50,7 +50,7 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
   public componentDidUpdate(
     old: BriefInformationProps,
     current: BriefInformationProps
-  ) {
+  ): boolean {
     if (old.canChangeName !== current.canChangeName) {
       this.setProps({
         displayedNameInput: false,
@@ -84,7 +84,7 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
 
     const form = event.currentTarget as HTMLFormElement;
 
-    const { displayNameInput } = FormDataPerserService.getFormValues<{
+    const { displayNameInput } = FormDataParserService.getFormValues<{
       displayNameInput: string;
     }>(form);
 
@@ -118,7 +118,7 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
     input.selectionStart = input.value.length;
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
       avatarComponentId: this.props.components.avatar.getId(),

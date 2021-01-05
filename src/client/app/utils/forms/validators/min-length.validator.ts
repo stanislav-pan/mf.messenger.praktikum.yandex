@@ -3,7 +3,7 @@ import { ValidatorFn } from '../validator-interfaces';
 
 export const minLengthValidator = (min: number): ValidatorFn => {
   return (control: FormControl) => {
-    const value: string = control.getValue();
+    const value = control.getValue() as string;
 
     if (value.length < min) {
       return {

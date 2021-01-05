@@ -8,7 +8,4 @@ export interface ISearchComponentExternalProps extends ICommonPropFields {
   };
 }
 
-export interface ISearchComponentInnerProps {}
-
-export type SearchComponentProps = ISearchComponentExternalProps &
-  ISearchComponentInnerProps;
+export type SearchComponentProps = ISearchComponentExternalProps;

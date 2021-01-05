@@ -31,7 +31,7 @@ export default class Input extends Block<InputComponentProps> {
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const fc = this.props?.formControl as FormControl;
 
     if (!fc) {
@@ -45,7 +45,7 @@ export default class Input extends Block<InputComponentProps> {
     fc.subscribe(this._bindedFormControlChangingHandler);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const fc = this.props?.formControl as FormControl;
 
     if (!fc) {
@@ -61,7 +61,7 @@ export default class Input extends Block<InputComponentProps> {
     });
   }
 
-  render() {
+  render(): string {
     return templator
       .getTemplate('input.tmpl.njk', isNode() && __dirname)
       .render({

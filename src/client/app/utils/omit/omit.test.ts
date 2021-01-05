@@ -2,7 +2,9 @@ import { omit } from './omit';
 
 describe('Тестирование функции omit', () => {
     it('Должна корректно убирать заданные поля из объекта', () => {
+        // omit({ name: 'Benjy', age: 18 }, ['']);
         const res = omit({ name: 'Benjy', age: 18 }, ['name']);
+        
 
         expect(res).toEqual({ age: 18 });
     });

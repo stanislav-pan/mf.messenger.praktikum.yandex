@@ -9,7 +9,4 @@ export interface IAvatarComponentExternalProps extends ICommonPropFields {
   };
 }
 
-export interface IAvatarComponentInnerProps {}
-
-export type AvatarComponentProps = IAvatarComponentExternalProps &
-  IAvatarComponentInnerProps;
+export type AvatarComponentProps = IAvatarComponentExternalProps;

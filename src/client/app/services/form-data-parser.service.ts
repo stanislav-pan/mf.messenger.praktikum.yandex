@@ -1,5 +1,7 @@
-export default class FormDataPerserService {
-  static getFormValues<T extends Object>(form: HTMLFormElement) {
+export default class FormDataParserService {
+  static getFormValues<T extends Record<string, unknown>>(
+    form: HTMLFormElement
+  ): T {
     const formData = new FormData(form);
 
     const result = {};

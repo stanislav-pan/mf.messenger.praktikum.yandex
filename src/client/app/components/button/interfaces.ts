@@ -10,7 +10,4 @@ export interface IButtonComponentExternalProps extends ICommonPropFields {
   };
 }
 
-export type ButtonComponentProps = IButtonComponentExternalProps &
-  IButtonComponentInnerProps;
-
-export interface IButtonComponentInnerProps {}
+export type ButtonComponentProps = IButtonComponentExternalProps;

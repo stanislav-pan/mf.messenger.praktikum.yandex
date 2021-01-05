@@ -10,16 +10,16 @@ const toSnakeCase = (str: string) =>
       .join('_')) ||
   str;
 
-export const objToSnakeCase = <T>(o: object): T => {
-  if (isObject(o)) {
-    const n: T = {} as T;
-
-    Object.keys(o).forEach((k) => {
-      n[toSnakeCase(k)] = objToSnakeCase(o[k]);
-    });
-
-    return n;
+export const objToSnakeCase = <T>(o: Record<string, unknown> | unknown): T => {
+  if (!isObject(o)) {
+    return o as T;
   }
 
-  return o;
+  const n: T = {} as T;
+
+  Object.keys(o).forEach((k) => {
+    n[toSnakeCase(k)] = objToSnakeCase(o[k]);
+  });
+
+  return n;
 };

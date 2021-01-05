@@ -35,7 +35,7 @@ export default class SelectedUserComponent extends Block<SelectedUserComponentPr
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
       avatarComponentId: this.props.components.avatar.getId(),

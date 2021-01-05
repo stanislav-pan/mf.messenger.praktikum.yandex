@@ -6,7 +6,7 @@ export class HttpParams extends SecureMap {
     super(params);
   }
 
-  public toString() {
+  public toString(): string {
     return queryStringify(
       Object.fromEntries(this._items.entries()) as Record<string, unknown>
     );

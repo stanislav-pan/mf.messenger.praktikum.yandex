@@ -71,7 +71,7 @@ export const roman = (number: number | string): number | string => {
 
 function roman2arabic(number: string): number {
   const numbers = number.split('') as RomanDigitsType[];
-  let res: number = 0;
+  let res = 0;
 
   const notRepeat = ['V', 'L', 'D'];
 
@@ -148,7 +148,7 @@ function arabic2roman(number: number): string {
   checkRangeError(number);
 
   let tempNumber = number;
-  let res: Array<string> = [];
+  const res: Array<string> = [];
 
   while (tempNumber) {
     for (const [key, value] of allNecessaryRomanDigits) {

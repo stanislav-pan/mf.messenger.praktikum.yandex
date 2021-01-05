@@ -16,7 +16,7 @@ export default class Button extends Block<ButtonComponentProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({ ...this.props });
   }
 }

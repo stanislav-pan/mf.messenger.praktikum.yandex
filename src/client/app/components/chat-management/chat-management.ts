@@ -34,7 +34,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.setProps({
       components: {
         ...(this.props.componentType === 'create' && {
@@ -92,7 +92,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
       return;
     }
 
-    const chatName: string = this.chatNameFormControl.getValue();
+    const chatName = this.chatNameFormControl.getValue() as string;
 
     chatsService
       .createChat(
@@ -137,7 +137,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
       .then(() => this.props.handlers.complete());
   };
 
-  render() {
+  render(): string {
     const { chatName, createBtn, editChatUsers } = this.props.components;
 
     return template({

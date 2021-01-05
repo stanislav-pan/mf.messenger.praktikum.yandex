@@ -36,7 +36,7 @@ export default class MessagesComponent extends Block<MessagesComponentProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });

@@ -11,13 +11,13 @@ export class UsersApiService extends BaseApiService {
     super('user/');
   }
 
-  public async changePassword(data: IChangePasswordRequest) {
+  public async changePassword(data: IChangePasswordRequest): Promise<unknown> {
     return this.http
       .put(this.getUrl('password'), data, this.commonOptions)
       .then((xhr) => xhr.response);
   }
 
-  public async changeAvatar(file: File) {
+  public async changeAvatar(file: File): Promise<User> {
     const data = new FormData();
     data.append('avatar', file);
 
@@ -28,7 +28,7 @@ export class UsersApiService extends BaseApiService {
       .then((xhr) => User.mapUserFromServer(JSON.parse(xhr.response)));
   }
 
-  public async changeProfile(data: IChangeProfileRequest) {
+  public async changeProfile(data: IChangeProfileRequest): Promise<User> {
     return this.http
       .put(this.getUrl('profile'), data, this.commonOptions)
       .then((xhr) => User.mapUserFromServer(JSON.parse(xhr.response)));

@@ -1,29 +1,44 @@
 import { isArray } from '../is-array';
 import { isObject } from '../is-object';
 
-export const omit = <T extends object>(obj: T, fields: (keyof T)[]) => {
-    if (!isObject(obj)) {
-        throw new Error(omit.errors.objIncorrect);
+interface Omit {
+  <T extends Record<string, unknown>, K extends (keyof T)[]>(
+    obj: T,
+    fields: K
+  ): {
+    [K2 in Exclude<keyof T, K[number]>]: T[K2];
+  };
+
+  errors: {
+    objIncorrect: string;
+    fieldsIncorrect: string;
+  };
+}
+
+export const omit: Omit = (obj, fields) => {
+  if (!isObject(obj)) {
+    throw new Error(omit.errors.objIncorrect);
+  }
+
+  if (!isArray(fields)) {
+    throw new Error(omit.errors.fieldsIncorrect);
+  }
+
+  const res = {} as {
+    [K in keyof typeof obj]: typeof obj[K];
+  };
+
+  let key: keyof typeof obj;
+  for (key in obj) {
+    if (!fields.includes(key)) {
+      res[key] = obj[key];
     }
+  }
 
-    if (!isArray(fields)) {
-        throw new Error(omit.errors.fieldsIncorrect);
-    }
-
-    const res = {};
-
-    for (const [key, value] of Object.entries(obj)) {
-        if (fields.includes(key as any)) {
-            continue;
-        }
-
-        res[key] = value;
-    }
-
-    return res;
+  return res;
 };
 
 omit['errors'] = {
-    objIncorrect: 'obj is not correct object',
-    fieldsIncorrect: 'fields is not array',
+  objIncorrect: 'obj is not correct object',
+  fieldsIncorrect: 'fields is not array',
 };

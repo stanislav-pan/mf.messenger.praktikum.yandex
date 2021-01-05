@@ -1,5 +1,5 @@
 import { SubmitEvent } from '../../core/interfaces';
-import FormDataPerserService from '../../services/form-data-parser.service';
+import FormDataParserService from '../../services/form-data-parser.service';
 import { Block } from '../../utils/block';
 import {
   SearchComponentProps,
@@ -28,9 +28,9 @@ export default class SearchComponent extends Block<SearchComponentProps> {
 
             const form = event.target as HTMLFormElement;
 
-            const { search } = FormDataPerserService.getFormValues(form);
+            const { search } = FormDataParserService.getFormValues(form);
 
-            submit(event, search);
+            submit(event, search as string);
           },
           change: (event: InputEvent) => {
             if (typeof input !== 'function') {
@@ -44,7 +44,7 @@ export default class SearchComponent extends Block<SearchComponentProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });

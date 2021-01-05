@@ -17,7 +17,7 @@ export default class MessageComponent extends Block<MessageComponentProps> {
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.setProps({
       class: this._getClasses(this.props.message),
     });
@@ -26,7 +26,7 @@ export default class MessageComponent extends Block<MessageComponentProps> {
   private _getClasses(message: IMessage) {
     const element = 'message-list__item';
 
-    let res: string[] = [];
+    const res: string[] = [];
 
     if (message.isMyMessage) {
       res.push(`${element}_my`);
@@ -43,7 +43,7 @@ export default class MessageComponent extends Block<MessageComponentProps> {
     return res.join(' ');
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });

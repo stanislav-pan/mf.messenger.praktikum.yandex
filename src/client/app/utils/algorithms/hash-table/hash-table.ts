@@ -8,12 +8,12 @@ export class HashTable {
     }
 
     this.size = size;
-    this.memory = new Array();
+    this.memory = [];
   }
 
   // Добавляет пару [key, value] в хеш-таблицу.
   // Если ключ существует, перезаписывает значение.
-  public set(key: string, value: unknown) {
+  public set(key: string, value: unknown): void {
     const hashValue = this.getHashByKey(key);
 
     this.memory[hashValue] = this.memory[hashValue] || [];
@@ -36,7 +36,7 @@ export class HashTable {
   }
 
   // Удаляет значение из хеш-таблице по ключу.
-  public remove(key: string) {
+  public remove(key: string): void {
     const hashValue = this.getHashByKey(key);
 
     const table = this.memory[hashValue];

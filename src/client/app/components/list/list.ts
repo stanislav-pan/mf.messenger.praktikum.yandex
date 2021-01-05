@@ -15,7 +15,10 @@ export default class ListComponent extends Block<ListComponentProps> {
     });
   }
 
-  componentDidUpdate(old: ListComponentProps, current: ListComponentProps) {
+  componentDidUpdate(
+    old: ListComponentProps,
+    current: ListComponentProps
+  ): boolean {
     if (isEqual(old.components, current.components)) {
       return false;
     }
@@ -36,7 +39,7 @@ export default class ListComponent extends Block<ListComponentProps> {
     return true;
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });

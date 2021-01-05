@@ -61,7 +61,9 @@ export default class MessangerPage extends Block<MessangerPageProps> {
         components: {
           search: new SearchComponent({
             handlers: {
-              submit: () => {},
+              submit: () => {
+                console.log('Search');
+              },
             },
           }),
           messages: new MessagesComponent({ messages }),
@@ -108,7 +110,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     chatsService.fetchChats();
 
     this._bindedChatsChangingHandler = this._chatsChangingHandler.bind(this);
@@ -116,7 +118,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     chatsService.subscribe(this._bindedChatsChangingHandler);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     chatsService.unsubscribe(this._bindedChatsChangingHandler);
   }
 
@@ -138,7 +140,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
   }
 
   private _showOrHideCreateChatModal(
-    show: boolean = true,
+    show = true,
     componentType: ChatManagementComponentType = 'create',
     selectedUsers?: User[]
   ) {
@@ -164,7 +166,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     });
   }
 
-  private _showOrHideChatMenu(show: boolean = true) {
+  private _showOrHideChatMenu(show = true) {
     this.setProps({
       components: {
         ...this.props.components,
@@ -229,7 +231,7 @@ export default class MessangerPage extends Block<MessangerPageProps> {
     router.go('/settings');
   }
 
-  public render() {
+  public render(): string {
     const {
       briefInformation,
       chats,

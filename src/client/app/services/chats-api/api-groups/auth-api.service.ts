@@ -9,19 +9,19 @@ export class AuthApiService extends BaseApiService {
     super('auth/');
   }
 
-  public async signup(data: ISignupRequest) {
+  public async signup(data: ISignupRequest): Promise<unknown> {
     return this.http
       .post(this.getUrl('signup'), data, this.commonOptions)
       .then((xhr) => xhr.response);
   }
 
-  public async signin(data: ISigninRequest) {
+  public async signin(data: ISigninRequest): Promise<unknown> {
     return this.http
       .post(this.getUrl('signin'), data, this.commonOptions)
       .then((xhr) => xhr.response);
   }
 
-  public async logout() {
+  public async logout(): Promise<unknown> {
     return this.http
       .post(this.getUrl('logout'), {}, this.commonOptions)
       .then((xhr) => xhr.response);

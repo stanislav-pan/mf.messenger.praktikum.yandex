@@ -8,20 +8,22 @@ export class ChatsApiService extends BaseApiService {
     super('chats/');
   }
 
-  public async createChat(title: string) {
+  public async createChat(title: string): Promise<Chat> {
     return this.http
       .post(this.getUrl(), { title }, this.commonOptions)
       .then((xhr) => Chat.mapChatFromServer(JSON.parse(xhr.response)));
   }
 
-  public async deleteChat(chatId: number) {
-    return this.http.delete(
-      this.getUrl(),
-      {
-        chatId: String(chatId),
-      },
-      this.commonOptions
-    );
+  public async deleteChat(chatId: number): Promise<unknown> {
+    return this.http
+      .delete(
+        this.getUrl(),
+        {
+          chatId: String(chatId),
+        },
+        this.commonOptions
+      )
+      .then((xhr) => xhr.response);
   }
 
   public async get(): Promise<Array<Chat>> {
@@ -32,7 +34,10 @@ export class ChatsApiService extends BaseApiService {
       );
   }
 
-  public async addUsersToChat(chatId: number, usersIds: number[]) {
+  public async addUsersToChat(
+    chatId: number,
+    usersIds: number[]
+  ): Promise<unknown> {
     return this.http
       .put(
         this.getUrl('users'),
@@ -42,10 +47,13 @@ export class ChatsApiService extends BaseApiService {
         },
         this.commonOptions
       )
-      .then((xhr) => xhr);
+      .then((xhr) => xhr.response);
   }
 
-  public async deleteUsersFromChat(chatId: number, usersIds: number[]) {
+  public async deleteUsersFromChat(
+    chatId: number,
+    usersIds: number[]
+  ): Promise<unknown> {
     return this.http
       .delete(
         this.getUrl('users'),
@@ -55,7 +63,7 @@ export class ChatsApiService extends BaseApiService {
         },
         this.commonOptions
       )
-      .then((xhr) => xhr);
+      .then((xhr) => xhr.response);
   }
 
   public async getChatUsers(chatId: number): Promise<User[]> {

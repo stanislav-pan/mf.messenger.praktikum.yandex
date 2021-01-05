@@ -69,7 +69,7 @@ export default class LoginPage extends Block<LoginPageProps> {
       return;
     }
 
-    const value: ISigninData = this.loginFormGroup.value;
+    const value = this.loginFormGroup.value as ISigninData;
 
     userService
       .auth(value)
@@ -91,7 +91,7 @@ export default class LoginPage extends Block<LoginPageProps> {
       });
   }
 
-  public render() {
+  public render(): string {
     return template({
       ...this.props,
       loginFormId: this.props.components.loginForm.getId(),

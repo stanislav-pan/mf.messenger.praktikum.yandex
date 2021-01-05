@@ -11,7 +11,7 @@ export default class Error404Page extends Block<Error404PageProps> {
     });
   }
 
-  public render() {
+  public render(): string {
     return template({
       ...this.props,
     });

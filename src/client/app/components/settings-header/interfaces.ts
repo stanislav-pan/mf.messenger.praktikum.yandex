@@ -10,7 +10,4 @@ export interface ISettingsHeaderExternalProps extends ICommonPropFields {
   };
 }
 
-export interface ISettingsHeaderInnerProps {}
-
-export type SettingsHeaderProps = ISettingsHeaderExternalProps &
-  ISettingsHeaderInnerProps;
+export type SettingsHeaderProps = ISettingsHeaderExternalProps;

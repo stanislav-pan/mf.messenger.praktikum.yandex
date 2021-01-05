@@ -11,7 +11,7 @@ export default class Error500Page extends Block<Error500PageProps> {
     });
   }
 
-  public render() {
+  public render(): string {
     return template({
       ...this.props,
     });

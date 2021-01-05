@@ -1,16 +1,17 @@
+import { isObject } from './is-object';
+
 export type Indexed<T = unknown> = {
   [key in string]: T;
 };
 
-const getKeys = (target: Object) => {
+const getKeys = (target: Record<string, unknown>) => {
   return Object.keys(target);
 };
 
-const isMergeableObject = (value: any) => {
-  return !!value && typeof value === 'object';
-};
-
-const propertyIsOnObject = (object: Object, property: string) => {
+const propertyIsOnObject = (
+  object: Record<string, unknown>,
+  property: string
+) => {
   try {
     return property in object;
   } catch (_) {
@@ -18,11 +19,17 @@ const propertyIsOnObject = (object: Object, property: string) => {
   }
 };
 
-export function merge(lhs: Indexed<any>, rhs: Indexed<any>) {
-  if (isMergeableObject(rhs)) {
+export function merge(
+  lhs: Indexed<unknown>,
+  rhs: Indexed<unknown>
+): Indexed<unknown> {
+  if (isObject(rhs)) {
     getKeys(rhs).forEach((key) => {
-      if (propertyIsOnObject(lhs, key) && isMergeableObject(rhs[key])) {
-        lhs[key] = merge(lhs[key], rhs[key]);
+      if (propertyIsOnObject(lhs, key) && isObject(rhs[key])) {
+        lhs[key] = merge(
+          lhs[key] as Indexed<unknown>,
+          rhs[key] as Indexed<unknown>
+        );
       } else {
         lhs[key] = rhs[key];
       }

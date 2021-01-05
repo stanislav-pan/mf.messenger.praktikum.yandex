@@ -1,6 +1,8 @@
+import { isPlainObject } from './is-plain-object';
+
 export function get<T, K>(
-  obj: Object,
-  path: string = '',
+  obj: Record<string, unknown>,
+  path = '',
   defaulValue: K
 ): T | K {
   const keys = path.split('.');
@@ -13,7 +15,9 @@ export function get<T, K>(
       return defaulValue;
     }
 
-    res = value;
+    if (isPlainObject(value)) {
+      res = value;
+    }
   }
 
   return res as T;

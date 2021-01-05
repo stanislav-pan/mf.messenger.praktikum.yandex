@@ -24,7 +24,7 @@ describe('Тестирование функции преобразования �
 
     const testCaseUnknown = ['19a04', 'MXP', '2017.13', NaN];
 
-    for (let i in testCaseUnknown) {
+    for (const i in testCaseUnknown) {
       try {
         roman(testCaseUnknown[i]);
       } catch (error) {
@@ -36,7 +36,7 @@ describe('Тестирование функции преобразования �
   it('Должна возвращать ошибку TYPE_ERROR в случае, если аргумент имеет не обрабатываемый тип', () => {
     const testCaseType = ['true', true, null];
 
-    for (let i in testCaseType) {
+    for (const i in testCaseType) {
       try {
         roman(testCaseType[i] as any);
       } catch (error) {
@@ -49,7 +49,7 @@ describe('Тестирование функции преобразования �
   или возвращаемое значение выходит за диаазон от 0 до 3999`, () => {
     const testCaseRange = [0, 'MMMDM', -1, 4000];
 
-    for (let i in testCaseRange) {
+    for (const i in testCaseRange) {
       try {
         roman(testCaseRange[i]);
       } catch (error) {

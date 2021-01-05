@@ -3,9 +3,12 @@ import { FormControl } from './forms/form-control';
 import { isEqual } from './is-equal';
 
 export type MapOfBlockLike = { [key: string]: Block<any> };
+type HandlerType = {
+  (...args: unknown[]): unknown | void;
+};
 
 export interface ICommonPropFields {
-  handlers?: Partial<Record<string, Function>>;
+  handlers?: Partial<Record<string, HandlerType>>;
   components?: MapOfBlockLike;
   class?: string;
   formControl?: FormControl;
@@ -16,9 +19,7 @@ export interface IBlockMeta<T> {
   props: T;
 }
 
-export abstract class Block<
-  T extends Record<string, any> | ICommonPropFields = {}
-> {
+export abstract class Block<T extends ICommonPropFields = ICommonPropFields> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -50,7 +51,7 @@ export abstract class Block<
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  public getId() {
+  public getId(): string {
     return this._id;
   }
 
@@ -67,7 +68,7 @@ export abstract class Block<
     this._element = this._createDocumentElement(tagName);
   }
 
-  init() {
+  private init() {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
@@ -77,24 +78,26 @@ export abstract class Block<
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  public componentDidMount() {}
+  public componentDidMount(): void {}
 
   private _componentDidUpdate(oldProps: T, newProps: T) {
     this.componentDidUpdate(oldProps, newProps);
   }
 
-  public componentDidUpdate(oldProps: T, newProps: T) {
-    return !isEqual(oldProps, newProps);
-    // return JSON.stringify(oldProps) !== JSON.stringify(newProps);
+  public componentDidUpdate(oldProps: T, newProps: T): boolean {
+    return !isEqual(
+      oldProps as Record<string, unknown>,
+      newProps as Record<string, unknown>
+    );
   }
 
   private _componentWillUnmount() {
     this.componentWillUnmount();
   }
 
-  public componentWillUnmount() {}
+  public componentWillUnmount(): void {}
 
-  public setProps = (nextProps: T | {}) => {
+  public setProps = (nextProps: T | {}): void => {
     if (!nextProps) {
       return;
     }
@@ -106,7 +109,7 @@ export abstract class Block<
     this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, this.props);
   };
 
-  get element() {
+  get element(): HTMLElement {
     return this._element;
   }
 
@@ -134,7 +137,7 @@ export abstract class Block<
         );
 
         if (attr) {
-          this.props.formControl.init(current);
+          this.props.formControl.init(current as HTMLInputElement);
 
           break;
         }
@@ -203,7 +206,7 @@ export abstract class Block<
 
   public abstract render(): string;
 
-  public getContent() {
+  public getContent(): HTMLElement {
     return this.element;
   }
 
@@ -260,15 +263,15 @@ export abstract class Block<
     el.classList.add(...classes.split(' '));
   }
 
-  public show() {
+  public show(): void {
     this.getContent().style.display = 'block';
   }
 
-  public hide() {
+  public hide(): void {
     this.getContent().style.display = 'none';
   }
 
-  public remove() {
+  public remove(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CWU);
 
     this.getContent().remove();
@@ -321,13 +324,15 @@ export abstract class Block<
         const eventName = attr.name.substring(2).toLocaleLowerCase();
 
         const regExp = new RegExp(
-          `[a-zA-Z0-9_]+(?<args>\([a-zA-Z0-9, ]+\)?)`,
+          `[a-zA-Z0-9_]+(?<args>([a-zA-Z0-9, ]+)?)`,
           'g'
         );
 
         const [funcName, ...args] = attr.value.match(regExp) as string[];
 
-        const handler = this.props.handlers[funcName];
+        const handler = this.props.handlers
+          ? this.props.handlers[funcName]
+          : null;
 
         if (handler) {
           if (args && args.length) {
@@ -343,7 +348,7 @@ export abstract class Block<
               mappedArgs.push(arg);
             }
 
-            events[eventName] = (event: any) => {
+            events[eventName] = (event: unknown) => {
               handler(event, ...mappedArgs);
             };
           } else {

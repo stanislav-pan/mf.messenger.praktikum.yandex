@@ -202,7 +202,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     userService.subscribe((user) => {
       this.props.components.briefInformation.setProps({
         avatarSrc: user.avatar,
@@ -301,7 +301,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
     router.go('/messanger');
   }
 
-  public render() {
+  public render(): string {
     const {
       briefInformation,
       settingsheader,

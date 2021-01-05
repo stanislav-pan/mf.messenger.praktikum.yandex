@@ -6,7 +6,7 @@ export const OnlyNumberValidator: ValidatorFn = (control: FormControl) => {
 
   const reg = /^\d+$/;
 
-  if (!reg.test(value)) {
+  if (!reg.test(String(value))) {
     return {
       onlyNumber: true,
     };

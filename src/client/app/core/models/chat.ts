@@ -14,7 +14,7 @@ export class Chat implements IChat {
   public createdBy: number;
   public title: string;
 
-  static mapChatFromServer(chat: IChatResponse) {
+  static mapChatFromServer(chat: IChatResponse): Chat {
     const transformedChat = objToCamelCase(chat) as IChat;
 
     return new Chat(transformedChat);

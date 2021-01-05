@@ -10,5 +10,5 @@ export interface Validator {
 }
 
 export type ValidationErrors = {
-  [key: string]: any;
+  [key: string]: unknown;
 };

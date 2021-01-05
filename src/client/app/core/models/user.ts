@@ -15,7 +15,7 @@ export class User implements IUser {
   public phone: string;
   public avatar: string;
 
-  static mapUserFromServer(user: IUserRequest) {
+  static mapUserFromServer(user: IUserRequest): User {
     const transformedUser = objToCamelCase(user) as IUser;
 
     return new User({
@@ -28,13 +28,13 @@ export class User implements IUser {
     Object.assign(this, user);
   }
 
-  public getDisplayName() {
+  public getDisplayName(): string {
     return (
       this.displayName || `${this.firstName || ''} ${this.secondName || ''}`
     );
   }
 
-  public getLastVisit() {
+  public getLastVisit(): string {
     return 'was last seen today at 21:37';
   }
 

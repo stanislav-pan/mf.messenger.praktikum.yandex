@@ -21,15 +21,15 @@ export class FormControl extends AbstractControl {
 
   private _valid = true;
 
-  public get valid() {
+  public get valid(): boolean {
     return this._valid;
   }
 
-  public get invalid() {
+  public get invalid(): boolean {
     return !this._valid;
   }
 
-  protected _setValid(isValid: boolean) {
+  protected _setValid(isValid: boolean): void {
     this._valid = isValid;
 
     if (!this._el) {
@@ -49,11 +49,11 @@ export class FormControl extends AbstractControl {
 
   private _touched = false;
 
-  public get touched() {
+  public get touched(): boolean {
     return this._touched;
   }
 
-  public get untouched() {
+  public get untouched(): boolean {
     return this._touched;
   }
 
@@ -65,7 +65,7 @@ export class FormControl extends AbstractControl {
 
   private _dirty = false;
 
-  public get dirty() {
+  public get dirty(): boolean {
     return this._dirty;
   }
 
@@ -75,7 +75,7 @@ export class FormControl extends AbstractControl {
     this._el.classList.toggle('dirty');
   }
 
-  private set value(value: any) {
+  private set value(value: unknown) {
     this._value = value;
 
     this.resetErrors();
@@ -124,7 +124,7 @@ export class FormControl extends AbstractControl {
     }
   }
 
-  public getValue() {
+  public getValue(): unknown {
     return this._value;
   }
 
@@ -136,9 +136,9 @@ export class FormControl extends AbstractControl {
     this._setTouched(true);
 
     this._el.removeEventListener('blur', this._blurHandler);
-  }
+  };
 
-  public init(element: HTMLInputElement) {
+  public init(element: HTMLInputElement): void {
     this._el = element;
     this.value = this._value;
 
@@ -161,15 +161,15 @@ export class FormControl extends AbstractControl {
     }
   }
 
-  public subscribe(next: (value: any) => void) {
+  public subscribe(next: (value: unknown) => void): void {
     this._listeners.push(next);
   }
 
-  public unsubscribe(next: (value: any) => void) {
+  public unsubscribe(next: (value: unknown) => void): void {
     this._listeners = this._listeners.filter((item) => item !== next);
   }
 
-  public markAsDirty() {
+  public markAsDirty(): void {
     if (this._dirty) {
       return;
     }
@@ -177,7 +177,7 @@ export class FormControl extends AbstractControl {
     this._setDirty(true);
   }
 
-  public markAsPristine() {
+  public markAsPristine(): void {
     if (!this._dirty) {
       return;
     }
@@ -185,11 +185,11 @@ export class FormControl extends AbstractControl {
     this._setDirty(false);
   }
 
-  public setErrors(error: ValidationErrors) {
+  public setErrors(error: ValidationErrors): void {
     Object.assign(this.errors, error);
   }
 
-  public deleteErrors(keys: string[]) {
+  public deleteErrors(keys: string[]): void {
     for (const key of keys) {
       if (!(key in this.errors)) {
         continue;
@@ -199,15 +199,15 @@ export class FormControl extends AbstractControl {
     }
   }
 
-  public resetErrors() {
+  public resetErrors(): void {
     this.deleteErrors(Object.keys(this.errors));
   }
 
-  public setValue(value: string) {
+  public setValue(value: string): void {
     this._el.value = value;
   }
 
-  public reset(needResetValue: boolean = true) {
+  public reset(needResetValue = true): void {
     if (needResetValue) {
       this.setValue('');
     }

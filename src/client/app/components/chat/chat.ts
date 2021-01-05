@@ -29,7 +29,7 @@ export default class ChatComponent extends Block<IChatComponentInnerProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
       avatarComponentId: this.props.components.avatar.getId(),

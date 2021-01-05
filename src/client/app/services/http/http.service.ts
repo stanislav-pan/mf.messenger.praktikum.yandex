@@ -4,25 +4,39 @@ import { HttpParams } from './http-params';
 import { IHttpOptions, IHttpOptionsWithBody } from './interfaces';
 
 export class HttpClientService {
-  private _defaultHeaders =  {
-    'content-type': 'application/json'
+  private _defaultHeaders = {
+    'content-type': 'application/json',
   };
 
-  public get = (url: string, options: IHttpOptions = {}) =>
-    this.request(METHODS.GET, url, options);
+  public get = (
+    url: string,
+    options: IHttpOptions = {}
+  ): Promise<XMLHttpRequest> => this.request(METHODS.GET, url, options);
 
-  public put = (url: string, body: unknown, options: IHttpOptions = {}) => {
+  public put = (
+    url: string,
+    body: unknown,
+    options: IHttpOptions = {}
+  ): Promise<XMLHttpRequest> => {
     return this.request(METHODS.PUT, url, {
       ...options,
       body,
     });
   };
 
-  public post = (url: string, body: unknown, options: IHttpOptions = {}) => {
+  public post = (
+    url: string,
+    body: unknown,
+    options: IHttpOptions = {}
+  ): Promise<XMLHttpRequest> => {
     return this.request(METHODS.POST, url, { ...options, body });
   };
 
-  public delete = (url: string, body: unknown, options: IHttpOptions = {}) => {
+  public delete = (
+    url: string,
+    body: unknown,
+    options: IHttpOptions = {}
+  ): Promise<XMLHttpRequest> => {
     return this.request(METHODS.DELETE, url, { ...options, body });
   };
 
@@ -30,7 +44,7 @@ export class HttpClientService {
     method: METHODS,
     url: string,
     options: IHttpOptionsWithBody
-  ) => {
+  ): Promise<XMLHttpRequest> => {
     const { body, params, headers, withCredentials, timeout = 5000 } = options;
 
     const xhr = new XMLHttpRequest();

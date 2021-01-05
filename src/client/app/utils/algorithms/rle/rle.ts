@@ -12,7 +12,7 @@ const isValidStr = (str: string) => {
  * Кодирование длин серий или кодирование повторов — алгоритм сжатия данных,
  * заменяющий повторяющиеся символы на один символ и число его повторов.
  */
-export const rle = (str: string) => {
+export const rle = (str: string): string => {
   if (!isValidStr(str)) {
     throw new Error('Argument is not correct');
   }

@@ -13,7 +13,7 @@ export default class InputErrors extends Block<InputErrorsComponentProps> {
     });
   }
 
-  render() {
+  render(): string {
     return template({
       ...this.props,
     });
