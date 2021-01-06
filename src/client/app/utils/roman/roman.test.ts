@@ -16,12 +16,6 @@ describe('Тестирование функции преобразования �
   });
 
   it('Должна возвращать ошибку UNKNOWN_SYMBOLS в случае, если в аргументе присутсвуют не римские символы', () => {
-    try {
-      roman('19a04');
-    } catch (error) {
-      expect(error.message).toBe(ERRORS.UNKNOWN_SYMBOLS);
-    }
-
     const testCaseUnknown = ['19a04', 'MXP', '2017.13', NaN];
 
     for (const i in testCaseUnknown) {

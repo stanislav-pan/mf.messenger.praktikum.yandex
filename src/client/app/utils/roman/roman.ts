@@ -62,6 +62,8 @@ export const roman = (number: number | string): number | string => {
     );
   } else if (isRoman(number)) {
     res = roman2arabic((number as string).toUpperCase());
+
+    checkRangeError(res);
   } else {
     throw new Error(UNKNOWN_SYMBOLS);
   }
@@ -181,7 +183,7 @@ function isArabic(number: number | string) {
     );
   }
 
-  if (typeof number === 'number') {
+  if (typeof number === 'number' && !Number.isNaN(number)) {
     return true;
   }
 
