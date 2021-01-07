@@ -1,14 +1,16 @@
-import { Environment, FileSystemLoader, Template } from 'nunjucks';
+import {
+  Environment,
+  FileSystemLoader,
+  WebLoader,
+  Template,
+  ILoader,
+} from 'nunjucks';
 import { isNode } from '../utils/is-node';
 
-let nunjucks;
 let path;
 
 if (isNode()) {
-  nunjucks = require('nunjucks');
   path = require('path');
-} else {
-  nunjucks = window['nunjucks'];
 }
 
 class Templator {
@@ -16,23 +18,19 @@ class Templator {
   private _cachedTemplates: Record<string, Template> = {};
 
   constructor() {
-    const loader: FileSystemLoader = path
-      ? new nunjucks.FileSystemLoader(path.resolve(__dirname, '../'))
-      : new nunjucks.WebLoader('', {
-        useCache: true
-      });
+    const loader: ILoader = path
+      ? new FileSystemLoader(path.resolve(__dirname, '../'))
+      : new WebLoader('', {
+          useCache: true,
+        });
 
-    this._env = new nunjucks.Environment(loader, {
+    this._env = new Environment(loader, {
       autoescape: false,
     });
   }
 
   public getEnvironment(): Environment {
     return this._env;
-  }
-
-  public compile(template: string) {
-    return nunjucks.compile(template);
   }
 
   public getTemplate(templateName: string, dirName?: string) {
