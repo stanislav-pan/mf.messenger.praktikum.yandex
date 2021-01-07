@@ -3,7 +3,6 @@ const compression = require('compression');
 const path = require('path');
 const constants = require('./const');
 const app = express();
-const { getPortFromArgv } = require('./utils/get-port-from-argv');
 
 app.use(compression());
 
