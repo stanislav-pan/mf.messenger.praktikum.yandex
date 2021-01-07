@@ -5,26 +5,15 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Options as SassLoaderOptions } from 'sass-loader';
 import MiniCssPlugin from 'mini-css-extract-plugin';
-import { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import { Options as FileLoaderOptions } from 'file-loader';
 import CopyPlugin from 'copy-webpack-plugin';
 
-module.exports = {
-  devServer: {
-    overlay: true,
-    open: true,
-    writeToDisk: true,
-    historyApiFallback: {
-      index: 'index.html'
-    },
-    compress: true
-  } as DevServerConfiguration,
-  mode: 'development',
+export default {
   entry: path.resolve(__dirname, 'src', 'client', 'app', 'index.ts'),
   output: {
     publicPath: '',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.bundle.js',
+    filename: '[name].[contenthash].js',
   },
   resolve: {
     extensions: ['.ts', '.js'],
