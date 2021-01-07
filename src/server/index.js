@@ -25,6 +25,8 @@ app.get('*', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../../dist/index.html'));
 });
 
-app.listen(getPortFromArgv() || constants.PORT, () => {
-  console.log(`Сервер начал свою работа на порте - ${constants.PORT}`);
+const port = getPortFromArgv() || constants.PORT;
+
+app.listen(port, () => {
+  console.log(`Сервер начал свою работа на порте - ${port}`);
 });
