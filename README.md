@@ -3,6 +3,7 @@
 Веб-приложение для обмена мгновенными сообщениями с акцентом на скорость и безопасность. Это быстрый, простой, безопасный и бесплатный сервис.
 
 Приложение состоит из нескольких страниц:
+
 - `messanger` - страница со списком чатов и лентой переписки;
 - `login` - страница авторизации;
 - `sign-up` - страница регистрации;
@@ -11,7 +12,8 @@
 - `sign-up-step-two` - второй шаг регистрации;
 - `settings` - страница с настройками;
 
-Ссылка на проект в netlify: [messanger](https://wizardly-shannon-8ef09d.netlify.app/login). Netlify очень долго отдаёт файлы, таким образом пустая страница может отображаться длительное время. В будущем, планирую добавить лоудер.
+Ссылка на проект в Netlify: [messenger](https://wizardly-shannon-8ef09d.netlify.app).
+Ссылка на проект в Heroku: [messenger](https://yandex-practicum-messenger.herokuapp.com).
 
 ## Запуск
 
@@ -21,9 +23,16 @@
 - `npm run serve` — запускает скрипт для отслеживания изменений в файлах.
 - `npm run test:watch` — запускает тесты. В проект также был добавлен конфиг для дебаггинга тестов. Для запуска тестов в режиме дебаггинга необходимо использовать VSCode и нажать на F5.
 
-## Деплой с помощью CLI
+## Деплой на Netlify
+
 - `netlify build`
 - `netlify deploy --prod`
+
+## Деплой на Heroku
+
+- `docker build -t web .`
+- `heroku container:push web -a yandex-practicum-messenger`
+- `heroku container:release web -a yandex-practicum-messenger`
 
 ## Макет
 
