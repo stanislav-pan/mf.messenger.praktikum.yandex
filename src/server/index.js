@@ -3,6 +3,7 @@ const compression = require('compression');
 const path = require('path');
 const constants = require('./const');
 const app = express();
+const { getPortFromArgv } = require('./utils/get-port-from-argv');
 
 app.use(compression());
 
@@ -24,6 +25,6 @@ app.get('*', function (req, res) {
   res.sendFile(path.resolve(__dirname, '../../dist/index.html'));
 });
 
-app.listen(constants.PORT, () => {
+app.listen(getPortFromArgv() || constants.PORT, () => {
   console.log(`Сервер начал свою работа на порте - ${constants.PORT}`);
 });
