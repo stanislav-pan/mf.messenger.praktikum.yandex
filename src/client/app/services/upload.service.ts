@@ -34,7 +34,15 @@ export default class UploadService {
 
     return new Promise<string>((resolve) => {
       fileReader.addEventListener('load', (event) => {
-        resolve((event.currentTarget as FileReader).result?.toString());
+        const fileData = (event.currentTarget as FileReader).result;
+
+        if (!fileData) {
+          resolve('');
+
+          return;
+        }
+
+        resolve(String(fileData));
       });
     });
   }
