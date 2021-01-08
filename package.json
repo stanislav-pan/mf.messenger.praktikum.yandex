@@ -10,8 +10,8 @@
     "test:watch": "npx jest --watch",
     "serve": "webpack serve --config webpack.dev.ts",
     "prettier": "npx prettier --write --ignore-unknown \"./src/**/*.*\"",
-    "eslint": "eslint --debug src/client/",
-    "eslint:fix": "eslint --debug src/client/ --fix"
+    "eslint": "eslint --cache --debug src/client/",
+    "eslint:fix": "eslint --cache --fix --debug src/client/"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,6 @@
   "homepage": "https://github.com/stanislav-pan/mf.messenger.praktikum.yandex#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "netlify-cli": "^2.70.0",
     "nunjucks": "^3.2.2"
   },
   "devDependencies": {
@@ -54,6 +53,7 @@
     "html-webpack-plugin": "^4.5.1",
     "husky": "^4.3.7",
     "jest": "^26.6.3",
+    "lint-staged": "^10.5.3",
     "mini-css-extract-plugin": "^1.3.3",
     "path": "^0.12.7",
     "prettier-eslint": "^12.0.0",
@@ -74,5 +74,13 @@
       "^.+\\.njk$": "<rootDir>/jest/njk-mock.js",
       "^.+\\.scss$": "<rootDir>/jest/scss-mock.js"
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "npm run eslint:fix"
   }
 }
