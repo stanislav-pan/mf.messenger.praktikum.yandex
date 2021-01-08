@@ -3,7 +3,7 @@ import { render } from '../renderDOM';
 
 export class Route {
   private _pathname: string;
-  private _blockClass: () => Block;
+  private _blockClass: () => Promise<Block>;
   private _block: Block | null;
   private _props: {
     rootQuery: string;
@@ -11,7 +11,7 @@ export class Route {
 
   constructor(
     pathname: string,
-    view: () => Block,
+    view: () => Promise<Block>,
     props: { rootQuery: string }
   ) {
     this._pathname = pathname;
@@ -36,8 +36,10 @@ export class Route {
   public match = (pathname: string): boolean => pathname === this._pathname;
 
   public render(): void {
-    this._block = this._blockClass();
+    this._blockClass().then((block) => {
+      this._block = block;
 
-    render(this._props.rootQuery, this._block);
+      render(this._props.rootQuery, this._block);
+    });
   }
 }

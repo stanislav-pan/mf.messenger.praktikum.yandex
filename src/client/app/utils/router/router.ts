@@ -27,7 +27,7 @@ export class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: string, block: () => Block): this {
+  public use(pathname: string, block: () => Promise<Block>): this {
     const route = new Route(pathname, block, {
       rootQuery: this._rootQuery,
     });

@@ -9,7 +9,9 @@ import { Options as FileLoaderOptions } from 'file-loader';
 import CopyPlugin from 'copy-webpack-plugin';
 
 export default {
-  entry: path.resolve(__dirname, 'src', 'client', 'app', 'index.ts'),
+  entry: {
+    index: path.resolve(__dirname, 'src/client/app/index.ts'),
+  },
   output: {
     publicPath: '',
     path: path.resolve(__dirname, 'dist'),
