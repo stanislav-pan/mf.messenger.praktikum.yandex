@@ -10,6 +10,6 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
-  ignorePatterns: ["/src/server/**"],
+  ignorePatterns: ["/src/server/**", "**/*.test.ts"],
   rules: {},
 };
