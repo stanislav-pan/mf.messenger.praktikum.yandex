@@ -16,7 +16,6 @@ import { apiService } from '../../services/chats-api/api.service';
 import { chatsService } from '../../services/chats.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
-import { FormGroup } from '../../utils/forms/form-group';
 import { MessangerPageProps } from './interfaces';
 
 import './messanger.scss';
@@ -24,10 +23,6 @@ import template from './messanger.tmpl.njk';
 
 export default class MessangerPage extends Block<MessangerPageProps> {
   private _bindedChatsChangingHandler;
-
-  get loginFormGroup(): FormGroup {
-    return this.props.components?.loginForm?.props?.formGroup;
-  }
 
   constructor() {
     const { avatar } = userService.getUser();

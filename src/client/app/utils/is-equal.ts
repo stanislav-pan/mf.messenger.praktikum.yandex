@@ -25,7 +25,7 @@ export function isEqual(a: argType, b: argType): boolean {
       }
 
       if (isObject(value) && isObject(rhs[key])) {
-        comparator(value as any, rhs[key] as any);
+        comparator(value, rhs[key]);
 
         continue;
       }

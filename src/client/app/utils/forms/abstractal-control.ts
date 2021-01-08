@@ -16,7 +16,7 @@ export abstract class AbstractControl {
 
         return target[prop];
       },
-      set: (target: ValidationErrors, prop: string, value: any) => {
+      set: (target: ValidationErrors, prop: string, value: unknown) => {
         target[prop] = value;
 
         this._setValid(!Object.keys(target).length);

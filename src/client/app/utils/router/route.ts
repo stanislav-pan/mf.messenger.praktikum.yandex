@@ -32,6 +32,7 @@ export class Route {
   public match = (pathname: string): boolean => pathname === this._pathname;
 
   public render(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blockClass = this._blockClass as any;
 
     this._block = new blockClass() as Block;

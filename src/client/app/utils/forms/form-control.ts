@@ -13,7 +13,7 @@ export class FormControl extends AbstractControl {
   private _listeners: Array<IListenerFn> = [];
   private _validators: Validator[] = [];
 
-  private _value: any;
+  private _value: unknown;
 
   private _wasInitialValueSet = false;
 
@@ -155,7 +155,7 @@ export class FormControl extends AbstractControl {
     if (!this._wasInitialValueSet) {
       this._wasInitialValueSet = true;
 
-      element.value = this._value;
+      element.value = String(this._value);
 
       this._checkError();
     }

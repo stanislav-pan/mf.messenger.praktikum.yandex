@@ -33,8 +33,8 @@ class Templator {
     return this._env;
   }
 
-  public getTemplate(templateName: string, dirName?: string) {
-    const templatePath = this.getTemplatePath(templateName, dirName);
+  public getTemplate(templateName: string, dirName?: string | false) {
+    const templatePath = this.getTemplatePath(templateName, dirName || null);
 
     if (templatePath in this._cachedTemplates) {
       return this._cachedTemplates[templatePath];
@@ -47,7 +47,7 @@ class Templator {
     return template;
   }
 
-  private getTemplatePath(templateName: string, dirName?: string) {
+  private getTemplatePath(templateName: string, dirName?: string | null) {
     let res: string;
 
     if (dirName) {

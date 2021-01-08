@@ -8,7 +8,9 @@ export interface IChatsComponentExternalProps extends ICommonPropFields {
   };
 }
 
-export interface IChatsComponentInnerProps {}
+export interface IChatsComponentInnerProps {
+  chatsComponentsIds: string[];
+}
 
 export type ChatsComponentProps = IChatsComponentExternalProps &
   IChatsComponentInnerProps;

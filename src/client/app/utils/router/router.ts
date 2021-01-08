@@ -38,8 +38,8 @@ export class Router {
   }
 
   public start(pathname?: string): void {
-    window.onpopstate = (event: PopStateEvent) => {
-      this._onRoute((event.currentTarget as any).location.pathname);
+    window.onpopstate = () => {
+      this._onRoute(window.location.pathname);
     };
 
     this.go(pathname || window.location.pathname);

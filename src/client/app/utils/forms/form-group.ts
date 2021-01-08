@@ -61,7 +61,7 @@ export class FormGroup extends AbstractControl {
     this._checkError();
   }
 
-  public subscribe(next: (value: any) => void): void {
+  public subscribe(next: (value: unknown) => void): void {
     this._listeners.push(next);
   }
 

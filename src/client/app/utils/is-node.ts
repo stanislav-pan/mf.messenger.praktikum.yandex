@@ -1,4 +1,4 @@
-export const isNode = () => {
+export const isNode = (): boolean => {
   if (isNode['result'] !== undefined) {
     return isNode['result'];
   }

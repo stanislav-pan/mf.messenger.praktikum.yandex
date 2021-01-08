@@ -7,10 +7,10 @@ import { ApiService, apiService } from './chats-api/api.service';
 import { IUser } from './chats-api/interfaces/user.interfaces';
 
 class UserService {
-  private _user: User;
-  private _listeners: Array<IListenerFn<IUser>> = [];
+  private _user: User | null;
+  private _listeners: Array<IListenerFn<IUser | null>> = [];
 
-  private set user(user: User) {
+  private set user(user: User | null) {
     this._user = user;
 
     this._listeners.forEach((listener) => {
@@ -38,12 +38,12 @@ class UserService {
     return apiService.auth.logout().then(() => {
       this._listeners = [];
 
-      this.user = null as any;
+      this.user = null;
     });
   }
 
-  public getUser() {
-    return this._user || {};
+  public getUser(): User {
+    return this._user as User;
   }
 
   public async changeAvatar(file: File) {
@@ -61,7 +61,7 @@ class UserService {
       login,
       email,
       phone,
-      displayName: displayName || this.user.getDisplayName(),
+      displayName: displayName || this.getUser().getDisplayName(),
     };
 
     return apiService.users

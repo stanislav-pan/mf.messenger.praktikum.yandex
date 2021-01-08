@@ -1,8 +1,8 @@
 import { FormControl } from './form-control';
 
-export const mapErrors = (control: FormControl) => {
+export const mapErrors = (control: FormControl): string => {
   if ('passwordConfirm' in control.errors) {
-    return control.errors['passwordConfirm'];
+    return control.errors['passwordConfirm'] as string;
   }
 
   if ('minLength' in control.errors) {
@@ -23,5 +23,5 @@ export const mapErrors = (control: FormControl) => {
 
   const firstError = (Object.values(control.errors) || [])[0];
 
-  return firstError;
+  return String(firstError);
 };
