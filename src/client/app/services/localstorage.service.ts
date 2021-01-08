@@ -5,7 +5,7 @@ class LocalStorageService {
     this.window = window;
   }
 
-  public set(key: string, value: any) {
+  public set(key: string, value: unknown) {
     const storage = this.getLocalStorage();
 
     if (!storage) {

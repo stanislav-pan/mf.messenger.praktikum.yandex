@@ -4,10 +4,7 @@ export interface IMessageComponentExternalProps extends ICommonPropFields {
   message: IMessage;
 }
 
-export interface IMessageComponentInnerProps {}
-
-export type MessageComponentProps = IMessageComponentExternalProps &
-  IMessageComponentInnerProps;
+export type MessageComponentProps = IMessageComponentExternalProps;
 
 export interface IMessage {
   type: 'text' | 'image' | 'dateDivider';

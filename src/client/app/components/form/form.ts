@@ -19,6 +19,10 @@ export default class FormComponent extends Block<FormComponentProps> {
   }
 
   componentDidMount(): void {
+    if (!this.props.components) {
+      return;
+    }
+
     Object.entries(this.props.components).forEach(([key, component]) => {
       if (component.props.formControl) {
         this.props.formGroup.addControl(key, component.props.formControl);
@@ -32,7 +36,7 @@ export default class FormComponent extends Block<FormComponentProps> {
 
   render(): string {
     const controlsComponentsIds = Object.values(
-      this.props.components
+      this.props.components || {}
     ).map((component) => component.getId());
 
     return template({

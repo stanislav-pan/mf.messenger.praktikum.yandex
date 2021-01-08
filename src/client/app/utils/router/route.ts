@@ -3,13 +3,17 @@ import { render } from '../renderDOM';
 
 export class Route {
   private _pathname: string;
-  private _blockClass: Block;
+  private _blockClass: () => Block;
   private _block: Block | null;
   private _props: {
     rootQuery: string;
   };
 
-  constructor(pathname: string, view: Block, props: { rootQuery: string }) {
+  constructor(
+    pathname: string,
+    view: () => Block,
+    props: { rootQuery: string }
+  ) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
@@ -32,10 +36,7 @@ export class Route {
   public match = (pathname: string): boolean => pathname === this._pathname;
 
   public render(): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const blockClass = this._blockClass as any;
-
-    this._block = new blockClass() as Block;
+    this._block = this._blockClass();
 
     render(this._props.rootQuery, this._block);
   }

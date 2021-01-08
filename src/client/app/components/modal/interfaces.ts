@@ -7,7 +7,4 @@ export interface IModalComponentExternalProps extends ICommonPropFields {
   };
 }
 
-export interface IModalComponentInnerProps {}
-
-export type ModalComponentProps = IModalComponentExternalProps &
-  IModalComponentInnerProps;
+export type ModalComponentProps = IModalComponentExternalProps;

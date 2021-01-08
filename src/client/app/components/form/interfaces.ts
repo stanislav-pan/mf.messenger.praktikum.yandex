@@ -10,9 +10,4 @@ export interface IFormComponentExternalProps extends ICommonPropFields {
   };
 }
 
-export interface IFormComponentInnerProps {
-  components: {};
-}
-
-export type FormComponentProps = IFormComponentExternalProps &
-  IFormComponentInnerProps;
+export type FormComponentProps = IFormComponentExternalProps;
