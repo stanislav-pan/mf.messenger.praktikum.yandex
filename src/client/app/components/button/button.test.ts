@@ -1,4 +1,4 @@
-import Button from './button';
+import Button from './index';
 
 describe('components/Button', () => {
   it('Должен создавать кнопку с заданным текстом', () => {

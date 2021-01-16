@@ -1,6 +1,6 @@
 import { Chat } from '../core/models/chat';
 import { IListenerFn } from '../utils/forms/interfaces';
-import { isArray } from '../utils/is-array';
+import { isArray } from '../utils/my-lodash/is-array';
 import { ApiService, apiService } from './chats-api/api.service';
 
 class ChatsService {
@@ -41,7 +41,7 @@ class ChatsService {
   ): Promise<unknown> {
     const needAdd = isArray(addToChatIds) && addToChatIds.length;
     const needRemove = isArray(removeFromChatIds) && removeFromChatIds.length;
-    
+
     if (needAdd && needRemove) {
       return Promise.all([
         apiService.chats.addUsersToChat(chatId, addToChatIds),

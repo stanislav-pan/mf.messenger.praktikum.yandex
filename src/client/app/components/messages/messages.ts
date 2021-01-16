@@ -1,8 +1,8 @@
-import { Block } from '../../utils/block';
-import MessageComponent from '../message/message';
+import MessageComponent from '@components/message';
+import { Block } from '@utils/block';
 import {
-  IMessagesComponentExternalProps,
   MessagesComponentProps,
+  IMessagesComponentExternalProps,
 } from './interfaces';
 
 import './messages.scss';

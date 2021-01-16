@@ -1,10 +1,10 @@
-import BriefInformationComponent from '../../components/brief-information/brief-information';
-import FormComponent from '../../components/form/form';
-import SettingsHeader from '../../components/settings-header/settings-header';
-import { SETTINGS_VIEWING_TYPES } from '../../const/settings';
-import { ICommonPropFields } from '../../utils/block';
+import BriefInformationComponent from '@components/brief-information';
+import FormComponent from '@components/form';
+import SettingsHeader from '@components/settings-header';
+import { ICommonPropFields } from '@utils/block';
+import { SETTINGS_VIEWING_TYPES } from './enums';
 
-export type ISettingsPageExternalProps = ICommonPropFields
+export type ISettingsPageExternalProps = ICommonPropFields;
 
 export type SettingsPageProps = ISettingsPageExternalProps &
   ISettingsPageInnerProps;

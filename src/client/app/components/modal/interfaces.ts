@@ -1,4 +1,4 @@
-import { Block, ICommonPropFields } from '../../utils/block';
+import { ICommonPropFields, Block } from '@utils/block';
 
 export interface IModalComponentExternalProps extends ICommonPropFields {
   component: Block;

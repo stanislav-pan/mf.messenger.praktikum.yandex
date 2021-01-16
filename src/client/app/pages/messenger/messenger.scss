@@ -1,0 +1,153 @@
+:root {
+  --messenger-boundry: 1px solid #eaeaea;
+  --messenger-bg-color: #f8f7ff;
+  --messenger-bg-color-dark: #ece9fa;
+}
+
+body {
+  overflow: hidden;
+}
+
+.messenger {
+  display: flex;
+
+  height: 100%;
+
+  &__left {
+    max-width: 310px;
+    width: 100%;
+    height: inherit;
+
+    background-color: var(--messenger-bg-color);
+    border-right: var(--messenger-boundry);
+
+    box-sizing: border-box;
+  }
+
+  &__left-header {
+    height: 81px;
+  }
+
+  &__profile-btn {
+    justify-content: flex-end;
+
+    width: 100%;
+    height: 24px;
+
+    padding-top: 12px;
+
+    color: var(--color-primary);
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+  }
+
+  &__profile-btn-span {
+    margin-top: -1px;
+  }
+
+  &__search {
+    margin: 12px 10px 0 10px;
+  }
+
+  &__chat {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &__chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 81px;
+    min-height: 81px;
+
+    padding: 0 16px 0 30px;
+
+    border-bottom: var(--messenger-boundry);
+    background-color: var(--messenger-bg-color);
+  }
+
+  &__chat-header-brief-information .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  &__chat-main {
+    width: 100%;
+    height: 100%;
+
+    overflow-y: hidden;
+
+    background: url('../../../static/images/chat-bg.jpg');
+  }
+
+  &__chat-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 70px;
+
+    padding: 0 34px;
+
+    border-top: var(--messenger-boundry);
+    background-color: var(--messenger-bg-color);
+  }
+
+  &__chat-input {
+    width: 100%;
+    height: 32px;
+
+    background: var(--messenger-bg-color-dark);
+
+    padding: 0 36px;
+    margin: 0 12px;
+
+    border: none;
+    border-radius: 30px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--form-color-normal);
+
+    &::placeholder {
+      font-size: 12px;
+      line-height: 12px;
+
+      font-size: 14px;
+      font-weight: 500;
+
+      color: var(--color-primary);
+    }
+  }
+
+  &__chat-menu {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    position: absolute;
+    display: block !important;
+    width: 200px;
+    right: 20px;
+    top: 60px;
+  }
+
+  &__chat-action-btn {
+    width: 30px;
+    justify-content: center;
+  }
+
+  &__create-chat-btn {
+    display: flex!important;
+    justify-content: center;
+
+    margin: 16px 0 32px 0;
+  }
+}

@@ -1,7 +1,7 @@
 import { EventBus } from '../event-bus';
 import { FormControl } from '../forms/form-control';
-import { isEqual } from '../is-equal';
-import { traverseDomTree } from '../traverse-dom-tree';
+import { isEqual } from '../my-lodash/is-equal';
+import { traverseDomTree } from '../my-lodash/traverse-dom-tree';
 import { EventsSubscriber } from './events-subscriber';
 
 export type MapOfBlockLike = { [key: string]: Block };

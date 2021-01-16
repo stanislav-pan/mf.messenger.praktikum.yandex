@@ -1,4 +1,4 @@
-import { ICommonPropFields } from '../../utils/block';
+import { ICommonPropFields } from '@utils/block';
 
 export interface IButtonComponentExternalProps extends ICommonPropFields {
   /** Текст кнопки */

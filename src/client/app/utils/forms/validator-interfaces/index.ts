@@ -1,4 +1,4 @@
-import { AbstractalControl } from 'src/client/app/components/input/input';
+import { AbstractalControl } from 'src/client/app/components/input';
 
 export interface ValidatorFn {
   (control: AbstractalControl): ValidationErrors | null;

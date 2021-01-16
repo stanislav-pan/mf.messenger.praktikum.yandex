@@ -1,6 +1,5 @@
-import { Router } from './router';
-import Button from '../../components/button/button';
-import Input from '../../components/input/input';
+import { Router } from '.';
+import Button from '../../components/button';
 
 describe('router', () => {
   const rootSelector = '#root';

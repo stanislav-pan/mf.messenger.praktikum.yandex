@@ -1,5 +1,5 @@
-import { SubmitEvent } from '../../core/interfaces';
-import { ICommonPropFields } from '../../utils/block';
+import { SubmitEvent } from '@core/interfaces';
+import { ICommonPropFields } from '@utils/block';
 
 export interface ISearchComponentExternalProps extends ICommonPropFields {
   handlers: {

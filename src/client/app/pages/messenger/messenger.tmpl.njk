@@ -1,0 +1,61 @@
+{% if modalComponentId %}
+    <ng-container data-componentsids="{{modalComponentId}}"></ng-container>
+{% endif %}
+
+<div class="messenger">
+    <aside class="messenger__left">
+        <header class="messenger__left-header">
+            <button class="btn-icon messenger__profile-btn" onclick="goToSettings">
+                <span class="messenger__profile-btn-span">Profile</span>
+                {% include 'static/icons/keyboard-arrow-right.tmpl.njk' %}
+            </button>
+
+            <div class="messenger__search">
+                <ng-container data-componentsids="{{searchComponentId}}"></ng-container>
+            </div>
+        </header>
+        
+        <ng-container data-componentsids="{{createChatBtnCopmonentId}}"></ng-container>
+
+        <ng-container data-componentsids="{{chatsCopmonentId}}"></ng-container>
+    </aside>
+    <main class="messenger__chat">
+        {% if currectChatId %}
+            <header class="messenger__chat-header">
+                <div class="messenger__chat-header-brief-information">
+                    <ng-container data-componentsids="{{briefInformationComponentId}}"></ng-container>
+                </div>
+
+                <button class="messenger__chat-action-btn btn-icon" onclick="showChatMenu">
+                    {% include 'static/icons/more-settings.tmpl.njk' %}
+                </button>
+
+                {% if chatMenuComponentId %}
+                    <ng-container data-componentsids="{{chatMenuComponentId}}"></ng-container>
+                {% endif %}
+            </header>
+        {% endif %}
+
+        <div class="messenger__chat-main">
+            {% if currectChatId %}
+                <ng-container data-componentsids="{{messagesComponentId}}"></ng-container>
+            {% endif %}
+        </div>
+
+        {% if currectChatId %}
+            <footer class="messenger__chat-footer">
+                <button class="btn-icon messenger__chat-footer-attach-btn">
+                    {% include 'static/icons/attach.tmpl.njk' %}
+                </button>
+
+                <input type="text" class="messenger__chat-input" placeholder="Message">
+
+                <button class="btn-icon messenger__chat-footer-send-btn">
+                    <div class="badge">
+                        {% include 'static/icons/send.tmpl.njk' %}
+                    </div>
+                </button>
+            </footer>
+        {% endif %}
+    </main>
+</div>

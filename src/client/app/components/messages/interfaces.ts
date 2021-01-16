@@ -1,5 +1,5 @@
-import { ICommonPropFields } from '../../utils/block';
-import { IMessage } from '../message/interfaces';
+import { IMessage } from '@components/message/interfaces';
+import { ICommonPropFields } from '@utils/block';
 
 export interface IMessagesComponentExternalProps extends ICommonPropFields {
   messages: IMessage[];

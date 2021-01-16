@@ -1,4 +1,4 @@
-import { ICommonPropFields, MapOfBlockLike } from '../../utils/block';
+import { ICommonPropFields, MapOfBlockLike } from '@utils/block';
 
 export interface IListComponentExternalProps extends ICommonPropFields {
   components: MapOfBlockLike;

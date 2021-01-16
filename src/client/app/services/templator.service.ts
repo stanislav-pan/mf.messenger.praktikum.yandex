@@ -5,7 +5,7 @@ import {
   Template,
   ILoader,
 } from 'nunjucks';
-import { isNode } from '../utils/is-node';
+import { isNode } from '../utils/my-lodash/is-node';
 
 let path;
 

@@ -1,6 +1,6 @@
-import { ICommonPropFields } from '../../utils/block';
-import { FormControl } from '../../utils/forms/form-control';
-import InputErrors from '../input-errors/input-errors';
+import InputErrors from '@components/input-errors';
+import { FormControl } from '@forms/form-control';
+import { ICommonPropFields } from '@utils/block';
 
 export interface IInputComponentExternalProps extends ICommonPropFields {
   id?: string;

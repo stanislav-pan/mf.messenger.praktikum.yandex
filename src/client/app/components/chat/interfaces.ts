@@ -1,6 +1,6 @@
-import { Chat } from '../../core/models/chat';
-import { ICommonPropFields } from '../../utils/block';
-import Avatar from '../avatar/avatar';
+import Avatar from '@components/avatar';
+import { Chat } from '@core/models/chat';
+import { ICommonPropFields } from '@utils/block';
 
 export interface IChatComponentExternalProps extends ICommonPropFields {
   chat: Chat;

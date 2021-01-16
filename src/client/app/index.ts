@@ -9,13 +9,13 @@ userService
     const pathname = window.location.pathname;
 
     if (pathname.includes('/login') || pathname.includes('/sign-up')) {
-      router.start('/messanger');
+      router.start('/messenger');
 
       return;
     }
 
     router.start(
-      window.location.pathname === '/' ? '/messanger' : window.location.pathname
+      window.location.pathname === '/' ? '/messenger' : window.location.pathname
     );
   })
   .catch(() => {

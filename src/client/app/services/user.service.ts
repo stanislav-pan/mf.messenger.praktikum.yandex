@@ -2,7 +2,7 @@ import { User } from '../core/models/user';
 import { ISigninData } from '../pages/login/interfaces';
 import { ISignupData } from '../pages/sign-up/interfaces';
 import { IListenerFn } from '../utils/forms/interfaces';
-import { objToSnakeCase } from '../utils/to-snake-case';
+import { objToSnakeCase } from '../utils/my-lodash/to-snake-case';
 import { ApiService, apiService } from './chats-api/api.service';
 import { IUser } from './chats-api/interfaces/user.interfaces';
 

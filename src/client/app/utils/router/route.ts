@@ -1,5 +1,5 @@
 import { Block } from '../block';
-import { render } from '../renderDOM';
+import { render } from '../render-dom';
 
 export class Route {
   private _pathname: string;

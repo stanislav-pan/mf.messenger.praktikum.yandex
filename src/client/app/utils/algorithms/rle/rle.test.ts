@@ -1,4 +1,4 @@
-import { rle } from './rle';
+import { rle } from '.';
 
 describe('Тестирование функции rle', () => {
   it('Должна возвращать корректное значение', () => {
@@ -6,9 +6,7 @@ describe('Тестирование функции rle', () => {
       rle('AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB')
     ).toBe('A4B3C2XYZD4E3F3A6B28');
 
-    expect(
-      rle('AAB')
-    ).toBe('A2B');
+    expect(rle('AAB')).toBe('A2B');
   });
 
   it('Должна генерировать ошибку в случае, если аргумент не состоит из букв A-Z', () => {

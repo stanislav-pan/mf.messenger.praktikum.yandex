@@ -1,7 +1,7 @@
-import FormComponent from '../../components/form/form';
-import { ICommonPropFields } from '../../utils/block';
+import FormComponent from '@components/form';
+import { ICommonPropFields } from '@utils/block';
 
-export type ILoginPageExternalProps = ICommonPropFields
+export type ILoginPageExternalProps = ICommonPropFields;
 
 export type LoginPageProps = ILoginPageExternalProps & ILoginPageInnerProps;
 

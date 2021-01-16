@@ -1,5 +1,5 @@
 import { IChatResponse } from '../../services/chats-api/interfaces/chat.interfaces';
-import { objToCamelCase } from '../../utils/to-camel-case';
+import { objToCamelCase } from '../../utils/my-lodash/to-camel-case';
 
 export interface IChat {
   id: number;

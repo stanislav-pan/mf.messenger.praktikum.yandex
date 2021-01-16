@@ -1,8 +1,8 @@
-import { User } from '../../core/models/user';
-import { ICommonPropFields } from '../../utils/block';
-import Button from '../button/button';
-import EditChatUsersComponent from '../edit-chat-users/edit-chat-users';
-import Input from '../input/input';
+import Button from '@components/button';
+import EditChatUsersComponent from '@components/edit-chat-users';
+import Input from '@components/input';
+import { User } from '@core/models/user';
+import { ICommonPropFields } from '@utils/block';
 
 export type ChatManagementComponentType = 'edit' | 'create';
 

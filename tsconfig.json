@@ -16,7 +16,15 @@
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2018", "dom", "dom.iterable"],
         "paths": {
-            "tslib": ["node_modules/tslib/tslib.d.ts"]
+            "tslib": ["node_modules/tslib/tslib.d.ts"],
+            "@components/*": ["src/client/app/components/*"],
+            "@services/*": ["src/client/app/services/*"],
+            "@const/*": ["src/client/app/const/*"],
+            "@core/*": ["src/client/app/core/*"],
+            "@validators/*": ["src/client/app/utils/forms/validators/*"],
+            "@forms/*": ["src/client/app/utils/forms/*"],
+            "@my-lodash/*": ["src/client/app/utils/my-lodash/*"],
+            "@utils/*": ["src/client/app/utils/*"],
         },
         "noUnusedLocals": true,
         "noUnusedParameters": true,

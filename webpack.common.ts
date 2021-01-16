@@ -7,6 +7,7 @@ import { Options as SassLoaderOptions } from 'sass-loader';
 import MiniCssPlugin from 'mini-css-extract-plugin';
 import { Options as FileLoaderOptions } from 'file-loader';
 import CopyPlugin from 'copy-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 export default {
   entry: {
@@ -19,6 +20,7 @@ export default {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin() as any],
   },
   module: {
     rules: [

@@ -10,8 +10,8 @@
     "test:watch": "npx jest --watch",
     "serve": "webpack serve --config webpack.dev.ts",
     "prettier": "npx prettier --write --ignore-unknown \"./src/**/*.*\"",
-    "eslint": "eslint --cache --debug src/client/",
-    "eslint:fix": "eslint --cache --fix --debug --max-warnings=0 src/client/"
+    "eslint": "eslint --debug src/client/",
+    "eslint:fix": "eslint --fix --debug src/client/"
   },
   "repository": {
     "type": "git",
@@ -61,6 +61,7 @@
     "sass-loader": "^10.1.0",
     "simple-nunjucks-loader": "^3.1.0",
     "ts-loader": "^8.0.14",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
     "tslib": "^2.1.0",
     "typescript": "^4.1.3",
     "webpack": "^5.11.1",
@@ -73,6 +74,9 @@
       "\\.[jt]sx?$": "babel-jest",
       "^.+\\.njk$": "<rootDir>/jest/njk-mock.js",
       "^.+\\.scss$": "<rootDir>/jest/scss-mock.js"
+    },
+    "moduleNameMapper": {
+      "@utils/(.*)": "<rootDir>/src/client/app/utils/$1"
     }
   },
   "husky": {

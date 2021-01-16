@@ -1,5 +1,5 @@
 import { ICommonPropFields } from '../../utils/block';
-import Avatar from '../avatar/avatar';
+import Avatar from '../avatar';
 
 export interface IBriefInformationExternalProps extends ICommonPropFields {
   name: string;

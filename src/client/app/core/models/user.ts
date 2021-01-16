@@ -3,7 +3,7 @@ import {
   IUser,
   IUserRequest,
 } from '../../services/chats-api/interfaces/user.interfaces';
-import { objToCamelCase } from '../../utils/to-camel-case';
+import { objToCamelCase } from '../../utils/my-lodash/to-camel-case';
 
 export class User implements IUser {
   public id: number;
