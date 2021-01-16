@@ -1,9 +1,9 @@
 import { METHODS } from './const';
 import { HttpHeaders } from './http-headers';
 import { HttpParams } from './http-params';
-import { IHttpOptions, IHttpOptionsWithBody } from './interfaces';
+import { IHttpClient, IHttpOptions, IHttpOptionsWithBody } from './interfaces';
 
-export class HttpClientService {
+export class HttpClient implements IHttpClient {
   private _defaultHeaders = {
     'content-type': 'application/json',
   };
@@ -62,7 +62,11 @@ export class HttpClientService {
       if (body instanceof FormData) {
         xhr.send(body);
       } else {
-        xhr.send(JSON.stringify(body));
+        if (!body) {
+          xhr.send();
+        } else {
+          xhr.send(JSON.stringify(body));
+        }
       }
     }
 
@@ -106,5 +110,3 @@ export class HttpClientService {
     }
   }
 }
-
-export const httpClientService = new HttpClientService();

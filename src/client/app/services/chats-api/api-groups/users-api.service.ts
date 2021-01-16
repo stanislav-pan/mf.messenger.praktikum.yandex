@@ -1,13 +1,13 @@
 import { User } from '../../../core/models/user';
-import { HttpClientService } from '../../http/http.service';
 import { BaseApiService } from '../base-api.service';
+import { IApiHttpClient } from '../interfaces/http.interfaces';
 import {
   IChangePasswordRequest,
   IChangeProfileRequest,
 } from '../interfaces/user.interfaces';
 
 export class UsersApiService extends BaseApiService {
-  constructor(private http: HttpClientService) {
+  constructor(private http: IApiHttpClient) {
     super('user/');
   }
 

@@ -1,5 +1,4 @@
 import { SubmitEvent } from '../../core/interfaces';
-import FormDataParserService from '../../services/form-data-parser.service';
 import { userService } from '../../services/user.service';
 import { Block } from '../../utils/block';
 import Avatar from '../avatar/avatar';
@@ -10,6 +9,7 @@ import {
 
 import './brief-information.scss';
 import template from './brief-information.tmpl.njk';
+import { parseFormValues } from '../../utils/parse-form-values';
 
 export default class BriefInformationComponent extends Block<BriefInformationProps> {
   constructor(props?: IBriefInformationExternalProps) {
@@ -84,7 +84,7 @@ export default class BriefInformationComponent extends Block<BriefInformationPro
 
     const form = event.currentTarget as HTMLFormElement;
 
-    const { displayNameInput } = FormDataParserService.getFormValues<{
+    const { displayNameInput } = parseFormValues<{
       displayNameInput: string;
     }>(form);
 

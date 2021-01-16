@@ -4,3 +4,7 @@ export interface IChatResponse {
   created_by: number;
   title: string;
 }
+
+export interface IGetChatTokenResponse {
+  token: string;
+}

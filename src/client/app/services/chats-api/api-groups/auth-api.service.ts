@@ -1,11 +1,11 @@
 import { User } from '../../../core/models/user';
-import { HttpClientService } from '../../http/http.service';
 import { BaseApiService } from '../base-api.service';
+import { IApiHttpClient } from '../interfaces/http.interfaces';
 import { ISigninRequest } from '../interfaces/signin.interfaces';
 import { ISignupRequest } from '../interfaces/signup.interfaces';
 
 export class AuthApiService extends BaseApiService {
-  constructor(private http: HttpClientService) {
+  constructor(private http: IApiHttpClient) {
     super('auth/');
   }
 

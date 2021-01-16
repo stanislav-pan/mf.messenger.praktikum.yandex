@@ -1,6 +1,6 @@
 import { SubmitEvent } from '../../core/interfaces';
-import FormDataParserService from '../../services/form-data-parser.service';
 import { Block } from '../../utils/block';
+import { parseFormValues } from '../../utils/parse-form-values';
 import {
   SearchComponentProps,
   ISearchComponentExternalProps,
@@ -28,7 +28,7 @@ export default class SearchComponent extends Block<SearchComponentProps> {
 
             const form = event.target as HTMLFormElement;
 
-            const { search } = FormDataParserService.getFormValues(form);
+            const { search } = parseFormValues(form);
 
             submit(event, search as string);
           },

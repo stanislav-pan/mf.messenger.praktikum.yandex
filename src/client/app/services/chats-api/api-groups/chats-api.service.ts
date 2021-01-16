@@ -1,10 +1,11 @@
 import { User } from '../../../core/models/user';
 import { Chat } from '../../../core/models/chat';
-import { HttpClientService } from '../../http/http.service';
 import { BaseApiService } from '../base-api.service';
+import { IApiHttpClient } from '../interfaces/http.interfaces';
+import { IGetChatTokenResponse } from '../interfaces/chat.interfaces';
 
 export class ChatsApiService extends BaseApiService {
-  constructor(private http: HttpClientService) {
+  constructor(private http: IApiHttpClient) {
     super('chats/');
   }
 
@@ -72,5 +73,12 @@ export class ChatsApiService extends BaseApiService {
       .then((xhr) =>
         JSON.parse(xhr.response).map((user) => User.mapUserFromServer(user))
       );
+  }
+
+  public async getChatToken(chatId: number): Promise<string> {
+    return this.http
+      .post(this.getUrl(`token/${chatId}`), null, this.commonOptions)
+      .then((xhr) => JSON.parse(xhr.response))
+      .then((response: IGetChatTokenResponse) => response.token);
   }
 }
