@@ -80,6 +80,10 @@ export class Router {
   }
 
   public isAvailableUrl(): boolean {
+    if (window.location.pathname === '/') {
+      return true;
+    }
+
     return this.routes.some((item) => item.match(window.location.pathname));
   }
 }
