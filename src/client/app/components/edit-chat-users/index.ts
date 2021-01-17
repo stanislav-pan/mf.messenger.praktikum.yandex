@@ -119,7 +119,7 @@ export default class EditChatUsersComponent extends Block<EditChatUsersComponent
       components: usersComponents,
     });
 
-    if (users.some((user) => user.selected)) {
+    if (users.some((user) => user.selected) || this.selectedUsers.length) {
       this._setSelectedUsers(users, this.selectedUsers);
     }
   }

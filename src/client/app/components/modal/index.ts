@@ -10,18 +10,24 @@ export default class ModalComponent extends Block<ModalComponentProps> {
   private _bindedEscapeHandler: (event: KeyboardEvent) => void;
 
   constructor(props: IModalComponentExternalProps) {
-    const { close } = props.handlers;
+    const close = props.handlers?.close;
 
     super({
       tagName: 'app-modal',
       props: {
         ...props,
-        components: {
-          contentComponent: props.component,
-        },
         handlers: {
           close: () => {
             this.remove();
+
+            if (!close) {
+              return;
+            }
+
+            this.setProps({
+              component: null,
+              handlers: null,
+            });
 
             close();
           },
@@ -31,9 +37,29 @@ export default class ModalComponent extends Block<ModalComponentProps> {
   }
 
   private _escapeHandler(event: KeyboardEvent) {
+    if (!this.props.handlers || !('close' in this.props.handlers)) {
+      return;
+    }
+
     if (event.keyCode == 27) {
       this.props.handlers.close();
     }
+  }
+
+  componentDidUpdate(
+    old: ModalComponentProps,
+    current: ModalComponentProps
+  ): boolean {
+    if (old.component !== current.component) {
+      this.setProps({
+        component: current.component,
+        components: {
+          contentComponent: current.component,
+        },
+      });
+    }
+
+    return true;
   }
 
   componentDidMount(): void {
@@ -49,8 +75,6 @@ export default class ModalComponent extends Block<ModalComponentProps> {
   }
 
   render(): string {
-    return template({
-      componentId: this.props.component.getId(),
-    });
+    return template({ componentId: this.props.component?.getId() });
   }
 }

@@ -114,6 +114,7 @@ export default class MessengerPage extends Block<MessengerPageProps> {
               },
             },
           }),
+          chatManagementModal: new ModalComponent({}),
         },
         handlers: {
           goToSettings: () => this._goToSettings(),
@@ -165,25 +166,25 @@ export default class MessengerPage extends Block<MessengerPageProps> {
     componentType: ChatManagementComponentType = 'create',
     selectedUsers?: User[]
   ) {
-    this.setProps({
-      components: {
-        ...this.props.components,
-        modal: show
-          ? new ModalComponent({
-              component: new ChatManagementComponent({
-                componentType,
-                currectChatId: this.props.selectedChat?.id,
-                ...(selectedUsers && { selectedUsers }),
-                handlers: {
-                  complete: () => this._showOrHideCreateChatModal(false),
-                },
-              }),
+    this.props.components.chatManagementModal?.setProps({
+      ...(show
+        ? {
+            component: new ChatManagementComponent({
+              componentType,
+              currectChatId: this.props.selectedChat?.id,
+              ...(selectedUsers && { selectedUsers }),
               handlers: {
-                close: () => this._showOrHideCreateChatModal(false),
+                complete: () => this._showOrHideCreateChatModal(false),
               },
-            })
-          : null,
-      },
+            }),
+            handlers: {
+              close: () => this._showOrHideCreateChatModal(false),
+            },
+          }
+        : {
+            component: null,
+            handlers: null,
+          }),
     });
   }
 
@@ -258,7 +259,7 @@ export default class MessengerPage extends Block<MessengerPageProps> {
       chats,
       search,
       messages,
-      modal,
+      chatManagementModal,
       chatMenu,
       createChatBtn,
     } = this.props.components;
@@ -269,7 +270,7 @@ export default class MessengerPage extends Block<MessengerPageProps> {
       chatsCopmonentId: chats.getId(),
       searchComponentId: search.getId(),
       messagesComponentId: messages.getId(),
-      modalComponentId: modal?.getId(),
+      chatManagementComponentId: chatManagementModal?.getId(),
       chatMenuComponentId: chatMenu?.getId(),
       createChatBtnCopmonentId: createChatBtn?.getId(),
     });

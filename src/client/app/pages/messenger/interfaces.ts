@@ -24,5 +24,6 @@ export interface IMessengerPageInnerProps {
     chats: ChatsComponent;
     modal?: ModalComponent;
     chatMenu?: MenuComponent;
+    chatManagementModal?: ModalComponent;
   };
 }
