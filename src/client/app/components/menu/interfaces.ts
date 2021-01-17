@@ -1,7 +1,7 @@
 import { ICommonPropFields } from '@utils/block';
 
 export interface IMenuComponentExternalProps extends ICommonPropFields {
-  items: IMenuItem[];
+  items?: IMenuItem[];
 
   handlers: {
     select: (item: IMenuItem) => void;
@@ -10,6 +10,7 @@ export interface IMenuComponentExternalProps extends ICommonPropFields {
 }
 
 export interface IMenuComponentInnerProps {
+  mappedItems?: IMenuItem[];
   handlers: {
     click: (event: Event, index: number) => void;
   };

@@ -1,7 +1,12 @@
+import { isEqual } from '@my-lodash/is-equal';
 import { isNode } from '@my-lodash/is-node';
 import { templator } from '@services/templator.service';
 import { Block } from '@utils/block';
-import { MenuComponentProps, IMenuComponentExternalProps } from './interfaces';
+import {
+  MenuComponentProps,
+  IMenuComponentExternalProps,
+  IMenuItem,
+} from './interfaces';
 
 import './menu.scss';
 
@@ -15,12 +20,11 @@ export default class MenuComponent extends Block<MenuComponentProps> {
       tagName: 'app-menu',
       props: {
         ...props,
-        items: props.items.map((item, index) => ({ ...item, index })),
 
         handlers: {
           ...props.handlers,
           click: (_, index: number) => {
-            const item = this.props.items.find(
+            const item = this.props.mappedItems?.find(
               (item) => item.index === Number(index)
             );
 
@@ -33,6 +37,24 @@ export default class MenuComponent extends Block<MenuComponentProps> {
         },
       },
     });
+  }
+
+  componentDidUpdate(
+    old: MenuComponentProps,
+    current: MenuComponentProps
+  ): boolean {
+    if (
+      !old.items ||
+      !isEqual(old.items as IMenuItem[], current.items as IMenuItem[])
+    ) {
+      this.setProps({
+        mappedItems: current.items?.length
+          ? current.items.map((item, index) => ({ ...item, index }))
+          : [],
+      });
+    }
+
+    return true;
   }
 
   componentDidMount(): void {

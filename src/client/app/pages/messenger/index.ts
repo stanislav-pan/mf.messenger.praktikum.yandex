@@ -115,13 +115,26 @@ export default class MessengerPage extends Block<MessengerPageProps> {
             },
           }),
           chatManagementModal: new ModalComponent({}),
+          chatMenu: new MenuComponent({
+            handlers: {
+              select: (item: IMenuItem) => {
+                this._showOrHideChatMenu(false);
+
+                item.callback();
+              },
+              close: () => this._showOrHideChatMenu(false),
+            },
+            class: 'messenger__chat-menu',
+          }),
         },
         handlers: {
           goToSettings: () => this._goToSettings(),
           showChatMenu: (event: Event) => {
             event.stopPropagation();
 
-            this._showOrHideChatMenu(!this.props.components.chatMenu);
+            this._showOrHideChatMenu(
+              !this.props.components.chatMenu?.props.items?.length
+            );
           },
           send: (event: SubmitEvent) => {
             event.preventDefault();
@@ -189,63 +202,43 @@ export default class MessengerPage extends Block<MessengerPageProps> {
   }
 
   private _showOrHideChatMenu(show = true) {
-    this.setProps({
-      components: {
-        ...this.props.components,
-        chatMenu: show
-          ? new MenuComponent({
-              items: [
-                {
-                  title: 'Edit participants',
-                  callback: () => {
-                    if (!this.props.selectedChat?.id) {
-                      return;
-                    }
+    this.props.components.chatMenu?.setProps({
+      items: show
+        ? [
+            {
+              title: 'Edit participants',
+              callback: () => {
+                if (!this.props.selectedChat?.id) {
+                  return;
+                }
 
-                    apiService.chats
-                      .getChatUsers(this.props.selectedChat.id)
-                      .then((users) => {
-                        this._showOrHideCreateChatModal(
-                          true,
-                          'edit',
-                          users.filter(
-                            (user) => user.id !== userService.getUser().id
-                          )
-                        );
-                      });
-                  },
-                },
-                {
-                  title: 'Delete chat',
-                  callback: () => {
-                    if (!this.props.selectedChat?.id) {
-                      return;
-                    }
-
-                    chatsService
-                      .deleteChat(this.props.selectedChat.id)
-                      .then(() => {
-                        this.props.selectedChat = null;
-                      });
-                  },
-                },
-              ],
-              handlers: {
-                select: (item: IMenuItem) => {
-                  this._showOrHideChatMenu(false);
-
-                  item.callback();
-                },
-                close: () => this._showOrHideChatMenu(false),
+                apiService.chats
+                  .getChatUsers(this.props.selectedChat.id)
+                  .then((users) => {
+                    this._showOrHideCreateChatModal(
+                      true,
+                      'edit',
+                      users.filter(
+                        (user) => user.id !== userService.getUser().id
+                      )
+                    );
+                  });
               },
-              class: 'messenger__chat-menu',
-            })
-          : (() => {
-              this.props.components.chatMenu?.remove();
+            },
+            {
+              title: 'Delete chat',
+              callback: () => {
+                if (!this.props.selectedChat?.id) {
+                  return;
+                }
 
-              return null;
-            })(),
-      },
+                chatsService.deleteChat(this.props.selectedChat.id).then(() => {
+                  this.props.selectedChat = null;
+                });
+              },
+            },
+          ]
+        : [],
     });
   }
 
