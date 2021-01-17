@@ -76,7 +76,11 @@
       "^.+\\.scss$": "<rootDir>/jest/scss-mock.js"
     },
     "moduleNameMapper": {
-      "@utils/(.*)": "<rootDir>/src/client/app/utils/$1"
+      "@utils/(.*)": "<rootDir>/src/client/app/utils/$1",
+      "@components/(.*)": "<rootDir>/src/client/app/components/$1",
+      "@forms/(.*)": "<rootDir>/src/client/app/utils/forms/$1",
+      "@my-lodash/(.*)": "<rootDir>/src/client/app/utils/my-lodash/$1",
+      "@services/(.*)": "<rootDir>/src/client/app/services/$1"
     }
   },
   "husky": {

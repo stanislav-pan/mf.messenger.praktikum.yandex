@@ -1,3 +1,4 @@
+import { Block } from '../../utils/block';
 import Button from './index';
 
 describe('components/Button', () => {
@@ -6,7 +7,7 @@ describe('components/Button', () => {
 
     const actualBtn = new Button({
       text: btnText,
-    });
+    }) as Block;
 
     expect(actualBtn.element.textContent.trim()).toEqual(btnText);
   });
@@ -18,7 +19,7 @@ describe('components/Button', () => {
     const actualBtn = new Button({
       text: btnText,
       class: btnClass,
-    });
+    }) as Block;
 
     expect(actualBtn.element.classList.contains(btnClass)).toBe(true);
   });
@@ -46,7 +47,7 @@ describe('components/Button', () => {
       handlers: {
         click: mock,
       },
-    });
+    }) as Block;
 
     const btn = actualBtn.element.querySelector('button');
     btn.click();
@@ -60,12 +61,12 @@ describe('components/Button', () => {
 
     const actualBtn = new Button({
       text: btnText,
-    });
+    }) as Block;
 
     actualBtn.setProps({
       text: newBtnText,
     });
 
-    expect(actualBtn.element.textContent).toBe(newBtnText);
+    expect(String(actualBtn.element.textContent).trim()).toBe(newBtnText);
   });
 });

@@ -1,5 +1,6 @@
 import { Router } from '.';
 import Button from '../../components/button';
+import Input from '../../components/input';
 
 describe('router', () => {
   const rootSelector = '#root';
@@ -14,8 +15,7 @@ describe('router', () => {
     const buttonClass = Button as any;
 
     const router = new Router(rootSelector);
-    router.use('/components/button', buttonClass);
-
+    router.use('/components/button', () => new buttonClass());
     router.start('/components/button');
 
     expect(!!getRootItem().querySelector('app-button')).toBeTruthy();
@@ -26,8 +26,9 @@ describe('router', () => {
     const inputClass = Input as any;
 
     const router = new Router(rootSelector);
-    router.use('/components/button', buttonClass);
-    router.use('/components/input', inputClass);
+
+    router.use('/components/button', () => new buttonClass());
+    router.use('/components/input', () => new inputClass());
 
     router.start('/components/button');
 
@@ -43,8 +44,8 @@ describe('router', () => {
     const inputClass = Input as any;
 
     const router = new Router(rootSelector);
-    router.use('/components/button', buttonClass);
-    router.use('/components/input', inputClass);
+    router.use('/components/button', () => new buttonClass());
+    router.use('/components/input', () => new inputClass());
 
     router.start('/components/button');
 
@@ -61,8 +62,8 @@ describe('router', () => {
     const inputClass = Input as any;
 
     const router = new Router(rootSelector);
-    router.use('/components/button', buttonClass);
-    router.use('/components/input', inputClass);
+    router.use('/components/button', () => new buttonClass());
+    router.use('/components/input', () => new inputClass());
 
     router.start('/components/button');
 
