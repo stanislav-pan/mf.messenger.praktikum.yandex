@@ -3,6 +3,10 @@ import { userService } from './services/user.service';
 
 import './../styles.scss';
 
+if (!router.isAvailableUrl()) {
+  router.go('/404');
+}
+
 userService
   .initUser()
   .then(() => {

@@ -78,4 +78,8 @@ export class Router {
   public getRoute(pathname: string): Route | undefined {
     return this.routes.find((route) => route.match(pathname));
   }
+
+  public isAvailableUrl(): boolean {
+    return this.routes.some((item) => item.match(window.location.pathname));
+  }
 }

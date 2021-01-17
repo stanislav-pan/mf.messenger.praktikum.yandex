@@ -1,4 +1,4 @@
-import { Router } from './utils/router';
+import { Router } from '@utils/router';
 
 const lazilyLoadPage = (name: string) => () => {
   return import(`./pages/${name}/`).then(
