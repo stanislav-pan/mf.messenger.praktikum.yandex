@@ -30,6 +30,20 @@ import { SubmitEvent } from '@core/interfaces';
 import './settings.scss';
 
 export default class SettingsPage extends Block<SettingsPageProps> {
+  set changePasswordProcessing(value: boolean) {
+    (this.props.components.changePasswordForm.props.components
+      .submitButton as Button).setProps({
+      loading: value,
+    });
+  }
+
+  set editProfileProcessing(value: boolean) {
+    (this.props.components.editingProfileForm.props.components
+      .submitButton as Button).setProps({
+      loading: value,
+    });
+  }
+
   get editingProfileFormGroup(): FormGroup {
     return this.props.components?.editingProfileForm?.props?.formGroup;
   }
@@ -137,7 +151,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                 ]),
               }),
 
-              editProfileButton: new Button({
+              submitButton: new Button({
                 text: 'Save',
                 class: 'settings__form-btn-wrapper',
               }),
@@ -183,7 +197,7 @@ export default class SettingsPage extends Block<SettingsPageProps> {
                 ]),
               }),
 
-              editProfileButton: new Button({
+              submitButton: new Button({
                 text: 'Save',
                 class: 'settings__form-btn-wrapper',
               }),
@@ -221,11 +235,13 @@ export default class SettingsPage extends Block<SettingsPageProps> {
 
     const formGroup = this.editingProfileFormGroup;
 
-    if (formGroup.invalid) {
+    if (!formGroup.valid) {
       formGroup.markAsDirtyAllControls();
 
       return;
     }
+
+    this.editProfileProcessing = true;
 
     userService
       .changeProfile({
@@ -234,7 +250,8 @@ export default class SettingsPage extends Block<SettingsPageProps> {
       })
       .then(() => {
         this.editingProfileFormGroup.markAsPristineAllControls();
-      });
+      })
+      .finally(() => (this.editProfileProcessing = false));
   }
 
   private _changePassword(event: SubmitEvent) {
@@ -242,17 +259,22 @@ export default class SettingsPage extends Block<SettingsPageProps> {
 
     const formGroup = this.changePasswordFormGroup;
 
-    if (formGroup.invalid) {
+    if (!formGroup.valid) {
       formGroup.markAsDirtyAllControls();
 
       return;
     }
 
+    this.changePasswordProcessing = true;
+
     const { newPassword, oldPassword } = formGroup.value as IChangePasswordData;
 
-    apiService.users.changePassword({ newPassword, oldPassword }).then(() => {
-      this._back();
-    });
+    apiService.users
+      .changePassword({ newPassword, oldPassword })
+      .then(() => {
+        this._back();
+      })
+      .finally(() => (this.changePasswordProcessing = false));
   }
 
   private _showBlock(block: SETTINGS_VIEWING_TYPES) {

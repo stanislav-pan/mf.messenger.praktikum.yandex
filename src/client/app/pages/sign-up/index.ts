@@ -25,6 +25,13 @@ import {
 } from './interfaces';
 
 export default class SignUpPage extends Block<SignUpPageProps> {
+  set loading(value: boolean) {
+    (this.props.components.secondStepForm.props.components
+      .submitButton as Button).setProps({
+      loading: value,
+    });
+  }
+
   get firstStepFormGroup(): FormGroup {
     return this.props.components?.fistStepForm?.props?.formGroup;
   }
@@ -149,7 +156,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
   private _signUpFirstStep() {
     const formGroup = this.firstStepFormGroup;
 
-    if (formGroup.invalid) {
+    if (!formGroup.valid) {
       formGroup.markAsDirtyAllControls();
 
       return;
@@ -174,7 +181,7 @@ export default class SignUpPage extends Block<SignUpPageProps> {
     const firstStepFormGroup = this.firstStepFormGroup;
     const secondStepFormGroup = this.secondStepFormGroup;
 
-    if (secondStepFormGroup.invalid) {
+    if (!secondStepFormGroup.valid) {
       secondStepFormGroup.markAsDirtyAllControls();
 
       return;
@@ -191,9 +198,14 @@ export default class SignUpPage extends Block<SignUpPageProps> {
   }
 
   private _signUpReq(data: ISignupData) {
-    userService.signUp(data).then(() => {
-      router.go('/messenger');
-    });
+    this.loading = true;
+
+    userService
+      .signUp(data)
+      .then(() => {
+        router.go('/messenger');
+      })
+      .finally(() => (this.loading = false));
   }
 
   componentDidMount(): void {

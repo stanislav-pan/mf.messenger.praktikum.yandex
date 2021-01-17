@@ -16,6 +16,12 @@ import './chat-management.scss';
 import template from './chat-management.tmpl.njk';
 
 export default class ChatManagementComponent extends Block<ChatManagementComponentProps> {
+  set requestProcessing(value: boolean) {
+    this.props.components.submitButton.setProps({
+      loading: value,
+    });
+  }
+
   get chatNameFormControl(): FormControl {
     return this.props.components.chatName.props.formControl as FormControl;
   }
@@ -52,7 +58,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
               (this._selectedUsers = selectedUsers),
           },
         }),
-        createBtn: new Button({
+        submitButton: new Button({
           text: this.props.componentType === 'create' ? 'Create' : 'Save',
           handlers: {
             click: () =>
@@ -83,7 +89,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
   }
 
   private _createChat() {
-    if (this.chatNameFormControl.invalid) {
+    if (!this.chatNameFormControl.valid) {
       this.chatNameFormControl.markAsDirty();
 
       return;
@@ -93,6 +99,8 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
       return;
     }
 
+    this.requestProcessing = true;
+
     const chatName = this.chatNameFormControl.getValue() as string;
 
     chatsService
@@ -100,13 +108,16 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
         chatName,
         this._selectedUsers.map((user) => user.id)
       )
-      .then(() => this.props.handlers.complete());
+      .then(() => this.props.handlers.complete())
+      .finally(() => (this.requestProcessing = false));
   }
 
   private _editChat = () => {
     if (!this.props.currectChatId) {
       return;
     }
+
+    this.requestProcessing = true;
 
     const defaultSelectedUsers: Record<string, SelectableUser> = {};
 
@@ -135,18 +146,19 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
         addToChat.map((item) => item.id),
         removeFromChat.map((item) => item.id)
       )
-      .then(() => this.props.handlers.complete());
+      .then(() => this.props.handlers.complete())
+      .finally(() => (this.requestProcessing = false));
   };
 
   render(): string {
-    const { chatName, createBtn, editChatUsers } = this.props.components;
+    const { chatName, submitButton, editChatUsers } = this.props.components;
 
     return template({
       ...this.props,
       canChangeName: this.props.componentType === 'create',
       chatNameId: chatName?.getId(),
       editChatUsersId: editChatUsers.getId(),
-      createBtnId: createBtn.getId(),
+      submitButtonId: submitButton.getId(),
     });
   }
 }

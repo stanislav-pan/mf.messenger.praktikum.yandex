@@ -1,1 +1,5 @@
-<button class="btn btn_size_normal" onclick="click">{{text}}</button>
+{% if loading %}
+    <button class="btn btn_size_normal btn_loading" onclick="click">{{text}}</button>
+{% else %}
+    <button class="btn btn_size_normal" onclick="click">{{text}}</button>
+{% endif %}

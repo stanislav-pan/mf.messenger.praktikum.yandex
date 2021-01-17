@@ -42,7 +42,7 @@ export default class Input extends Block<InputComponentProps> {
       this
     );
 
-    fc.subscribe(this._bindedFormControlChangingHandler);
+    fc.subscribeOnErrors(this._bindedFormControlChangingHandler);
   }
 
   componentWillUnmount(): void {
@@ -52,13 +52,17 @@ export default class Input extends Block<InputComponentProps> {
       return;
     }
 
-    fc.unsubscribe(this._bindedFormControlChangingHandler);
+    fc.unsubscribeFromErrors(this._bindedFormControlChangingHandler);
   }
 
   private _formControlChangingHandler() {
-    this.props.components.errors.setProps({
-      error: mapErrors(this.props.formControl as FormControl),
-    });
+    const error = mapErrors(this.props.formControl as FormControl);
+
+    if (!error) {
+      return;
+    }
+
+    this.props.components.errors.setProps({ error });
   }
 
   render(): string {

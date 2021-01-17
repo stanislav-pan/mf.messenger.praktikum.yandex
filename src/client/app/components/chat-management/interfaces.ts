@@ -21,7 +21,7 @@ export interface IChatManagementComponentInnerProps {
   components: {
     chatName: Input;
     editChatUsers: EditChatUsersComponent;
-    createBtn: Button;
+    submitButton: Button;
   };
 }
 

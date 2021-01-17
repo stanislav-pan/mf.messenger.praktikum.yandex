@@ -53,7 +53,11 @@ class ChatsService {
       return apiService.chats.addUsersToChat(chatId, addToChatIds);
     }
 
-    return apiService.chats.deleteUsersFromChat(chatId, removeFromChatIds);
+    if (needRemove) {
+      return apiService.chats.deleteUsersFromChat(chatId, removeFromChatIds);
+    }
+
+    return Promise.resolve();
   }
 
   public getChats() {

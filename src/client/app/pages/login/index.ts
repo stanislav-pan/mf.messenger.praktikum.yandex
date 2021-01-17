@@ -12,6 +12,13 @@ import { LoginPageProps, ISigninData } from './interfaces';
 import template from './login.tmpl.njk';
 
 export default class LoginPage extends Block<LoginPageProps> {
+  set loading(value: boolean) {
+    (this.props.components.loginForm.props.components
+      .submitButton as Button).setProps({
+      loading: value,
+    });
+  }
+
   get loginFormGroup(): FormGroup {
     return this.props.components?.loginForm?.props?.formGroup;
   }
@@ -62,13 +69,15 @@ export default class LoginPage extends Block<LoginPageProps> {
   private _login(event: SubmitEvent) {
     event.preventDefault();
 
-    if (this.loginFormGroup.invalid) {
+    if (!this.loginFormGroup.valid) {
       this.loginFormGroup.markAsDirtyAllControls();
 
       return;
     }
 
     const value = this.loginFormGroup.value as ISigninData;
+
+    this.loading = true;
 
     userService
       .auth(value)
@@ -80,14 +89,11 @@ export default class LoginPage extends Block<LoginPageProps> {
 
         this.loginFormGroup.markAsDirtyAllControls();
 
-        this.loginFormGroup.get('login').setErrors({
-          invalidCredentials: '',
-        });
-
         this.loginFormGroup.get('password').setErrors({
           invalidCredentials: 'Credentials are invalid',
         });
-      });
+      })
+      .finally(() => (this.loading = false));
   }
 
   public render(): string {

@@ -1,3 +1,11 @@
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+$btnBorderRadius: 32px;
+
 .btn {
   height: 48px;
   width: 100%;
@@ -6,7 +14,7 @@
 
   background-color: var(--color-primary);
   border: none;
-  border-radius: 32px;
+  border-radius: $btnBorderRadius;
 
   font-family: inherit;
   font-weight: 600;
@@ -16,6 +24,58 @@
 
   outline: none;
   cursor: pointer;
+
+  transition: all 0.4s ease-out;
+
+  &:hover {
+    background-color: #332c9c;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  &::before {
+    background-color: var(--color-primary);
+
+    transition: background 0.4s ease-in-out;
+  }
+
+  &_loading {
+    position: relative;
+    cursor: default;
+
+    &::before {
+      top: 0;
+      left: 0;
+      z-index: 2;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: #332c9c;
+      border-radius: $btnBorderRadius;
+    }
+
+    &::after {
+      top: calc(50% - 10px);
+      left: calc(50% - 10px);
+      z-index: 3;
+
+      width: 20px;
+      height: 20px;
+
+      border: 2px solid transparent;
+      border-top-color: #fff;
+      border-radius: 50%;
+
+      animation: spin 0.5s linear infinite;
+    }
+  }
 
   &_size {
     &_normal {
