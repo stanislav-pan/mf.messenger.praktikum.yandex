@@ -106,6 +106,10 @@ export class HttpClient implements IHttpClient {
     };
 
     for (const [key, value] of Object.entries(mergedHeaders)) {
+      if (value === '') {
+        return;
+      }
+
       xhr.setRequestHeader(key, value);
     }
   }

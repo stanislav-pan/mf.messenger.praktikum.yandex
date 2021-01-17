@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@utils/http/http-headers';
 import { User } from '../../../core/models/user';
 import { BaseApiService } from '../base-api.service';
 import { IApiHttpClient } from '../interfaces/http.interfaces';
@@ -23,7 +24,10 @@ export class UsersApiService extends BaseApiService {
 
     return this.http
       .put(this.getUrl('profile/avatar'), data, {
-        withCredentials: true,
+        ...this.commonOptions,
+        headers: new HttpHeaders({
+          'content-type': '',
+        }),
       })
       .then((xhr) => User.mapUserFromServer(JSON.parse(xhr.response)));
   }
