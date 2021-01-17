@@ -9,8 +9,11 @@ import { IMessage } from '@components/message/interfaces';
 import MessagesComponent from '@components/messages/messages';
 import ModalComponent from '@components/modal';
 import SearchComponent from '@components/search';
+import { SubmitEvent } from '@core/interfaces';
 import { Chat } from '@core/models/chat';
 import { User } from '@core/models/user';
+import { FormControl } from '@forms/form-control';
+import { getPrettyGroupingDate } from '@my-lodash/get-pretty-grouping-date';
 import { apiService } from '@services/chats-api/api.service';
 import { chatsService } from '@services/chats.service';
 import { userService } from '@services/user.service';
@@ -27,32 +30,11 @@ export default class MessengerPage extends Block<MessengerPageProps> {
   constructor() {
     const { avatar } = userService.getUser();
 
-    const messages = [
-      {
-        type: 'dateDivider',
-        date: '19 июня',
-      },
-      {
-        type: 'text',
-        text: `Here you can find activities to practise your reading skills. Reading will help you to improve your understanding of the language and build your vocabulary. The self-study lessons in this section are written and organised according to the levels of the Common European Framework of Reference for languages (CEFR). There are different types of texts and insteractive exercises that practise the reading skills you need to do well in your studies, to get ahead at work and to communicate in English in your free time. Take our free online English test to find out which level to choose. Select your level, from beginner (CEFR level A1) to advanced (CEFR level C1), and improve your reading skills at your own speed, whenever it's convenient for you.`,
-        time: '11:56',
-      },
-      {
-        type: 'image',
-        time: '11:56',
-      },
-      {
-        type: 'text',
-        text: 'Круто!',
-        time: '11:56',
-        isMyMessage: true,
-      },
-    ].reverse() as IMessage[];
-
     super({
       tagName: 'app-messenger-page',
       props: {
-        currectChatId: null,
+        selectedChat: null,
+        messageInput: new FormControl(''),
         components: {
           search: new SearchComponent({
             handlers: {
@@ -61,7 +43,7 @@ export default class MessengerPage extends Block<MessengerPageProps> {
               },
             },
           }),
-          messages: new MessagesComponent({ messages }),
+          messages: new MessagesComponent({ messages: [] }),
           briefInformation: new BriefInformationComponent({
             name: userService.getUser().getDisplayName(),
             lastVisit: userService.getUser().getLastVisit(),
@@ -72,44 +54,51 @@ export default class MessengerPage extends Block<MessengerPageProps> {
             chats: [],
             handlers: {
               click: (_, chat: Chat) => {
-                const chatId = chat.id;
+                if (chat.id === this.props.selectedChat?.id) {
+                  return;
+                }
 
-                this.setProps({ currectChatId: chatId });
+                this.setProps({ selectedChat: chat });
 
                 this.props.components.briefInformation.setProps({
                   name: chat.title,
                   avatarSrc: chat.avatar,
                 });
 
-                apiService.chats.getChatToken(chatId).then((token: string) => {
-                  const socket = new WebSocket(
-                    `wss://ya-praktikum.tech/ws/chats/${
-                      userService.getUser().id
-                    }/${chatId}/${token}`
-                  );
+                chat.subscribeOnMessages((messages) => {
+                  let groupingDate: Date;
 
-                  socket.addEventListener('open', () => {
-                    console.log('Соединение установлено');
+                  const isSameDay = (date1: Date, date2: Date) =>
+                    date1.getFullYear() === date2.getFullYear() &&
+                    date1.getMonth() === date2.getMonth() &&
+                    date1.getDay() === date2.getDay();
 
-                    // socket.send(
-                    //   JSON.stringify({
-                    //     content: 'Моё первое сообщение миру!',
-                    //     type: 'message',
-                    //   })
-                    // );
-                    socket.send(
-                      JSON.stringify({
-                        content: 0,
-                        type: 'get old',
-                      })
-                    );
+                  const mappedMessages: IMessage[] = [];
+
+                  [...messages].reverse().forEach((message) => {
+                    if (
+                      !groupingDate ||
+                      !isSameDay(groupingDate, message.time)
+                    ) {
+                      groupingDate = message.time;
+
+                      mappedMessages.push({
+                        type: 'dateDivider',
+                        date: getPrettyGroupingDate(groupingDate),
+                      });
+                    }
+
+                    mappedMessages.push({
+                      type: 'text',
+                      text: message.content,
+                      time: message.getMappedTime(),
+                      isMyMessage: chat.isMessageOfCurrentUser(message),
+                    });
                   });
 
-                  socket.addEventListener('message', (event) => {
-                    console.log('Получены данные', event.data);
+                  this.props.components.messages.setProps({
+                    messages: mappedMessages.reverse(),
                   });
-
-                  console.log(token);
                 });
               },
             },
@@ -133,13 +122,26 @@ export default class MessengerPage extends Block<MessengerPageProps> {
 
             this._showOrHideChatMenu(!this.props.components.chatMenu);
           },
+          send: (event: SubmitEvent) => {
+            event.preventDefault();
+
+            const message = this.props.messageInput.getValue();
+
+            if (!message) {
+              return;
+            }
+
+            this.props.selectedChat?.sendMessage(message);
+
+            this.props.messageInput.reset();
+          },
         },
       } as MessengerPageProps,
     });
   }
 
   componentDidMount(): void {
-    chatsService.fetchChats();
+    chatsService.fetchChats(userService.getUser().id);
 
     this._bindedChatsChangingHandler = this._chatsChangingHandler.bind(this);
 
@@ -151,16 +153,7 @@ export default class MessengerPage extends Block<MessengerPageProps> {
   }
 
   private _chatsChangingHandler(chats: Chat[]) {
-    this.props.components.chats.setProps({
-      chats,
-      // chats: chats.map((chat) => ({
-      //     avatarSrc: chat.avatar,
-      //     name: chat.title,
-      //     text: '',
-      //     data: '10:49',
-      //     numberOfUnreadMessages: 2,
-      // })),
-    });
+    this.props.components.chats.setProps({ chats });
   }
 
   private _createChat() {
@@ -179,7 +172,7 @@ export default class MessengerPage extends Block<MessengerPageProps> {
           ? new ModalComponent({
               component: new ChatManagementComponent({
                 componentType,
-                currectChatId: this.props.currectChatId,
+                currectChatId: this.props.selectedChat?.id,
                 ...(selectedUsers && { selectedUsers }),
                 handlers: {
                   complete: () => this._showOrHideCreateChatModal(false),
@@ -204,12 +197,12 @@ export default class MessengerPage extends Block<MessengerPageProps> {
                 {
                   title: 'Edit participants',
                   callback: () => {
-                    if (!this.props.currectChatId) {
+                    if (!this.props.selectedChat?.id) {
                       return;
                     }
 
                     apiService.chats
-                      .getChatUsers(this.props.currectChatId)
+                      .getChatUsers(this.props.selectedChat.id)
                       .then((users) => {
                         this._showOrHideCreateChatModal(
                           true,
@@ -224,14 +217,14 @@ export default class MessengerPage extends Block<MessengerPageProps> {
                 {
                   title: 'Delete chat',
                   callback: () => {
-                    if (!this.props.currectChatId) {
+                    if (!this.props.selectedChat?.id) {
                       return;
                     }
 
                     chatsService
-                      .deleteChat(this.props.currectChatId)
+                      .deleteChat(this.props.selectedChat.id)
                       .then(() => {
-                        this.props.currectChatId = null;
+                        this.props.selectedChat = null;
                       });
                   },
                 },

@@ -17,15 +17,21 @@ class ChatsService {
 
   constructor(private apiService: ApiService) {}
 
-  public fetchChats() {
-    return this.apiService.chats.get().then((chats) => (this.chats = chats));
+  public fetchChats(currentUserId: number) {
+    return this.apiService.chats
+      .get(currentUserId)
+      .then((chats) => (this.chats = chats));
   }
 
-  public createChat(chatName: string, usersIds: number[]) {
+  public createChat(
+    chatName: string,
+    currentUserId: number,
+    usersIds: number[]
+  ) {
     return apiService.chats
       .createChat(chatName)
       .then((chat) => apiService.chats.addUsersToChat(chat.id, usersIds))
-      .then(() => this.fetchChats());
+      .then(() => this.fetchChats(currentUserId));
   }
 
   public deleteChat(chatId: number) {

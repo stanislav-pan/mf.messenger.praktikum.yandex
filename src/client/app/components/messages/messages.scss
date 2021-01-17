@@ -43,10 +43,15 @@
   }
 
   &__item_text {
+    width: fit-content;
+    min-width: 250px;
+
     background-color: #f8f8f8;
 
     color: #1e1e1e;
     border-radius: 10px;
+
+    word-break: break-word;
   }
 
   &__item_my {

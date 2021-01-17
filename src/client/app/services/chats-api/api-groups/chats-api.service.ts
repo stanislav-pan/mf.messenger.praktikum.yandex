@@ -27,11 +27,13 @@ export class ChatsApiService extends BaseApiService {
       .then((xhr) => xhr.response);
   }
 
-  public async get(): Promise<Array<Chat>> {
+  public async get(currentUserId: number): Promise<Array<Chat>> {
     return this.http
       .get(this.getUrl(), this.commonOptions)
       .then((xhr) =>
-        JSON.parse(xhr.response).map((chat) => Chat.mapChatFromServer(chat))
+        JSON.parse(xhr.response).map((chat) =>
+          Chat.mapChatFromServer(chat, currentUserId)
+        )
       );
   }
 

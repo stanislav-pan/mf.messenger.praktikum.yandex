@@ -12,6 +12,10 @@
 
   cursor: pointer;
 
+  &:hover {
+    background-color: #ece9fa;
+  }
+
   &_active {
     background-color: rgba(76, 76, 190, 0.15);
   }

@@ -140,13 +140,15 @@ export abstract class Block<T extends ICommonPropFields = ICommonPropFields>
     );
 
     traverseDomTree(this._element, (current: HTMLElement) => {
-      if (this.props.formControl) {
-        const attr = Array.from(current.attributes).find(
-          (attr) => attr.name === 'formcontrol'
-        );
+      const attr = Array.from(current.attributes).find(
+        (attr) => attr.name === 'formcontrol'
+      );
 
-        if (attr) {
-          this.props.formControl.init(current as HTMLInputElement);
+      if (attr) {
+        const formControl = this.props[attr.value ? attr.value : 'formControl'];
+
+        if (formControl) {
+          formControl.init(current as HTMLInputElement);
         }
       }
 

@@ -14,6 +14,7 @@ import {
 
 import './chat-management.scss';
 import template from './chat-management.tmpl.njk';
+import { userService } from '@services/user.service';
 
 export default class ChatManagementComponent extends Block<ChatManagementComponentProps> {
   set requestProcessing(value: boolean) {
@@ -106,6 +107,7 @@ export default class ChatManagementComponent extends Block<ChatManagementCompone
     chatsService
       .createChat(
         chatName,
+        userService.getUser().id,
         this._selectedUsers.map((user) => user.id)
       )
       .then(() => this.props.handlers.complete())

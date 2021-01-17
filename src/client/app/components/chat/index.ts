@@ -1,14 +1,11 @@
 import Avatar from '@components/avatar';
 import { Block } from '@utils/block';
-import {
-  IChatComponentInnerProps,
-  IChatComponentExternalProps,
-} from './interfaces';
+import { IChatComponentExternalProps, ChatComponentProps } from './interfaces';
 
 import './chat.scss';
 import template from './chat.tmpl.njk';
 
-export default class ChatComponent extends Block<IChatComponentInnerProps> {
+export default class ChatComponent extends Block<ChatComponentProps> {
   constructor(props: IChatComponentExternalProps) {
     const click = props.handlers.click;
     const avatarSrc = props.chat.avatar;
@@ -25,7 +22,15 @@ export default class ChatComponent extends Block<IChatComponentInnerProps> {
             avatarSrc,
           }),
         },
-      } as IChatComponentInnerProps,
+      },
+    });
+  }
+
+  componentDidMount(): void {
+    this.props.chat.subscribeOnMessages(() => {
+      this.setProps({
+        chat: this.props.chat,
+      });
     });
   }
 

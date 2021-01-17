@@ -3,7 +3,7 @@ import { isObject } from '../is-object';
 const toCamelCase = (str: string) =>
   str &&
   str
-    .toLowerCase()
+    // .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr: string) => chr.toUpperCase());
 
 export const objToCamelCase = <T>(o: Record<string, unknown> | unknown): T => {
