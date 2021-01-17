@@ -1,23 +1,16 @@
 import { AbstractControl } from './abstractal-control';
 import { FormControl } from './form-control';
-import { IListenerFn } from './interfaces';
-import { Validator, ValidatorFn } from './validator-interfaces';
+import { ValidatorFn } from './validator-interfaces';
 
 export class FormGroup extends AbstractControl {
   public controls: { [key: string]: FormControl } = {};
-  private _listeners: Array<IListenerFn> = [];
-  private _validators: Validator[] = [];
 
   public get value(): unknown {
     return this._getValue();
   }
 
   public set value(value: unknown) {
-    if (this._listeners?.length) {
-      for (const listener of this._listeners) {
-        listener(value);
-      }
-    }
+    this.notifyListeners(this._listeners, value);
   }
 
   private _valid = true;
@@ -31,10 +24,6 @@ export class FormGroup extends AbstractControl {
       isValid && Object.values(this.controls).every((control) => control.valid);
   }
 
-  get invalid(): boolean {
-    return !this._valid;
-  }
-
   constructor(
     controls: { [key: string]: FormControl } = {},
     validators: ValidatorFn[] = []
@@ -44,10 +33,7 @@ export class FormGroup extends AbstractControl {
       this.addControl(key, control);
     });
 
-    this._validators = validators.map((validator) => ({
-      validatorFn: validator,
-      keys: [],
-    }));
+    this.initValidators(validators);
   }
 
   public addControl(key: string, control: FormControl): void {
@@ -55,14 +41,10 @@ export class FormGroup extends AbstractControl {
 
     control.subscribe(() => {
       this.value = this._getValue();
-      this._checkError();
+      this._checkError(this);
     });
 
-    this._checkError();
-  }
-
-  public subscribe(next: (value: unknown) => void): void {
-    this._listeners.push(next);
+    this._checkError(this);
   }
 
   public get(key: string): FormControl {
@@ -103,30 +85,5 @@ export class FormGroup extends AbstractControl {
 
       return acc;
     }, {});
-  }
-
-  private _checkError() {
-    this._setValid(true);
-
-    if (!this._validators?.length) {
-      return;
-    }
-
-    for (const validator of this._validators) {
-      const res = validator.validatorFn(this);
-
-      if (res !== null) {
-        validator.keys = Object.keys(res);
-        Object.assign(this.errors, res);
-
-        continue;
-      }
-
-      validator.keys.forEach((key) => {
-        delete this.errors[key];
-      });
-
-      validator.keys = [];
-    }
   }
 }

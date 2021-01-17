@@ -1,17 +1,9 @@
 import { AbstractControl } from './abstractal-control';
 import { FormGroup } from './form-group';
-import { IListenerFn } from './interfaces';
-import {
-  Validator,
-  ValidationErrors,
-  ValidatorFn,
-} from './validator-interfaces';
+import { ValidationErrors, ValidatorFn } from './validator-interfaces';
 
 export class FormControl extends AbstractControl {
   private _el: HTMLInputElement;
-
-  private _listeners: Array<IListenerFn> = [];
-  private _validators: Validator[] = [];
 
   private _value: unknown;
 
@@ -23,10 +15,6 @@ export class FormControl extends AbstractControl {
 
   public get valid(): boolean {
     return this._valid;
-  }
-
-  public get invalid(): boolean {
-    return !this._valid;
   }
 
   protected _setValid(isValid: boolean): void {
@@ -53,10 +41,6 @@ export class FormControl extends AbstractControl {
     return this._touched;
   }
 
-  public get untouched(): boolean {
-    return this._touched;
-  }
-
   private _setTouched(touched: boolean) {
     this._touched = touched;
 
@@ -77,51 +61,19 @@ export class FormControl extends AbstractControl {
 
   private set value(value: unknown) {
     this._value = value;
+    this.setValue(String(value));
 
     this.resetErrors();
-    this._checkError();
+    this._checkError(this);
 
-    if (this._listeners) {
-      for (const listener of this._listeners) {
-        listener(value);
-      }
-    }
+    this.notifyListeners(this._listeners, this._value);
   }
 
   constructor(value: string, validators: ValidatorFn[] = []) {
     super();
 
+    this.initValidators(validators);
     this.value = value;
-
-    this._validators = validators.map((validator) => ({
-      validatorFn: validator,
-      keys: [],
-    }));
-  }
-
-  private _checkError() {
-    if (!this._validators?.length) {
-      this._setValid(true);
-
-      return;
-    }
-
-    for (const validator of this._validators) {
-      const res = validator.validatorFn(this);
-
-      if (res !== null) {
-        validator.keys = Object.keys(res);
-        Object.assign(this.errors, res);
-
-        continue;
-      }
-
-      validator.keys.forEach((key) => {
-        delete this.errors[key];
-      });
-
-      validator.keys = [];
-    }
   }
 
   public getValue(): unknown {
@@ -145,8 +97,11 @@ export class FormControl extends AbstractControl {
     element.addEventListener('input', (event: InputEvent) => {
       const value = (event.target as HTMLInputElement).value;
 
-      this.value = value;
+      if (this._value === String(value)) {
+        return;
+      }
 
+      this.value = value;
       this.markAsDirty();
     });
 
@@ -156,17 +111,7 @@ export class FormControl extends AbstractControl {
       this._wasInitialValueSet = true;
 
       element.value = String(this._value);
-
-      this._checkError();
     }
-  }
-
-  public subscribe(next: (value: unknown) => void): void {
-    this._listeners.push(next);
-  }
-
-  public unsubscribe(next: (value: unknown) => void): void {
-    this._listeners = this._listeners.filter((item) => item !== next);
   }
 
   public markAsDirty(): void {
@@ -187,6 +132,8 @@ export class FormControl extends AbstractControl {
 
   public setErrors(error: ValidationErrors): void {
     Object.assign(this.errors, error);
+
+    this.notifyListeners(this._errorsListeners, this._value);
   }
 
   public deleteErrors(keys: string[]): void {
@@ -204,6 +151,10 @@ export class FormControl extends AbstractControl {
   }
 
   public setValue(value: string): void {
+    if (!this._el) {
+      return;
+    }
+
     this._el.value = value;
   }
 
