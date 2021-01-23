@@ -1,5 +1,5 @@
+import { User } from '@core/models/user';
 import { HttpHeaders } from '@utils/http/http-headers';
-import { User } from '../../../core/models/user';
 import { BaseApiService } from '../base-api.service';
 import { IApiHttpClient } from '../interfaces/http.interfaces';
 import {

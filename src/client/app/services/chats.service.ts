@@ -1,6 +1,6 @@
-import { Chat } from '../core/models/chat';
-import { IListenerFn } from '../utils/forms/interfaces';
-import { isArray } from '../utils/my-lodash/is-array';
+import { Chat } from '@core/models/chat';
+import { IListenerFn } from '@forms/interfaces';
+import { isArray } from '@my-lodash/is-array';
 import { ApiService, apiService } from './chats-api/api.service';
 
 class ChatsService {

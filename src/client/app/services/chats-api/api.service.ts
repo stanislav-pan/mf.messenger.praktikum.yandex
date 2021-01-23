@@ -1,4 +1,4 @@
-import { HttpClient } from '../../utils/http/http';
+import { HttpClient } from '@utils/http/http';
 import { AuthApiService } from './api-groups/auth-api.service';
 import { ChatsApiService } from './api-groups/chats-api.service';
 import { UsersApiService } from './api-groups/users-api.service';

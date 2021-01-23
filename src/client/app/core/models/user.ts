@@ -1,9 +1,9 @@
-import { apiService } from '../../services/chats-api/api.service';
+import { objToCamelCase } from '@my-lodash/to-camel-case';
+import { apiService } from '@services/chats-api/api.service';
 import {
   IUser,
   IUserRequest,
-} from '../../services/chats-api/interfaces/user.interfaces';
-import { objToCamelCase } from '../../utils/my-lodash/to-camel-case';
+} from '@services/chats-api/interfaces/user.interfaces';
 
 export class User implements IUser {
   public id: number;

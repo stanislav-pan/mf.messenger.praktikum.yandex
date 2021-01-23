@@ -1,8 +1,8 @@
-import { User } from '../../../core/models/user';
-import { Chat } from '../../../core/models/chat';
+import { Chat } from '@core/models/chat';
+import { User } from '@core/models/user';
 import { BaseApiService } from '../base-api.service';
-import { IApiHttpClient } from '../interfaces/http.interfaces';
 import { IGetChatTokenResponse } from '../interfaces/chat.interfaces';
+import { IApiHttpClient } from '../interfaces/http.interfaces';
 
 export class ChatsApiService extends BaseApiService {
   constructor(private http: IApiHttpClient) {

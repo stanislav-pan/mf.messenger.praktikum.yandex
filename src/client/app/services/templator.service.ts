@@ -1,11 +1,6 @@
-import {
-  Environment,
-  FileSystemLoader,
-  WebLoader,
-  Template,
-  ILoader,
-} from 'nunjucks';
-import { isNode } from '../utils/my-lodash/is-node';
+import { isNode } from '@my-lodash/is-node';
+import { Environment, ILoader, FileSystemLoader, WebLoader } from 'nunjucks';
+import { Template } from 'webpack';
 
 let path;
 

@@ -1,4 +1,4 @@
-import { User } from '../../../core/models/user';
+import { User } from '@core/models/user';
 import { BaseApiService } from '../base-api.service';
 import { IApiHttpClient } from '../interfaces/http.interfaces';
 import { ISigninRequest } from '../interfaces/signin.interfaces';

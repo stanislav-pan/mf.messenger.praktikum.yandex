@@ -60,17 +60,8 @@ export class EventsSubscriber {
     });
   }
 
-  private getArgsValues = (argsNames: string[], argsDataset: DOMStringMap) => {
-    const mappedArgs: string[] = [];
-
-    for (const arg of argsNames) {
-      const argValue = argsDataset[arg];
-
-      mappedArgs.push(argValue ? argValue : arg);
-    }
-
-    return mappedArgs;
-  };
+  private getArgsValues = (argsNames: string[], argsDataset: DOMStringMap) =>
+    argsNames.map((arg) => argsDataset[arg] || arg);
 
   private getEventAttrs = (attributes: NamedNodeMap) =>
     Array.from(attributes).filter((attr) => attr.name.startsWith('on'));
