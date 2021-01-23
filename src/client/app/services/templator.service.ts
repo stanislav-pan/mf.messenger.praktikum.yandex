@@ -51,7 +51,7 @@ class Templator {
     let res: string;
 
     if (dirName) {
-      res = `${dirName}\\${templateName}`;
+      res = path.resolve(dirName, templateName);
     } else {
       res = `static/templates/${templateName}`;
     }
