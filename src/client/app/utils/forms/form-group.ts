@@ -1,4 +1,4 @@
-import { AbstractControl } from './abstractal-control';
+import { AbstractControl } from './abstract-control';
 import { FormControl } from './form-control';
 import { ValidatorFn } from './validator-interfaces';
 

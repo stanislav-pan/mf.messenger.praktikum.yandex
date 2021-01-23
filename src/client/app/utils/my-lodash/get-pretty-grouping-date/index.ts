@@ -1,25 +1,22 @@
+const addZeroIfNecessary = (number: number) =>
+  String(number).length > 1 ? `${number}` : `0${number}`;
+
 export const getPrettyGroupingDate = (date: Date): string => {
   const year = date.getFullYear();
   const month = date.getMonth();
-  const day = date.getDay();
+  const day = date.getDate();
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
   const currentMonth = currentTime.getMonth();
-  const currentDay = currentTime.getDay();
-
-  let groupingDate = '';
+  const currentDay = currentTime.getDate();
 
   if (currentYear === year && month === currentMonth) {
     if (day === currentDay) {
-      groupingDate = `Today`;
+      return `Today`;
     } else if (currentDay - day === 1) {
-      groupingDate = `Yesterday`;
-    } else {
-      groupingDate = `${year}${month}${day}`;
+      return `Yesterday`;
     }
-  } else {
-    groupingDate = `${year}${month}${day}`;
   }
 
-  return groupingDate;
+  return `${addZeroIfNecessary(day)}.${addZeroIfNecessary(month + 1)}.${year}`;
 };

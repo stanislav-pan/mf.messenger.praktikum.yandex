@@ -1,6 +1,11 @@
 import { isNode } from '@my-lodash/is-node';
-import { Environment, ILoader, FileSystemLoader, WebLoader } from 'nunjucks';
-import { Template } from 'webpack';
+import {
+  Environment,
+  ILoader,
+  FileSystemLoader,
+  WebLoader,
+  Template,
+} from 'nunjucks';
 
 let path;
 
@@ -28,7 +33,7 @@ class Templator {
     return this._env;
   }
 
-  public getTemplate(templateName: string, dirName?: string | false) {
+  public getTemplate(templateName: string, dirName?: string | false): Template {
     const templatePath = this.getTemplatePath(templateName, dirName || null);
 
     if (templatePath in this._cachedTemplates) {

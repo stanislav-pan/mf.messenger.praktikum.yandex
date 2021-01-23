@@ -1,3 +1,4 @@
+import { cloneDeep } from '@my-lodash/clone-deep';
 import { EventBus } from '../event-bus';
 import { FormControl } from '../forms/form-control';
 import { isEqual } from '../my-lodash/is-equal';
@@ -115,7 +116,7 @@ export abstract class Block<T extends ICommonPropFields = ICommonPropFields>
       return;
     }
 
-    const oldProps = { ...this.props };
+    const oldProps = cloneDeep(this.props);
 
     Object.assign(this.props, nextProps);
 
@@ -271,11 +272,11 @@ export abstract class Block<T extends ICommonPropFields = ICommonPropFields>
   }
 
   public show(): void {
-    this.getContent().style.display = 'block';
+    this.getContent().classList.add('hidden');
   }
 
   public hide(): void {
-    this.getContent().style.display = 'none';
+    this.getContent().classList.remove('hidden');
   }
 
   public remove(): void {
