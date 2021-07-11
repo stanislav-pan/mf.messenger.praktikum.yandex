@@ -33,7 +33,3 @@
 - `docker build -t web .`
 - `heroku container:push web -a yandex-practicum-messenger`
 - `heroku container:release web -a yandex-practicum-messenger`
-
-## Макет
-
-Макет можно найти по данной ссылке: [макет](https://www.figma.com/file/W1kZPRNbkrFP4llzkjrc8O/Yandex-Messanger?node-id=0%3A1)
