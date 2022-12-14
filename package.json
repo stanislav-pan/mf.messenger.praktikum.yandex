@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/stanislav-pan/mf.messenger.praktikum.yandex#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nunjucks": "^3.2.2"
   },
   "devDependencies": {
